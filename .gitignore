@@ -1,0 +1,8 @@
+**/**/vendor
+**/**/settings.yml
+**/config
+build/*
+config/settings-e2e.yml
+.idea
+cloud_sql_proxy.exe
+**/app.yaml

@@ -49,14 +49,6 @@
                    ng-show="activeQuestion === myQuestions.length">
                     <strong>Send</strong>
                 </a>
-                <!--
-                  <a  class="nav-link btn btn-sm btn-info" ng-show="activeQuestion === myQuestions.length">
-                    <span ng-show="!contactHubObject.email || !contactHubObject.name">
-                        Please fill out email and name.
-                    </span>
-                </a>
-                 -->
-
             </li>
         </ul>
     </div>

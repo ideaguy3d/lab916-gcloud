@@ -4,6 +4,7 @@
 /**
  * Created by Julius Alvarado
  */
+
 (function () {
     "use strict";
 
@@ -44,11 +45,13 @@
             $scope.activeQuestion = idx;
         };
 
-        $scope.goBack = function() {
+        $scope.goBack = function () {
             $scope.activeQuestion -= 1;
         };
 
+        // This function helps manage the view model
         function createHubspotContact(shQuestion, answerObj) {
+            // manage 'Currently Selling' slide
             if (shQuestion === "Currently Selling") {
                 if (answerObj.optionIsSelected && answerObj.text !== "other") {
                     $scope.contactHubObject.currentSalesChannels[answerObj.id] = answerObj.text;
@@ -60,17 +63,17 @@
                 console.log("jha - $scope.contactHubObject.currentSalesChannels = ");
                 console.log($scope.contactHubObject.currentSalesChannels);
             }
-            // manage Company Snapshot slide
+            // manage 'Company Snapshot' slide
             else if (shQuestion === "Company Snapshot") {
                 console.log("jha - $scope.contactHubObject.companySnapshot =");
                 console.log($scope.contactHubObject.companySnapshot);
             }
-            // manage Amazon Goals slide
+            // manage 'Amazon Goals' slide
             else if (shQuestion === "Amazon Goals") {
                 console.log("jha - $scope.contactHubObject.amazonGoals =");
                 console.log($scope.contactHubObject.amazonGoals);
             }
-            // manage Amazon Services slide
+            // manage 'Amazon Services' slide
             else if (shQuestion === "Amazon Services") {
                 if (answerObj.optionIsSelected && answerObj.text !== "other") {
                     $scope.contactHubObject.amazonServices[answerObj.id] = answerObj.text;
@@ -82,19 +85,36 @@
                 console.log("jha - $scope.contactHubObject.amazonServices =");
                 console.log($scope.contactHubObject.amazonServices);
             }
-            // manage Other Question slide
+            // manage 'Other Question' slide
             else if (shQuestion === "Other Questions") {
                 console.log("jha - $scope.contactHubObject.otherQuestions = ");
                 console.log($scope.contactHubObject.otherQuestions);
             }
         }
 
-        $scope.makeHubspotRequest = function () {
-            jDataSer.createHubspotContact($scope.contactHubObject).then(function (res) {
-                console.log("jha - res.data =");
+        // this function is purely for our Google Cloud SQL back end.
+        function googleCloudSqlContact() {
+            $scope.contactHubObject.userId = (Math.random() * 10);
+            console.log("jha - "+$scope.contactHubObject);
+            jDataSer.googleCloudSqlContact($scope.contactHubObject).then(function (res) {
+                console.log("jha - Google Response =");
                 console.log(res.data);
             });
-            $scope.userHasSent = true;
+        }
+
+        // this function will populate our HubSpot table via their web service
+        $scope.makeHubspotRequest = function () {
+            var send2hubspot = false;
+
+            googleCloudSqlContact();
+
+            if (send2hubspot) {
+                jDataSer.createHubspotContact($scope.contactHubObject).then(function (res) {
+                    // console.log("jha - res.data =");
+                    // console.log(res.data);
+                });
+                $scope.userHasSent = true;
+            }
         };
 
         // sort of like the engine that powers this questionnaire
@@ -171,6 +191,54 @@
             return $http.get('quote_data.json')
         };
 
+        var googleCloudSqlContact = function (data) {
+            var email = encodeURIComponent(data.email);
+            var name = encodeURIComponent(data.name);
+            var company = encodeURIComponent(data.company);
+            var message = encodeURIComponent(data.message);
+            var number = encodeURIComponent(data.number);
+            // each answer has an id, the index of the array is the answers id.
+            var estimatedYearlySalesAllChannels = encodeURIComponent(data.companySnapshot[0]);
+            var estimatedMonthlySalesAmazon = encodeURIComponent(data.companySnapshot[1]);
+            var annualMarketingBudget = encodeURIComponent(data.companySnapshot[2]);
+            var monthlyMarketingBudgetAmazon = encodeURIComponent(data.companySnapshot[3]);
+            var summaryExperience = encodeURIComponent(data.amazonGoals[0]);
+            var amazonGoals = encodeURIComponent(data.amazonGoals[1]);
+            var website = encodeURIComponent(data.otherQuestions[0]);
+            var numberProductsCompany = encodeURIComponent(data.otherQuestions[1]);
+            var numberProductsAmazon = encodeURIComponent(data.otherQuestions[2]);
+            // var userId = encodeURIComponent(data.userId);
+
+            //-- Current Sales Channels is an array, so convert to a str:
+            var currentSalesChannelsStr = "";
+            data.currentSalesChannels.forEach(function (value) {
+                currentSalesChannelsStr += (value + " __ ");
+            });
+            var currentSalesChannels = encodeURIComponent(currentSalesChannelsStr);
+
+            //-- Amazon Services also has to be converted to a string:
+            var amazonServicesStr = "";
+            data.amazonServices.forEach(function (value) {
+                amazonServicesStr += (value + " __ ");
+            });
+            var amazonServices = encodeURIComponent(amazonServicesStr);
+
+            //-- send the request:
+            var action = encodeURIComponent('google');
+            return $http.get('actions.php?action=' + action + '&name=' + name + '&email=' + email +
+                '&number=' + number + '&message=' + message +
+                '&current-selling-channels=' + currentSalesChannels +
+                '&estimated-yearly-sales-all-channels=' + estimatedYearlySalesAllChannels +
+                '&estimated-monthly-sales-amazon=' + estimatedMonthlySalesAmazon +
+                '&annual-marketing-budget-for-company=' + annualMarketingBudget +
+                '&monthly-budget-on-amazon=' + monthlyMarketingBudgetAmazon +
+                '&summary-of-experiences=' + summaryExperience + '&amazon-goals=' + amazonGoals +
+                '&amazon-services=' + amazonServices + '&website=' + website +
+                '&number-of-products=' + numberProductsCompany +
+                '&number-of-products-on-amazon=' + numberProductsAmazon
+            );
+        };
+
         var createHubspotContact = function (data) {
             var email = encodeURIComponent(data.email);
             var name = encodeURIComponent(data.name);
@@ -188,7 +256,7 @@
             var numberProductsCompany = encodeURIComponent(data.otherQuestions[1]);
             var numberProductsAmazon = encodeURIComponent(data.otherQuestions[2]);
 
-            //-- current sales channels is an array, so convert to a str:
+            //-- Current Sales Channels is an array, so convert to a str:
             var currentSalesChannelsStr = "";
             data.currentSalesChannels.forEach(function (value) {
                 currentSalesChannelsStr += (value + " __ ");
@@ -198,12 +266,12 @@
             //-- Amazon Services also has to be converted to a string:
             var amazonServicesStr = "";
             data.amazonServices.forEach(function (value) {
-                amazonServicesStr += (value+" __ ");
+                amazonServicesStr += (value + " __ ");
             });
             var amazonServices = encodeURIComponent(amazonServicesStr);
 
             //-- send the request:
-            var action = encodeURIComponent('createContact');
+            var action = encodeURIComponent('hubspot');
             return $http.get('php/hubspot1.php?action=' + action + '&name=' + name + '&email=' + email +
                 '&number=' + number + '&message=' + message +
                 '&current-selling-channels=' + currentSalesChannels +
@@ -221,7 +289,8 @@
         return {
             getQuizData: getQuizData,
             getLocalQuizData: getLocalQuizData,
-            createHubspotContact: createHubspotContact
+            createHubspotContact: createHubspotContact,
+            googleCloudSqlContact: googleCloudSqlContact
         }
     }
 

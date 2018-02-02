@@ -47,13 +47,17 @@ class Sql implements DataModelInterface
             'description VARCHAR(255)',
             'created_by VARCHAR(255)',
             'created_by_id VARCHAR(255)',
+            'currently_selling VARCHAR(255)'
         );
 
         $this->columnNames = array_map(function ($columnDefinition) {
             return explode(' ', $columnDefinition)[0];
         }, $columns);
+
         $columnText = implode(', ', $columns);
+
         $pdo = $this->newConnection();
+
         $pdo->query("CREATE TABLE IF NOT EXISTS books ($columnText)");
     }
 
@@ -65,6 +69,7 @@ class Sql implements DataModelInterface
     private function newConnection()
     {
         $pdo = new PDO($this->dsn, $this->user, $this->password);
+
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         return $pdo;
@@ -122,6 +127,7 @@ class Sql implements DataModelInterface
     public function create($book, $id = null)
     {
         $this->verifyBook($book);
+
         if ($id) {
             $book['id'] = $id;
         }
@@ -130,12 +136,15 @@ class Sql implements DataModelInterface
         $placeHolders = array_map(function ($key) {
             return ":$key";
         }, $names);
+
         $sql = sprintf(
             'INSERT INTO books (%s) VALUES (%s)',
             implode(', ', $names),
             implode(', ', $placeHolders)
         );
+
         $statement = $pdo->prepare($sql);
+
         $statement->execute($book);
 
         return $pdo->lastInsertId();

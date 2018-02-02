@@ -20,6 +20,7 @@
  * Create a new Silex Application with Twig.  Configure it for debugging.
  * Follows Silex Skeleton pattern.
  */
+
 use Google\Cloud\Samples\Bookshelf\DataModel\Sql;
 use Google\Cloud\Samples\Bookshelf\DataModel\Datastore;
 use Google\Cloud\Samples\Bookshelf\DataModel\MongoDb;
@@ -43,7 +44,7 @@ $config = getenv('BOOKSHELF_CONFIG') ?:
 
 $app['config'] = Yaml::parse(file_get_contents($config));
 
-// determine the datamodel backend using the app configuration
+// determine the data model backend using the app configuration
 $app['bookshelf.model'] = function ($app) {
     /** @var array $config */
     $config = $app['config'];
@@ -92,15 +93,10 @@ $app['bookshelf.model'] = function ($app) {
 };
 
 // Turn on debug locally
-if (in_array(@$_SERVER['REMOTE_ADDR'], ['127.0.0.1', 'fe80::1', '::1'])
-    || php_sapi_name() === 'cli-server'
-) {
+if (in_array(@$_SERVER['REMOTE_ADDR'], ['127.0.0.1', 'fe80::1', '::1']) || php_sapi_name() === 'cli-server') {
     $app['debug'] = true;
 } else {
-    $app['debug'] = filter_var(
-        getenv('BOOKSHELF_DEBUG'),
-                               FILTER_VALIDATE_BOOLEAN
-    );
+    $app['debug'] = filter_var(getenv('BOOKSHELF_DEBUG'), FILTER_VALIDATE_BOOLEAN);
 }
 
 // add service parameters

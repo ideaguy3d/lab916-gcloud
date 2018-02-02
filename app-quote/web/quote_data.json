@@ -1,0 +1,173 @@
+[
+	{
+		"question": "Where are you currently selling?",
+		"height": "short",
+		"shortenedQuestion": "Currently Selling",
+		"answers": [
+			{
+				"id": 0,
+				"text": "Amazon Seller Central",
+				"optionIsSelected": false
+			},
+			{
+				"id": 1,
+				"text": "Amazon Vendor Central",
+				"optionIsSelected": false
+			},
+			{
+				"id": 2,
+				"text": "Website",
+				"optionIsSelected": false
+			},
+			{
+				"id": 3,
+				"text": "Amazon Vendor Express",
+				"optionIsSelected": false
+			},
+			{
+				"id": 4,
+				"text": "other",
+				"type": "textarea",
+				"optionIsSelected": false
+			}
+		],
+		"correct": 0,
+		"feedback": "Lab916 are specialist in this service"
+	},
+	{
+		"question": "What are some details about your Company?",
+		"height": "medium",
+		"shortenedQuestion": "Company Snapshot",
+		"answers": [
+			{
+				"id": 0,
+				"text": "Estimated Yearly Gross Sales All Channels?",
+				"type": "input text",
+				"optionIsSelected": false
+			},
+			{
+				"id": 1,
+				"text": "Estimate Monthly Gross Sales on Amazon?",
+				"type": "input text",
+				"optionIsSelected": false
+			},
+			{
+				"id": 2,
+				"text": "Annual marketing budget for Company?",
+				"type": "input text",
+				"optionIsSelected": false
+			},
+			{
+				"id": 3,
+				"text": "Monthly marketing budget on Amazon?",
+				"type": "input text",
+				"optionIsSelected": false
+			}
+		],
+		"correct": 0,
+		"feedback": "Lab916 are specialist in this service"
+	},
+	{
+		"question": "What are the Goals you have for Amazon?",
+		"height": "medium",
+		"shortenedQuestion": "Amazon Goals",
+		"answers": [
+			{
+				"id": 0,
+				"text": "Summary of experience to date with Amazon (highlights and painpoints)?",
+				"type": "textarea",
+				"optionIsSelected": false
+			},
+			{
+				"id": 1,
+				"text": "Goals for Amazon Business",
+				"type": "textarea",
+				"optionIsSelected": false
+			}
+		],
+		"correct": 0,
+		"feedback": "Lab916 are specialist in this service"
+	},
+	{
+		"question": "What services do you need help with?",
+		"height": "extra short",
+		"shortenedQuestion": "Amazon Services",
+		"answers": [
+			{
+				"id": 0,
+				"text": "Account Creation",
+				"optionIsSelected": false
+			},
+			{
+				"id": 1,
+				"text": "Account Management",
+				"optionIsSelected": false
+			},
+			{
+				"id": 2,
+				"text": "Content Creation (copywrite, images, enhanced content)",
+				"optionIsSelected": false
+			},
+			{
+				"id": 3,
+				"text": "Inventory uploading and organization",
+				"optionIsSelected": false
+			},
+			{
+				"id": 4,
+				"text": "Advertising",
+				"optionIsSelected": false
+			},
+			{
+				"id": 5,
+				"text": "FBA Organization",
+				"optionIsSelected": false
+			},
+			{
+				"id": 6,
+				"text": "Reviews",
+				"optionIsSelected": false
+			},
+			{
+				"id": 7,
+				"text": "Expanding to other Amazon marketplaces",
+				"optionIsSelected": false
+			},
+			{
+				"id": 8,
+				"text": "other",
+				"type": "input text",
+				"optionIsSelected": false
+			}
+		],
+		"correct": 0,
+		"feedback": "Lab916 are specialist in this service"
+	},
+	{
+		"question": "A little bit more information about your Company",
+		"height": "medium",
+		"shortenedQuestion": "Other Questions",
+		"answers": [
+			{
+				"id": 0,
+				"text": "Link to your website/other online presence",
+				"type": "textarea",
+				"optionIsSelected": false
+			},
+			{
+				"id": 1,
+				"text": "Number of products in Company/Brand",
+				"type": "input text",
+				"optionIsSelected": false
+			},
+			{
+				"id": 2,
+				"text": "Number of products On Amazon",
+				"type": "input text",
+				"optionIsSelected": false
+			}
+		],
+		"correct": 0,
+		"feedback": "Lab916 are specialist in this service"
+	}
+]

@@ -15,26 +15,81 @@
 #}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Bookshelf - PHP on Google Cloud Platform</title>
+<head>
+    <title>Lab916</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-  </head>
-  <body>
-    <div class="navbar navbar-default">
-      <div class="container">
+</head>
+
+
+<body>
+
+<!-- Top Navigation -->
+<div class="navbar navbar-default">
+    <div class="container">
         <div class="navbar-header">
-          <div class="navbar-brand">Bookshelf</div>
+            <div class="navbar-brand">Lab916</div>
         </div>
         <ul class="nav navbar-nav">
-          <li><a href="/books">Books</a></li>
+            <li><a href="/books">Quotes</a></li>
         </ul>
-      </div>
     </div>
-    <div class="container">
-      {% block content %}{% endblock %}
+</div>
+
+<!-- Container displaying list of "quotes/books" -->
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+
+<!-- The AngularJS app -->
+<div class="container text-center"  data-ng-app="lab-app">
+    <div data-ng-controller="LabCtrl">
+        <h1 id="L9-footer-h1">Built by Lab916 <span data-ng-bind="user"></span></h1>
+        <button data-ng-click="testReq()"><span data-ng-bind="lab"></span>Test</button>
+        <p>Response = <span data-ng-bind="testResponse"></span></p>
     </div>
-    {{user}}
-  </body>
+</div>
+
+<br><br>
+
+<!-- Vendor JavaScript -->
+<script src="http://lab916.wpengine.com/lab-quote/vendor/jquery/jquery.min.js"></script>
+<script src="http://lab916.wpengine.com/lab-quote/vendor/angular/angular.min.js"></script>
+
+<!-- Custom JavaScript -->
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        var labFooterh1 = jQuery("#L9-footer-h1");
+        labFooterh1.on("mouseover", function (el) {
+            $(this).css("color", "yellow");
+        });
+
+        labFooterh1.on("mouseout", function (el) {
+            $(this).css("color", "black");
+        });
+    });
+
+    var app = angular.module('lab-app', []);
+    app.controller('LabCtrl', ['$http', '$scope',
+        function ($http, $scope) {
+            $scope.lab = "LabCtrl";
+            $scope.user = "Julius";
+
+            $scope.testReq = function () {
+                $scope.user += 1;
+                console.log("Test Request was invoked ! ^_^");
+                var currentlySelling = encodeURIComponent($scope.user);
+                $http.get('/l9/quotes/?currently-selling='+currentlySelling)
+                    .then(function (value) {
+                        console.log("jha - value =");
+                        console.log(value);
+                        $scope.testResponse = value.data;
+                    });
+            }
+        }
+    ]);
+</script>
+
+</body>
 </html>

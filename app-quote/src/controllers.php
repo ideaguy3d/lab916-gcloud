@@ -29,6 +29,16 @@ $app->get('/', function (Request $request) use ($app) {
     return $app->redirect('/books/');
 });
 
+$app->get('/l9/quotes/', function (Request $req) use ($app) {
+    $cursel = $req->query->get('currently-selling');
+    $model = $app['bookshelf.model'];
+    $labUid = rand(1,1000);
+    $cell = array("currently_selling" => $cursel);
+
+    $model->create($cell, $labUid);
+    return new Response($cell);
+});
+
 // [START index]
 $app->get('/books/', function (Request $request) use ($app) {
     /** @var DataModelInterface $model */
@@ -60,6 +70,7 @@ $app->post('/books/add', function (Request $request) use ($app) {
     /** @var DataModelInterface $model */
     $model = $app['bookshelf.model'];
     $book = $request->request->all();
+    echo $book;
     $id = $model->create($book);
 
     return $app->redirect("/books/$id");
@@ -121,10 +132,10 @@ $app->post('/books/{id}/delete', function ($id) use ($app) {
     $book = $model->read($id);
     if ($book) {
         $model->delete($id);
-
         return $app->redirect('/books/', Response::HTTP_SEE_OTHER);
     }
 
     return new Response('', Response::HTTP_NOT_FOUND);
 });
 // [END delete]
+

@@ -235,7 +235,7 @@
                 '&summary-of-experiences=' + summaryExperience + '&amazon-goals=' + amazonGoals +
                 '&amazon-services=' + amazonServices + '&website=' + website +
                 '&number-of-products=' + numberProductsCompany +
-                '&number-of-products-on-amazon=' + numberProductsAmazon
+                '&number-of-products-on-amazon=' + numberProductsAmazon + '&company=' + company
             );
         };
 

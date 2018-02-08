@@ -92,6 +92,10 @@ $app['bookshelf.model'] = function ($app) {
     }
 };
 
+$app['quote.model'] = function ($app) {
+
+};
+
 // Turn on debug locally
 if (in_array(@$_SERVER['REMOTE_ADDR'], ['127.0.0.1', 'fe80::1', '::1']) || php_sapi_name() === 'cli-server') {
     $app['debug'] = true;

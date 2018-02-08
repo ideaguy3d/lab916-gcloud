@@ -1,6 +1,10 @@
 <?php
-/*
-    ~ orig code ~
+
+
+/* ng/mysqli app I built.
+include __DIR__ . "/quote.php";
+include __DIR__ . "/actions.php";
+ */
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -10,12 +14,8 @@ require __DIR__ . '/../src/controllers.php';
 
 $app->run();
 
- */
 
-include __DIR__ . "/actions.php";
 
-// the purely AngularJS / HTML5 front end.
-include __DIR__ . "/quote.php";
 
 
 

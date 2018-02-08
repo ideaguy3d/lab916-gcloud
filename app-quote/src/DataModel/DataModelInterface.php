@@ -50,7 +50,7 @@ interface DataModelInterface
     /**
      * Reads a book from the data model.
      *
-     * @param $id  The id of the book to read.
+     * @param int $id  The id of the book to read.
      *
      * @return mixed An associative array representing the book if found.
      *               Otherwise, a false value.

@@ -29,6 +29,18 @@ $app->get('/', function (Request $request) use ($app) {
     return $app->redirect('/books/');
 });
 
+$app->get('/lab/quotes', function(Request $request) use ($app) {
+    $model = $app['quote.model'];
+    $twig = $app['twig'];
+    $token = $request->query->get('page_token');
+    $quoteList = $model->listQuotes();
+
+    return $twig->render('list.quote.twig', array(
+        'quotes' => $quoteList['quotes'],
+        'next_page_token' => $quoteList['cursor'],
+    ));
+});
+
 $app->get('/l9/quotes/', function (Request $req) use ($app) {
     $cursel = $req->query->get('currently-selling');
     $model = $app['bookshelf.model'];

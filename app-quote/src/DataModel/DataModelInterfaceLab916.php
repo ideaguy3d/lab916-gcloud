@@ -21,7 +21,7 @@ interface DataModelInterfaceLab916
      *              'cursor' => pass to next call to listQuotes() to fetch
      *              more quotes]
      */
-    public function listQuotes(int $limit = 20, $cursor = null);
+    public function listQuotes($limit = 30, $cursor = null);
 
     /**
      * Creates a new quote in the data model

@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <div class="row">
+        {# [START book_list] #}
+        {% for quote in quotes %}
+            <div class="media col-xs-6 col-md-3">
+                <a href="/books/{{ quote.id }}" class="thumbnail">
+                    <h4>{{ quote.name }}, {{ quote.email }}</h4>
+                </a>
+                    <div class="media-left">
+                        <img src="https://static1.squarespace.com/static/58486f891b631beb1bea6ebe/t/5871c70e6b8f5b2a8ee6d964/1518154040041/?format=300w"
+                             width="100px">
+                    </div>
+                    <div class="media-body">
+                        <p>{{ quote.company }}</p>
+                        <p>{{ quote.current_selling_channels }}</p>
+                        <p>{{ quote.monthy_amazon_sales_estimate }}</p>
+                        <p>{{ quote.amazon_services }}</p>
+                    </div>
+            </div>
+        {% else %}
+            <p>No books found</p>
+        {% endfor %}
+        {# [END book_list] #}
+    </div>
+{% endblock %}

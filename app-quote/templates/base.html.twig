@@ -45,7 +45,8 @@
 <!-- The AngularJS app -->
 <div class="container text-center"  data-ng-app="lab-app">
     <div data-ng-controller="LabCtrl">
-        <h1 id="L9-footer-h1">Built by Lab916 <span data-ng-bind="user"></span></h1>
+        <h1 id="L9-footer-h1">Built by Lab916</h1>
+        <p><small><span data-ng-bind="user"></span></small></p>
         <button data-ng-click="testReq()"><span data-ng-bind="lab"></span>Test</button>
         <p>Response = <span data-ng-bind="testResponse"></span></p>
     </div>
@@ -74,7 +75,7 @@
     app.controller('LabCtrl', ['$http', '$scope',
         function ($http, $scope) {
             $scope.lab = "LabCtrl";
-            $scope.user = "Julius";
+            $scope.user = "AngularJS";
 
             $scope.testReq = function () {
                 $scope.user += 1;

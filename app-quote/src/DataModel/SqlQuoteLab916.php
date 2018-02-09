@@ -15,6 +15,7 @@ class SqlQuoteLab916 implements DataModelInterfaceLab916
     private $dsn;
     private $user;
     private $password;
+    private $columnNames;
 
     public function __construct($dsn, $user, $password) {
         $this->dsn = $dsn;
@@ -47,12 +48,12 @@ class SqlQuoteLab916 implements DataModelInterfaceLab916
         $new_cursor = null;
 
         while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
-           if(count($rows) == $limit) {
-               $new_cursor = $last_row['id'];
-               break;
-           }
-           array_push($rows, $row);
-           $last_row = $row;
+            if (count($rows) == $limit) {
+                $new_cursor = $last_row['id'];
+                break;
+            }
+            array_push($rows, $row);
+            $last_row = $row;
         }
 
         return array(
@@ -62,17 +63,49 @@ class SqlQuoteLab916 implements DataModelInterfaceLab916
     }
 
     public function create($quote, $id = null) {
+        // implement a function to validate it's a quote e.g. $this->verityQuote($quote)
 
+        if ($id) $quote['id'] = $id;
+        $pdo = $this->newConnection();
+
+        $names = array_keys($quote);
+        $placeHolders = array_map(function ($key) {
+            return ":$key";
+        }, $names);
+        print_r("place holders array =<br>" . $placeHolders);
+        $sql = sprintf(
+            'INSERT INTO quote (%s) VALUES (%s)',
+            implode(', ', $names),
+            implode(', ', $placeHolders)
+        );
+
+        $statement = $pdo->prepare($sql);
+        $statement->execute($quote);
     }
 
     public function read($id) {
+        $pdo = $this->newConnection();
+        $statement = $pdo->prepare('SELECT * FROM quote WHERE id= :id');
+        $statement->bindValue('id', $id, PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function update($quote, $id = null) {
+        // implement a function to validate it's a quote e.g. $this->verityQuote($quote)
+        $pdo = $this->newConnection();
+        $assignments =
+    }
+
+    public function delete($id) {
 
     }
 
     public static function getMysqlDsn($dbName, $port, $connectionName = null) {
-        if($connectionName) {
+        if ($connectionName) {
             return sprintf('mysql:unix_socket=/cloudsql/%s;dbname=%s',
-                            $connectionName, $dbName);
+                $connectionName, $dbName);
         }
         return sprintf('mysql:host=127.0.0.1;port=%s;dbname=%s', $port, $dbName);
     }

@@ -31,7 +31,7 @@ interface DataModelInterfaceLab916
      *
      * @return mixed the id of the new book.
      */
-    // public function create($quote, $id = null);
+    public function create($quote, $id = null);
 
     /**
      * Reads a book from the data model
@@ -40,5 +40,23 @@ interface DataModelInterfaceLab916
      *
      * @return mixed - an assoc.arr representing the book if found. Otherwise a false value
      */
-    // public function read($id);
+    public function read($id);
+
+    /**
+     * Updates a quote in the data model
+     *
+     * @param array $quote - An associative array representing the quote
+     * @param null $id - The old id of the book
+     *
+     * @return int - The number of books updated
+     */
+    public function update($quote, $id = null);
+
+    /**
+     * Deletes a quote from the data model
+     * @param int $id - The quote id
+     *
+     * @return int - The number of quotes deleted.
+     */
+    public function delete($id);
 }

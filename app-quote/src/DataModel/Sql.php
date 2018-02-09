@@ -28,6 +28,7 @@ class Sql implements DataModelInterface
     private $dsn;
     private $user;
     private $password;
+    private $columnNames;
 
     /**
      * Creates the SQL books table if it doesn't already exist.
@@ -137,7 +138,6 @@ class Sql implements DataModelInterface
         );
 
         $statement = $pdo->prepare($sql);
-
         $statement->execute($book);
 
         return $pdo->lastInsertId();

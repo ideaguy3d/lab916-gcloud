@@ -27,7 +27,7 @@ interface DataModelInterface
      * Lists all the books in the data model.
      * Cannot simply be called 'list' due to PHP keyword collision.
      *
-     * @param int  $limit  How many books will we fetch at most?
+     * @param int $limit How many books will we fetch at most?
      * @param null $cursor Returned by an earlier call to listBooks().
      *
      * @return array ['books' => array of associative arrays mapping column
@@ -50,7 +50,7 @@ interface DataModelInterface
     /**
      * Reads a book from the data model.
      *
-     * @param int $id  The id of the book to read.
+     * @param int $id The id of the book to read.
      *
      * @return mixed An associative array representing the book if found.
      *               Otherwise, a false value.
@@ -70,7 +70,7 @@ interface DataModelInterface
     /**
      * Deletes a book from the data model.
      *
-     * @param $id  The book id.
+     * @param int $id  The book id.
      *
      * @return int The number of books deleted.
      */

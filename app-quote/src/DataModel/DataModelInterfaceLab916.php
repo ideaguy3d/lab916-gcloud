@@ -31,7 +31,7 @@ interface DataModelInterfaceLab916
      *
      * @return mixed the id of the new book.
      */
-    public function create($quote, $id = null);
+    // public function create($quote, $id = null);
 
     /**
      * Reads a book from the data model
@@ -40,5 +40,5 @@ interface DataModelInterfaceLab916
      *
      * @return mixed - an assoc.arr representing the book if found. Otherwise a false value
      */
-    public function read($id);
+    // public function read($id);
 }

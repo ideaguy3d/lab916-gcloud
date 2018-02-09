@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace Google\Cloud\Samples\Bookshelf;
+//namespace Google\Cloud\Samples\Bookshelf;
 
 /*
  * Adds all the controllers to $app.  Follows Silex Skeleton pattern.
@@ -24,20 +24,23 @@ namespace Google\Cloud\Samples\Bookshelf;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Google\Cloud\Samples\Bookshelf\DataModel\DataModelInterface;
+use Lab916\Cloud\Quote\DataModel\DataModelInterfaceLab916;
 
 $app->get('/', function (Request $request) use ($app) {
     return $app->redirect('/books/');
 });
 
-$app->get('/lab/quotes', function(Request $request) use ($app) {
+$app->get('/lab/quotes/', function(Request $request) use ($app) {
+    /** @var DataModelInterfaceLab916 $model */
     $model = $app['quote.model'];
+    /** @var Twig_Environment $twig */
     $twig = $app['twig'];
+
     $token = $request->query->get('page_token');
-    $quoteList = $model->listQuotes();
+    $quoteList = $model->listQuotes(30, null);
 
     return $twig->render('list.quote.twig', array(
         'quotes' => $quoteList['quotes'],
-        'next_page_token' => $quoteList['cursor'],
     ));
 });
 

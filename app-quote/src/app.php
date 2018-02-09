@@ -26,7 +26,6 @@ $config = getenv('BOOKSHELF_CONFIG') ?: __DIR__ . '/../config/' . 'settings.yml'
 
 $app['config'] = Yaml::parse(file_get_contents($config));
 
-// determine the data model backend using the app configuration
 $app['bookshelf.model'] = function ($app) {
     /** @var array $config */
     $config = $app['config'];
@@ -60,6 +59,7 @@ $app['quote.model'] = function ($app) {
         $config['cloudsql_port'],
         getenv('GAE_INSTANCE') ? $config['cloudsql_connection_name'] : null
     );
+    echo "above return statement, " . $mysql_dsn;
     return new SqlQuoteLab916($mysql_dsn, $config['cloudsql_user'], $config['cloudsql_password']);
 };
 

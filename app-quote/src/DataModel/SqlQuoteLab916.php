@@ -22,7 +22,7 @@ class SqlQuoteLab916 implements DataModelInterfaceLab916
         $this->password = $password;
     }
 
-    public function newConnection() {
+    private function newConnection() {
         $pdo = new PDO($this->dsn, $this->user, $this->password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $pdo;
@@ -56,7 +56,7 @@ class SqlQuoteLab916 implements DataModelInterfaceLab916
         }
 
         return array(
-            'quotes' => $row,
+            'quotes' => $rows,
             'cursor' => $new_cursor,
         );
     }

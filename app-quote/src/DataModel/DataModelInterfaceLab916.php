@@ -50,7 +50,7 @@ interface DataModelInterfaceLab916
      *
      * @return int - The number of books updated
      */
-    public function update($quote, $id = null);
+    // public function update($quote, $id = null);
 
     /**
      * Deletes a quote from the data model
@@ -58,5 +58,5 @@ interface DataModelInterfaceLab916
      *
      * @return int - The number of quotes deleted.
      */
-    public function delete($id);
+    // public function delete($id);
 }

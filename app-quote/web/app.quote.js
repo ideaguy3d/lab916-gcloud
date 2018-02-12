@@ -95,7 +95,7 @@
         // this function is purely for our Google Cloud SQL back end.
         function googleCloudSqlContact() {
             $scope.contactHubObject.userId = (Math.random() * 10);
-            console.log("jha - "+$scope.contactHubObject);
+            //console.log("jha - " + $scope.contactHubObject);
             jDataSer.googleCloudSqlContact($scope.contactHubObject).then(function (res) {
                 console.log("jha - Google Response =");
                 console.log(res.data);
@@ -106,7 +106,8 @@
         $scope.makeHubspotRequest = function () {
             var send2hubspot = false;
 
-            googleCloudSqlContact();
+            testOne();
+            // googleCloudSqlContact();
 
             if (send2hubspot) {
                 jDataSer.createHubspotContact($scope.contactHubObject).then(function (res) {
@@ -147,6 +148,13 @@
             var ao = $scope.myQuestions[indexQuestion].answers[indexAnswer];
             createHubspotContact(sq, ao);
         };
+
+        function testOne() {
+            jDataSer.testOne($scope.contactHubObject).then(function(res) {
+                console.log("jha - testOne response:");
+                console.log(res.data);
+            })
+        }
 
         $scope.isSelected = function (qIndex, aIndex) {
             return $scope.myQuestions[qIndex].selectedAnswer === aIndex;
@@ -285,12 +293,18 @@
             );
         };
 
+        var testOne = function (data) {
+            var email = encodeURIComponent(data.email);
+            var name = encodeURIComponent(data.name);
+            return $http.get('/quote/test/one/?email='+email+'&name='+name);
+        };
 
         return {
             getQuizData: getQuizData,
             getLocalQuizData: getLocalQuizData,
             createHubspotContact: createHubspotContact,
-            googleCloudSqlContact: googleCloudSqlContact
+            googleCloudSqlContact: googleCloudSqlContact,
+            testOne: testOne
         }
     }
 

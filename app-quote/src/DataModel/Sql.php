@@ -28,7 +28,8 @@ class Sql implements DataModelInterface
     private $dsn;
     private $user;
     private $password;
-    private $columnNames;
+    private $columnNames = ['id', 'date', 'name', 'number', 'email', 'company', 'current_selling_channels',
+        'monthly_amazon_sales_estimate', 'monthly_budget_amazon'];
 
     /**
      * Creates the SQL books table if it doesn't already exist.
@@ -161,6 +162,7 @@ class Sql implements DataModelInterface
             },
             $this->columnNames
         );
+
         $assignmentString = implode(',', $assignments);
         $sql = "UPDATE books SET $assignmentString WHERE id = :id";
         $statement = $pdo->prepare($sql);

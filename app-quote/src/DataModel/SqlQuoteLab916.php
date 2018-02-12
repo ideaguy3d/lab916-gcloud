@@ -95,7 +95,9 @@ class SqlQuoteLab916 implements DataModelInterfaceLab916
     public function update($quote, $id = null) {
         // implement a function to validate it's a quote e.g. $this->verityQuote($quote)
         $pdo = $this->newConnection();
-        $assignments =
+        $assignments = array_map(function ($column) {
+            return "$column=:$column";
+        }, $this->columnNames);
     }
 
     public function delete($id) {

@@ -78,8 +78,8 @@ $arr = array(
 );
 
 $post_json = json_encode($arr);
-
 $endpoint = 'https://api.hubapi.com/contacts/v1/contact?hapikey=' . $hubspotConnectId;
+
 $ch = @curl_init();
 @curl_setopt($ch, CURLOPT_POST, true);
 @curl_setopt($ch, CURLOPT_POSTFIELDS, $post_json);
@@ -90,9 +90,10 @@ $response = @curl_exec($ch);
 $status_code = @curl_getinfo($ch, CURLINFO_HTTP_CODE);
 $curl_errors = curl_error($ch);
 @curl_close($ch);
-echo "curl Errors: " . $curl_errors;
-echo "\nStatus code: " . $status_code;
-echo "\nResponse: " . $response;
+
+echo "\n curl Errors: " . $curl_errors;
+echo "\n Status code: " . $status_code;
+echo "\n Response: " . $response;
 
 
 

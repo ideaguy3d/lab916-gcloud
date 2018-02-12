@@ -21,37 +21,67 @@
 /*
  * Adds all the controllers to $app.  Follows Silex Skeleton pattern.
  */
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Google\Cloud\Samples\Bookshelf\DataModel\DataModelInterface;
 use Lab916\Cloud\Quote\DataModel\DataModelInterfaceLab916;
 
-$app->get('/', function (Request $request) use ($app) {
-    return $app->redirect('/books/');
+/*
+ $app->get('/', function (Request $request) use ($app) {
+    // return $app->redirect('/home/');
+    return "hi";
+});
+*/
+
+// test route
+$app->get('/quote/test/one/', function (Request $request) use ($app) {
+    $data = [];
+
+    $data["email"] = $request->get("email");
+    $data["name"] = $request->get("name");
+    $data["status"] = "It did succeed, hopefully with good results :)";
+
+    $pr = print_r($data);
+
+    return $pr;
 });
 
-$app->get('/lab/quotes/', function(Request $request) use ($app) {
+$app->get('/lab/quotes/', function (Request $request) use ($app) {
     /** @var DataModelInterfaceLab916 $model */
     $model = $app['quote.model'];
     /** @var Twig_Environment $twig */
     $twig = $app['twig'];
 
-    $token = $request->query->get('page_token');
+    $token = $request->query->get('email');
     $quoteList = $model->listQuotes(30, null);
 
-    return $twig->render('list.quote.twig', array(
-        'quotes' => $quoteList['quotes'],
-    ));
+    return $quoteList['quotes'];
+});
+
+$app->get('/lab/quotes/add', function (Request $request) use ($app) {
+    /** @var DataModelInterfaceLab916 $model */
+    $model = $app['quote.model'];
+    $quote = $request->get('email');
+    $pr = print_r($quote);
+    // $id = $model->create($quote);
+
+    // return $app->redirect("/lab/quotes"); // "/$id"
+    return "<br><br>quote request =<br>" . $quote . "<br><br>";
 });
 
 $app->get('/l9/quotes/', function (Request $req) use ($app) {
     $cursel = $req->query->get('currently-selling');
     $model = $app['bookshelf.model'];
-    $labUid = rand(1,1000);
+    $labUid = rand(1, 1000);
     $cell = array("currently_selling" => $cursel);
 
     $model->create($cell, $labUid);
     return new Response($cell);
+});
+
+$app->get('/home/', function (Request $request) use ($app) {
+    return "<h1>Lab916 API back end</h1>";
 });
 
 // [START index]
@@ -85,10 +115,12 @@ $app->post('/books/add', function (Request $request) use ($app) {
     /** @var DataModelInterface $model */
     $model = $app['bookshelf.model'];
     $book = $request->request->all();
-    echo $book;
+    echo "<br>The incoming post data<br>";
+    $pr = print_r($book);
     $id = $model->create($book);
 
-    return $app->redirect("/books/$id");
+    // return $app->redirect("/books/$id");
+    return $pr;
 });
 // [END add]
 

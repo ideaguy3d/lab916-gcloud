@@ -72,7 +72,7 @@ class SqlQuoteLab916 implements DataModelInterfaceLab916
         $placeHolders = array_map(function ($key) {
             return ":$key";
         }, $names);
-        print_r("place holders array =<br>" . $placeHolders);
+        // print_r("place holders array =<br>" . $placeHolders);
         $sql = sprintf(
             'INSERT INTO quote (%s) VALUES (%s)',
             implode(', ', $names),

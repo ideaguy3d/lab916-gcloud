@@ -213,25 +213,20 @@
             var website = encodeURIComponent(data.otherQuestions[0]);
             var numberProductsCompany = encodeURIComponent(data.otherQuestions[1]);
             var numberProductsAmazon = encodeURIComponent(data.otherQuestions[2]);
-            // var userId = encodeURIComponent(data.userId);
 
-            //-- Current Sales Channels is an array, so convert to a str:
+            //-- "Current Sales Channels" is an array, so convert to a str:
             var currentSalesChannelsStr = "";
-            data.currentSalesChannels.forEach(function (value) {
-                currentSalesChannelsStr += (value + " __ ");
-            });
+            data.currentSalesChannels.forEach(function (value) {currentSalesChannelsStr += (value + " __ ");});
             var currentSalesChannels = encodeURIComponent(currentSalesChannelsStr);
 
-            //-- Amazon Services also has to be converted to a string:
+            //-- "Amazon Services" also has to be converted to a string:
             var amazonServicesStr = "";
-            data.amazonServices.forEach(function (value) {
-                amazonServicesStr += (value + " __ ");
-            });
+            data.amazonServices.forEach(function (value) {amazonServicesStr += (value + " __ ");});
             var amazonServices = encodeURIComponent(amazonServicesStr);
 
             //-- send the request:
-            var action = encodeURIComponent('google');
-            return $http.get('/?action=' + action + '&name=' + name + '&email=' + email +
+            var action = encodeURIComponent('gcloud-create');
+            var reqStr = '/?action=' + action + '&name=' + name + '&email=' + email +
                 '&number=' + number + '&message=' + message +
                 '&current-selling-channels=' + currentSalesChannels +
                 '&estimated-yearly-sales-all-channels=' + estimatedYearlySalesAllChannels +
@@ -241,8 +236,9 @@
                 '&summary-of-experiences=' + summaryExperience + '&amazon-goals=' + amazonGoals +
                 '&amazon-services=' + amazonServices + '&website=' + website +
                 '&number-of-products=' + numberProductsCompany +
-                '&number-of-products-on-amazon=' + numberProductsAmazon + '&company=' + company
-            );
+                '&number-of-products-on-amazon=' + numberProductsAmazon + '&company=' + company;
+            console.log("jha - request string = " + reqStr);
+            return $http.get(reqStr);
         };
 
         var createHubspotContact = function (data) {

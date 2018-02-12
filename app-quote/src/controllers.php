@@ -5,42 +5,61 @@ namespace Google\Cloud\Samples\Bookshelf;
 use Google\Cloud\Samples\Bookshelf\DataModel\DataModelInterface;
 
 $action = isset($_GET['action']);
-
 $email = isset($_GET['email']);
-$addBook = isset($_GET['add-book']);
-$getBooks = isset($_GET['get-books']);
+$sendEmail = isset($_GET["send-email"]);
 
 
 if ($email) {
     echo 'Your email is = ' . $_GET['email'];
 }
 
-if ($addBook) {
-    echo "add book? = " . $_GET['add-book'];
-    /** @var DataModelInterface $model */
-    //$model = $app['bookshelf.model'];
-    //$model->create($book);
-
-    echo "add book? = " . $_GET['add-book'] . "<br><br>";
-}
-
-if ($getBooks && $_GET['get-books'] == 'true') {
-    $model = $app['bookshelf.model']($app);
-    $books = $model->listBooks();
-
-    echo print_r($books);
-}
-
 if($action) {
-    if($action == "google") {
+    if($action == "gcloud-create") {
         echo "in googleQuoteContactF() :)";
         $model = $app['quote.model']($app);
+        $email = isset($_GET['email']) ? $_GET['email'] : 'no email created';
+        $name = isset($_GET['name']) ? $_GET['name'] : 'no name entered';
+        $company = isset($_GET['company']) ? $_GET["company"] : 'no company entered';
+        $number = isset($_GET['number']) ? $_GET["number"] : 'no number entered';
+        $message = isset($_GET['message']) ? $_GET["message"] : 'no message written';
+        $currentSellingChannels = isset($_GET["current-sales-channels"]) ? $_GET["current-sales-channels"] : "no sales channels entered";
+        $monthlyAmazonSalesEstimate = isset($_GET["estimated-monthly-sales-amazon"]) ? $_GET["estimated-monthly-sales-amazon"] : "unknown monthly sales";
+        $monthlyBudgetAmazon = isset($_GET["monthly-budget-on-amazon"]) ? $_GET["monthly-budget-on-amazon"] : "unknown marketing budget";
+        $yearlySalesAllChannels = isset($_GET["estimated-yearly-sales-all-channels"]) ? $_GET["estimated-yearly-sales-all-channels"] : 'unknown yearly sales';
+        $yearlyMarketingBudget = isset($_GET["annual-marketing-budget-for-company"]) ? $_GET["annual-marketing-budget-for-company"] : "unkown annual marketing budget";
+        $amazonServices = isset($_GET["amazon-services"]) ? $_GET["amazon-services"] : "no amazon services selected";
+        $numProdCompnay = isset($_GET["number-of-products"]) ? $_GET["number-of-products"] : "unknown number of company products";
+        $numProdAmazon = isset($_GET["number-of-products-on-amazon"]) ? $_GET["number-of-products-on-amazon"] : "unknown number of amazon products";
+        $amazonGoals = isset($_GET["amazon-goals"]) ? $_GET["amazon-goals"] : "amazon goals not entered";
+        $amazonExp = isset($_GET["summary-of-experiences"]) ? $_GET["summary-of-experiences"] : null;
+        $website = isset($_GET["website"]) ? $_GET["website"] : null;
 
-        $quoteData = [
-            "email" => isset($_GET['email']) ? $_GET['email'] : 'no email created',
-            "name" => isset($_GET['name']) ? $_GET['name'] : 'no name entered'
+        $quoteData = [ // c = column
+            "email" => $email, // c1
+            "name" => $name, // c2
+            "company" => $company, // c3
+            "number" => $number, // c4
+            "message" => $message, // c5
+            "current_selling_channels" => $currentSellingChannels, // c6
+            "monthly_amazon_sales_estimate" => $monthlyAmazonSalesEstimate, // c7
+            "monthly_budget_amazon" => $monthlyBudgetAmazon, // c8
+            "yearly_sales_all_channels" => $yearlySalesAllChannels, // c9
+            "yearly_marketing_budget" => $yearlyMarketingBudget, // c10
+            "amazon_services" => $amazonServices, // c11
+            "number_products_in_company" => $numProdCompnay, // c12
+            "number_products_on_amazon" => $numProdAmazon, // c13
+            "amazon_goals" => $amazonGoals, // c14
+            "amazon_experience" => $amazonExp, // c15
+            "website" => $website, // c16
         ];
+
         $createId = $model->create($quoteData);
         return $createId;
+    }
+}
+
+if ($sendEmail) {
+    if ($sendEmail == "true") {
+
     }
 }

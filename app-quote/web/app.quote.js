@@ -104,7 +104,7 @@
 
         // this function will populate our HubSpot table via their web service
         $scope.makeHubspotRequest = function () {
-            var send2hubspot = false;
+            var send2hubspot = true;
 
             googleCloudSqlContact();
 
@@ -113,8 +113,9 @@
                     console.log("jha - res.data =");
                     console.log(res.data);
                 });
-                $scope.userHasSent = true;
             }
+
+            $scope.userHasSent = true;
         };
 
         // sort of like the engine that powers this questionnaire
@@ -213,6 +214,7 @@
             var website = encodeURIComponent(data.otherQuestions[0]);
             var numberProductsCompany = encodeURIComponent(data.otherQuestions[1]);
             var numberProductsAmazon = encodeURIComponent(data.otherQuestions[2]);
+            var sendEmail = encodeURIComponent("send");
 
             //-- "Current Sales Channels" is an array, so convert to a str:
             var currentSalesChannelsStr = "";
@@ -235,7 +237,7 @@
                 '&monthly-budget-on-amazon=' + monthlyMarketingBudgetAmazon +
                 '&summary-of-experiences=' + summaryExperience + '&amazon-goals=' + amazonGoals +
                 '&amazon-services=' + amazonServices + '&website=' + website +
-                '&number-of-products=' + numberProductsCompany +
+                '&number-of-products=' + numberProductsCompany + '&send-email=' + sendEmail +
                 '&number-of-products-on-amazon=' + numberProductsAmazon + '&company=' + company;
             console.log("jha - request string = " + reqStr);
             return $http.get(reqStr);

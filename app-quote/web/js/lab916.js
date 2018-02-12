@@ -42,6 +42,7 @@ $(document).ready(function () {
     // });
 
     // Collapse the navbar when page is scrolled
+    /*
     $(window).scroll(function () {
         if ($("#mainNav").offset().top > 100) {
             $("#mainNav").addClass("navbar-shrink");
@@ -49,6 +50,8 @@ $(document).ready(function () {
             $("#mainNav").removeClass("navbar-shrink");
         }
     });
+    */
+
 
     // Activates floating label headings for the contact form
     $("body").on("input propertychange", ".floating-label-form-group", function (e) {

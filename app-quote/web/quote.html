@@ -26,7 +26,7 @@
 </head>
 
 <!--  style="overflow: hidden" -->
-<body id="page-top" data-ng-controller="QuoteCtrl">
+<body id="page-top" data-ng-controller="QuoteCtrl" style="overflow: hidden">
 
 <!-- Get A Quote Section -->
 <section id="L9-quote-container" class="page-section">
@@ -186,164 +186,6 @@
     </div>
 </section>
 
-
-<!-- Get A Quote Section -->
-<section id="L9-quote-container" class="page-section">
-    <div class="container-fluid">
-        <div class="wow flipInY text-center">
-            <!---------------------------------->
-            <!-- Animated Quote Questionnaire -->
-            <!---------------------------------->
-            <section id="lab916-quote">
-                <!-- Side Nav for the animated questionnaire -->
-                <div ng-hide="userHasSent" id="lab916-progress-container">
-                    <!-- NG-REPEAT begins -->
-                    <div class="L9-indicator-row L9-mt20" ng-click="changeActiveQuestion($index)"
-                         ng-repeat="question in myQuestions">
-                        <div class="L9-circle {{($index === activeQuestion) ? 'on' : 'off'}}"></div>
-                        <div class="L9-circle-txt"><span>{{question.shortenedQuestion}}</span></div>
-                    </div>
-
-                    <!-- This is for the last slide -->
-                    <div class="L9-indicator-row L9-mt20" ng-click="changeActiveQuestion(myQuestions.length)">
-                        <div class="L9-circle {{(myQuestions.length === activeQuestion) ? 'on' : 'off'}}"></div>
-                        <div class="L9-circle-txt"><span>Complete</span></div>
-                    </div>
-
-                    <br>
-
-                    <!-- Continue Button -->
-                    <div class="feedback">
-                        <div class="btn btn-sm btn-info" ng-click="selectContinue()"
-                             ng-show="activeQuestion !== myQuestions.length">
-                            <strong>Continue</strong>
-                        </div>
-                        <div class="btn btn-sm btn-warning" ng-click="makeHubspotRequest()"
-                             ng-show="activeQuestion === myQuestions.length && contactHubObject.email && contactHubObject.name">
-                            <strong>Send</strong>
-                        </div>
-                        <div ng-show="activeQuestion === myQuestions.length">
-                            <div ng-show="!contactHubObject.email || !contactHubObject.name">Please fill out email and name.</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ng-repeat Looped Questions with inner looped Answers:  -->
-                <!-- {{ question.questionState === 'answered' ? 'answered' : 'unanswered' }} -->
-                <div ng-repeat="question in myQuestions" ng-hide="userHasSent" class="question
-                        {{ $index === activeQuestion ? 'active' : 'inactive' }}">
-
-                    <!-- The Question -->
-                    <h4 class="txt">{{ question.question }}</h4>
-
-                    <div class="row">
-
-                        <!-- ng-repeat inner loop -->
-                        <div class="col-md-3" ng-repeat="answer in question.answers">
-
-                            <!-- Extra Short Height Cards -->
-                            <div ng-if="question.height === 'extra short'">
-                                <div class="card ans height-extra-short"
-                                     ng-class="{'selected': myQuestions[$parent.$parent.$index].answers[$parent.$index].optionIsSelected}"
-                                     ng-click="selectAnswer($parent.$parent.$index, $parent.$index)">
-                                    <div class="card-body">
-                                        <p><i class="fa fa-camera fa-2x"></i></p>
-                                        <p class="L9-mb-0">{{ answer.text }}</p>
-                                        <!-- Forms -->
-                                        <textarea ng-show="answer.type === 'textarea'"></textarea>
-                                        <input type="text" ng-model="contactHubObject.amazonServices[answer.id]"
-                                               ng-show="answer.type === 'input text' && question.shortenedQuestion === 'Amazon Services'">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Short Height Cards -->
-                            <div ng-if="question.height === 'short'">
-                                <div class="card ans height-short"
-                                     ng-class="{'selected': myQuestions[$parent.$parent.$index].answers[$parent.$index].optionIsSelected}"
-                                     ng-click="selectAnswer($parent.$parent.$index, $parent.$index)">
-                                    <div class="card-body">
-                                        <p><i class="fa fa-bus fa-2x"></i></p>
-                                        <p>{{ answer.text }}</p>
-
-                                        <!-- Forms -->
-                                        <textarea placeholder="Other channels"
-                                                  ng-model="contactHubObject.currentSalesChannels[4]"
-                                                  ng-show="answer.type === 'textarea' && question.shortenedQuestion === 'Currently Selling'">
-                                        </textarea>
-
-                                        <input type="text" ng-show="answer.type === 'input text'">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Medium Height Cards -->
-                            <div ng-if="question.height === 'medium'">
-                                <div class="card ans height-medium"
-                                     ng-class="{'selected': myQuestions[$parent.$parent.$index].answers[$parent.$index].optionIsSelected}"
-                                     ng-click="selectAnswer($parent.$parent.$index, $parent.$index)">
-                                    <div class="card-body">
-                                        <p>{{ answer.text }}</p>
-                                        <!-- Forms -->
-                                        <div ng-show="question.shortenedQuestion === 'Company Snapshot'">
-                                            <input ng-model="contactHubObject.companySnapshot[answer.id]"
-                                                   type="text" ng-show="answer.type === 'input text'"
-                                                   placeholder="Amount">
-                                        </div>
-                                        <div ng-show="question.shortenedQuestion === 'Amazon Goals'">
-                                            <textarea placeholder="Amazon Goals"
-                                                      ng-model="contactHubObject.amazonGoals[answer.id]">
-                                            </textarea>
-                                        </div>
-                                        <div ng-show="question.shortenedQuestion === 'Other Questions'">
-                                            <textarea ng-show="answer.type === 'textarea'" placeholder="last questions"
-                                                      ng-model="contactHubObject.otherQuestions[answer.id]"></textarea>
-                                            <input type="text" ng-show="answer.type === 'input text'"
-                                                   placeholder="last questions"
-                                                   ng-model="contactHubObject.otherQuestions[answer.id]">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 3) Contact Form: -->
-                <div id="contact" ng-hide="userHasSent"
-                     ng-class="{'active' : (activeQuestion === myQuestions.length) }">
-                    <div class="L9-form-container">
-                        <div class="text-center">
-                            <h4 class="text-center">Please tell us about you and we will help you.</h4>
-                        </div>
-
-                        <form>
-                            <label for="fname">Name *</label>
-                            <input type="text" id="fname" name="firstname" placeholder="Your Name.."
-                                   ng-model="contactHubObject.name">
-
-                            <label for="company">Company</label>
-                            <input type="text" id="company" name="lastname" placeholder="Your Company.."
-                                   ng-model="contactHubObject.company">
-
-                            <label for="email">Email *</label>
-                            <input type="email" id="email" name="email" placeholder="Email"
-                                   ng-model="contactHubObject.email" required>
-
-                            <label for="subject">Message</label>
-                            <textarea id="subject" name="subject" placeholder="Write something.."
-                                      style="height:150px" ng-model="contactHubObject.message"></textarea>
-                        </form>
-                    </div>
-                </div>
-
-                <br><br><br>
-                <h1 ng-if="userHasSent">Thanks! Lab916 will contact you shortly ^_^</h1>
-            </section>
-        </div>
-    </div>
-</section>
-
 <!-- Vendor JavaScript -->
 <script src="js/jquery/jquery.min.js"></script>
 <script src="js/popper/popper.min.js"></script>
@@ -354,7 +196,6 @@
 <!-- This is the Actual "Get a quote" ng code for lab916 -->
 <script src="js/lab916.js"></script>
 <script src="app.quote.js"></script>
-
 
 </body>
 

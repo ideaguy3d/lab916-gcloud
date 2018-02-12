@@ -81,6 +81,8 @@ class SqlQuoteLab916 implements DataModelInterfaceLab916
 
         $statement = $pdo->prepare($sql);
         $statement->execute($quote);
+
+        $pdo->lastInsertId();
     }
 
     public function read($id) {

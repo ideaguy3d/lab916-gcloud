@@ -95,7 +95,7 @@
         // this function is purely for our Google Cloud SQL back end.
         function googleCloudSqlContact() {
             $scope.contactHubObject.userId = (Math.random() * 10);
-            //console.log("jha - " + $scope.contactHubObject);
+            console.log("jha - " + $scope.contactHubObject);
             jDataSer.googleCloudSqlContact($scope.contactHubObject).then(function (res) {
                 console.log("jha - Google Response =");
                 console.log(res.data);
@@ -106,13 +106,12 @@
         $scope.makeHubspotRequest = function () {
             var send2hubspot = false;
 
-            testOne();
-            // googleCloudSqlContact();
+            googleCloudSqlContact();
 
             if (send2hubspot) {
                 jDataSer.createHubspotContact($scope.contactHubObject).then(function (res) {
-                    // console.log("jha - res.data =");
-                    // console.log(res.data);
+                    console.log("jha - res.data =");
+                    console.log(res.data);
                 });
                 $scope.userHasSent = true;
             }
@@ -205,7 +204,6 @@
             var company = encodeURIComponent(data.company);
             var message = encodeURIComponent(data.message);
             var number = encodeURIComponent(data.number);
-            // each answer has an id, the index of the array is the answers id.
             var estimatedYearlySalesAllChannels = encodeURIComponent(data.companySnapshot[0]);
             var estimatedMonthlySalesAmazon = encodeURIComponent(data.companySnapshot[1]);
             var annualMarketingBudget = encodeURIComponent(data.companySnapshot[2]);
@@ -233,7 +231,7 @@
 
             //-- send the request:
             var action = encodeURIComponent('google');
-            return $http.get('actions.php?action=' + action + '&name=' + name + '&email=' + email +
+            return $http.get('/?action=' + action + '&name=' + name + '&email=' + email +
                 '&number=' + number + '&message=' + message +
                 '&current-selling-channels=' + currentSalesChannels +
                 '&estimated-yearly-sales-all-channels=' + estimatedYearlySalesAllChannels +

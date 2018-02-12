@@ -56,11 +56,11 @@
 
                     <!-- Continue Button -->
                     <div class="feedback">
-                        <div class="btn btn-sm btn-info" ng-click="selectContinue()"
+                        <div class="btn btn-sm btn-info" data-ng-click="selectContinue()"
                              ng-show="activeQuestion !== myQuestions.length">
                             <strong>Continue</strong>
                         </div>
-                        <div class="btn btn-sm btn-warning" ng-click="makeHubspotRequest()"
+                        <div class="btn btn-sm btn-warning" data-ng-click="makeHubspotRequest()"
                              ng-show="activeQuestion === myQuestions.length && contactHubObject.email && contactHubObject.name">
                             <strong>Send</strong>
                         </div>

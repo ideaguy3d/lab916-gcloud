@@ -1,6 +1,7 @@
 <?php
 
 use Google\Cloud\Samples\Bookshelf\DataModel\Sql;
+use Lab916\Cloud\Quote\DataModel\SqlQuoteLab916;
 use Symfony\Component\Yaml\Yaml;
 
 $app = [];
@@ -36,5 +37,27 @@ $app['bookshelf.model'] = function ($app) {
                 . "Possible values are mysql, postgres, mongodb, or datastore.");
     }
 };
+
+$app['quote.model'] = function ($app) {
+    $config = $app['config'];
+    if (empty($config['quote_backend'])) {
+        throw new \DomainException('quote_backend must be configured');
+    }
+
+    $mysql_dsn = SqlQuoteLab916::getMysqlDsn(
+        $config['cloudsql_database_name'],
+        $config['cloudsql_port'],
+        getenv('GAE_INSTANCE') ? $config['cloudsql_connection_name'] : null
+    );
+
+    return new SqlQuoteLab916($mysql_dsn, $config['cloudsql_user'], $config['cloudsql_password']);
+};
+
+// Turn on debug locally
+if (in_array(@$_SERVER['REMOTE_ADDR'], ['127.0.0.1', 'fe80::1', '::1']) || php_sapi_name() === 'cli-server') {
+    $app['debug'] = true;
+} else {
+    $app['debug'] = filter_var(getenv('BOOKSHELF_DEBUG'), FILTER_VALIDATE_BOOLEAN);
+}
 
 return $app;

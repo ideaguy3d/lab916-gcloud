@@ -26,32 +26,30 @@ $amazonExp = isset($_GET["summary-of-experiences"]) ? $_GET["summary-of-experien
 $website = isset($_GET["website"]) ? $_GET["website"] : null;
 // ~ END Quote Data Model data ~
 
-if ($action) {
-    if ($action == "gcloud-create") {
-        echo "in googleQuoteContactF() :)";
-        $model = $app['quote.model']($app);
-        $quoteData = [ // c = column
-            "email" => $email, // c1
-            "name" => $name, // c2
-            "company" => $company, // c3
-            "number" => $number, // c4
-            "message" => $message, // c5
-            "current_selling_channels" => $currentSellingChannels, // c6
-            "monthly_amazon_sales_estimate" => $monthlyAmazonSalesEstimate, // c7
-            "monthly_budget_amazon" => $monthlyBudgetAmazon, // c8
-            "yearly_sales_all_channels" => $yearlySalesAllChannels, // c9
-            "yearly_marketing_budget" => $yearlyMarketingBudget, // c10
-            "amazon_services" => $amazonServices, // c11
-            "number_products_in_company" => $numProdCompany, // c12
-            "number_products_on_amazon" => $numProdAmazon, // c13
-            "amazon_goals" => $amazonGoals, // c14
-            "amazon_experience" => $amazonExp, // c15
-            "website" => $website, // c16
-        ];
+if ($action === "gcloud-create") {
+    echo " - in googleQuoteContactF() from ctrl.quote.php file - ";
+    $model = $app['quote.model']($app);
+    $quoteData = [ // c = column
+        "email" => $email, // c1
+        "name" => $name, // c2
+        "company" => $company, // c3
+        "number" => $number, // c4
+        "message" => $message, // c5
+        "current_selling_channels" => $currentSellingChannels, // c6
+        "monthly_amazon_sales_estimate" => $monthlyAmazonSalesEstimate, // c7
+        "monthly_budget_amazon" => $monthlyBudgetAmazon, // c8
+        "yearly_sales_all_channels" => $yearlySalesAllChannels, // c9
+        "yearly_marketing_budget" => $yearlyMarketingBudget, // c10
+        "amazon_services" => $amazonServices, // c11
+        "number_products_in_company" => $numProdCompany, // c12
+        "number_products_on_amazon" => $numProdAmazon, // c13
+        "amazon_goals" => $amazonGoals, // c14
+        "amazon_experience" => $amazonExp, // c15
+        "website" => $website, // c16
+    ];
 
-        $createId = $model->create($quoteData);
-        echo "quotedId = $createId";
-    }
+    $createId = $model->create($quoteData);
+    echo "quotedId = $createId";
 }
 
 if ($sendEmail == "send") {

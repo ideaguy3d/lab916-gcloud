@@ -64,7 +64,6 @@ class SqlQuoteLab916 implements DataModelInterfaceLab916
 
     public function create($quote, $id = null) {
         // implement a function to validate it's a quote e.g. $this->verityQuote($quote)
-
         if ($id) $quote['id'] = $id;
         $pdo = $this->newConnection();
 
@@ -82,7 +81,7 @@ class SqlQuoteLab916 implements DataModelInterfaceLab916
         $statement = $pdo->prepare($sql);
         $statement->execute($quote);
 
-        $pdo->lastInsertId();
+        return $pdo->lastInsertId();
     }
 
     public function read($id) {

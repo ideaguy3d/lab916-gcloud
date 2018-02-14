@@ -2,6 +2,7 @@
 
 use Google\Cloud\Samples\Bookshelf\DataModel\Sql;
 use Lab916\Cloud\Quote\DataModel\SqlQuoteLab916;
+use Lab916\Cloud\Amazon\Mws\Reports\DataModel\AmazonReportsModel;
 use Symfony\Component\Yaml\Yaml;
 
 $app = [];
@@ -51,6 +52,21 @@ $app['quote.model'] = function ($app) {
     );
 
     return new SqlQuoteLab916($mysql_dsn, $config['cloudsql_user'], $config['cloudsql_password']);
+};
+
+// The Amazon MWS Report API
+$app["report.model"] = function ($app) {
+    $config = $app['config'];
+    if (empty($config['lab916_backend'])) {
+        throw new \DomainException('lab916_backend must be configured');
+    }
+
+    $mysql_dsn = AmazonReportsModel::getMysqlDsn(
+        $config['cloudsql_database_name'],
+        $config['cloudsql_port'],
+        getenv('GAE_INSTANCE') ? $config['cloudsql_connection_name'] : null
+    );
+    return new AmazonReportsModel($mysql_dsn, $config['cloudsql_user'], $config['cloudsql_password']);
 };
 
 // Turn on debug locally

@@ -19,7 +19,7 @@ $monthlyBudgetAmazon = isset($_GET["monthly-budget-on-amazon"]) ? $_GET["monthly
 $yearlySalesAllChannels = isset($_GET["estimated-yearly-sales-all-channels"]) ? $_GET["estimated-yearly-sales-all-channels"] : 'unknown yearly sales';
 $yearlyMarketingBudget = isset($_GET["annual-marketing-budget-for-company"]) ? $_GET["annual-marketing-budget-for-company"] : "unkown annual marketing budget";
 $amazonServices = isset($_GET["amazon-services"]) ? $_GET["amazon-services"] : "no amazon services selected";
-$numProdCompnay = isset($_GET["number-of-products"]) ? $_GET["number-of-products"] : "unknown number of company products";
+$numProdCompany = isset($_GET["number-of-products"]) ? $_GET["number-of-products"] : "unknown number of company products";
 $numProdAmazon = isset($_GET["number-of-products-on-amazon"]) ? $_GET["number-of-products-on-amazon"] : "unknown number of amazon products";
 $amazonGoals = isset($_GET["amazon-goals"]) ? $_GET["amazon-goals"] : "amazon goals not entered";
 $amazonExp = isset($_GET["summary-of-experiences"]) ? $_GET["summary-of-experiences"] : null;
@@ -42,7 +42,7 @@ if ($action) {
             "yearly_sales_all_channels" => $yearlySalesAllChannels, // c9
             "yearly_marketing_budget" => $yearlyMarketingBudget, // c10
             "amazon_services" => $amazonServices, // c11
-            "number_products_in_company" => $numProdCompnay, // c12
+            "number_products_in_company" => $numProdCompany, // c12
             "number_products_on_amazon" => $numProdAmazon, // c13
             "amazon_goals" => $amazonGoals, // c14
             "amazon_experience" => $amazonExp, // c15
@@ -54,12 +54,18 @@ if ($action) {
     }
 }
 
-echo " - sendEmail = $sendEmail; email = $email; message = $message;";
-
 if ($sendEmail == "send") {
+    echo "<br> - In sendEmail action... <br> sendEmail = $sendEmail; email = $email; message = $message;";
     $to = "julius@lab916.com";
     $subject = "Quote Questionnaire Answers";
-    if (mail($to, $subject, $message, $email)) {
+    $messageBody = $message . "<br> - email from $email";
+    $from = $email;
+
+    $headers = 'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'From: ' . $from . "\r\n";
+    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+
+    if (mail($to, $subject, $messageBody, $headers)) {
         echo " - email sent successfully";
     } else echo " - email did not send :(";
-} else echo " - 'send-email' request parameter is incorrect";
+}

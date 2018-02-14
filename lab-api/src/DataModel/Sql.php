@@ -18,10 +18,8 @@
 namespace Google\Cloud\Samples\Bookshelf\DataModel;
 
 use PDO;
-
 /**
  * Class Sql implements the DataModelInterface with a mysql or postgres database.
- *
  */
 class Sql implements DataModelInterface
 {

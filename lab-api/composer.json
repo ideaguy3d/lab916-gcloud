@@ -8,6 +8,10 @@
             "Lab916\\Cloud\\Quote\\": [
                 "src",
                 "test/lib"
+            ],
+            "Lab916\\Cloud\\Amazon\\Mws\\Reports\\": [
+                "src",
+                "test/lib"
             ]
         }
     },

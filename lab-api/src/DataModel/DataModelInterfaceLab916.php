@@ -29,7 +29,7 @@ interface DataModelInterfaceLab916
      * @param array $quote - an assoc.arr
      * @param null $id - the id
      *
-     * @return mixed the id of the new book.
+     * @return mixed - the id of the new book.
      */
     public function create($quote, $id = null);
 

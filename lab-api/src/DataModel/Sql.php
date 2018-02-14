@@ -124,6 +124,7 @@ class Sql implements DataModelInterface
         if ($id) {
             $book['id'] = $id;
         }
+
         $pdo = $this->newConnection();
         $names = array_keys($book);
         $placeHolders = array_map(function ($key) {

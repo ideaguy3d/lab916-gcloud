@@ -64,14 +64,17 @@ class SqlQuoteLab916 implements DataModelInterfaceLab916
 
     public function create($quote, $id = null) {
         // implement a function to validate it's a quote e.g. $this->verityQuote($quote)
-        if ($id) $quote['id'] = $id;
-        $pdo = $this->newConnection();
 
+        if ($id) {
+            $quote['id'] = $id;
+        }
+
+        $pdo = $this->newConnection();
         $names = array_keys($quote);
         $placeHolders = array_map(function ($key) {
             return ":$key";
         }, $names);
-        // print_r("place holders array =<br>" . $placeHolders);
+
         $sql = sprintf(
             'INSERT INTO quote (%s) VALUES (%s)',
             implode(', ', $names),

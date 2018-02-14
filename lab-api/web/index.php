@@ -3,7 +3,8 @@
 echo "<h1> ~ The Lab916 API ~</h1>";
 echo "<h2>Front ends:</h2>";
 echo "<p>Quote front end: <a href='/quote.html'>Quote</a></p>";
-echo "<h2>Back end are query strings from root <i>e.g. /?action=...</i></h2>";
+echo "<h2>Back end are query strings from root.</h2>";
+echo "<p>For example: <code>site.com/?action=...</code></p>";
 
 require_once __DIR__ . '/../vendor/autoload.php';
 

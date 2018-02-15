@@ -35,7 +35,7 @@ class AmazonReportsModel implements AmazonReportsInterface
             'merchant_order_id',    // c2
             'purchase_date',        // c3
             'last_updated_date',    // c4
-            'order_status',          // c5
+            'order_status',         // c5
             'fulfillment_channel',  // c6
             'sales_channel',        // c7
             'order_channel',        // c8
@@ -49,13 +49,21 @@ class AmazonReportsModel implements AmazonReportsInterface
             'currency',             // c16
             'item_price',           // c17
             'item_tax',             // c18
+            'shipping_price',       // c19
+            'shipping_tax',         // c20
+            'ship_city',            // c21
+            'ship_state',           // c22
+            'ship_postal_code',     // c23
+            'ship_country',         // c24
+            'purchase_order_number',// c25
         ];
         $placeholders = array_map(function ($key) {
             return ":$key";
         }, $colNames);
+        $recDataAssoc = [];
 
-        // iterate over a 2-dimensional array
-        $recData = [];        // don't get last row
+        /* // iterate over a 2-dimensional array to replace ':' with '-'
+        $recData = [];
         for ($row = 0; $row < (count($reports) - 1); $row++) {
             $col = 0;
             foreach ($reports[$row] as $report) {
@@ -67,6 +75,7 @@ class AmazonReportsModel implements AmazonReportsInterface
                 $col++;
             }
         }
+        */
 
         $sql = sprintf(
             'INSERT INTO fba_one (%s) VALUES (%s)',
@@ -76,40 +85,42 @@ class AmazonReportsModel implements AmazonReportsInterface
         $statement = $pdo->prepare($sql);
 
         // converting indexed array to an assoc array
-        $recDataAssoc = [];
-
         for ($row = 1; $row < (count($reports) - 1); $row++) {
             $col = 0;
-            // some reports have 17 cells
             $curRow = $reports[$row];
-            $sizeCurRow = count($curRow);
-            echo "<br>" . $sizeCurRow . ") Lab916 - current row:<br>";
-            print_r($curRow);
-            echo "<br><br>";
-            // some reports have 17 cells
-            if ($sizeCurRow === 177) {
-                echo "<br><br>In count = 17 <br><br>";
-                foreach ($reports[$row] as $report) {
-                    $recDataAssoc[$colNames[$col]] = $report;
-                    $col++;
-                }
-                $col++;
-                echo "<br>$col) col name = <br>" . $colNames[$col] . "<br>";
-                $recDataAssoc[$colNames[$col]] = "blank";
-                echo "<br><br>In count = 17, size of recDataAssoc = " . count($recDataAssoc) . " <br><br>";
+            $u = "unknown";
+            $amazonOrderId = isset($curRow[0]) ? $curRow[0] : $u;
+            $merchantOrderId = isset($curRow[1]) ? $curRow[1] : $u;
+            $purchaseDate = isset($curRow[2]) ? $curRow[2] : $u;
+            $lastUpdated = isset($curRow[3]) ? $curRow[3] : $u;
+            $sku = isset($curRow[11]) ? $curRow[11] : $u;
+            $asin = isset($curRow[12]) ? $curRow[12] : $u;
+            $quantity = isset($curRow[14]) ? $curRow[14] : $u;
+            $currency = isset($curRow[15]) ? $curRow[15] : $u;
+            $price = isset($curRow[16]) ? $curRow[16] : $u;
 
+            $url = "amazon.com/foo/" . $asin; // index 12 should contain asin
+
+            // this loops creates an assoc.ar and gives it a default val.
+            foreach ($colNames as $name) {
+                $recDataAssoc[$colNames[$col]] = $name;
+                $col++;
             }
-            // some reports have 18 cells
-            else if ($sizeCurRow === 18) {
-                echo "<br><br>In count = 18 <br><br>";
-                foreach ($curRow as $report) {
-                    $recDataAssoc[$colNames[$col]] = $report;
-                    $col++;
-                }
-                echo "<br>record data assoc:<br>"; print_r($recDataAssoc); echo "<br><br>";
-                $statement->execute($recDataAssoc);
-                $recDataAssoc = [];
-            }
+
+            $recDataAssoc["amazon_order_id"] = $amazonOrderId;
+            $recDataAssoc["merchant_order_id"] = $merchantOrderId;
+            $recDataAssoc["url"] = $url;
+            $recDataAssoc["sku"] = $sku;
+            $recDataAssoc["asin"] = $asin;
+            $recDataAssoc["quantity"] = $quantity;
+            $recDataAssoc["currency"] = $currency;
+            $recDataAssoc["item_price"] = $price;
+
+            echo "<br> - record data assoc:<br>"; print_r($recDataAssoc); echo "<br><br>";
+            echo " Size = " . count ($recDataAssoc);
+
+            $statement->execute($recDataAssoc);
+            $recDataAssoc = [];
         }
 
         return $pdo->lastInsertId();

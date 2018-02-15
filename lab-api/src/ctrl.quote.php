@@ -7,7 +7,7 @@ use Google\Cloud\Samples\Bookshelf\DataModel\DataModelInterface;
 $action = isset($_GET['action']);
 $sendEmail = isset($_GET["send-email"]) ? $_GET["send-email"] : null;
 
-// ~ START Quote Data Model data ~
+// ~ START: Quote Data Model data ~
 $email = isset($_GET['email']) ? $_GET['email'] : 'no email created';
 $name = isset($_GET['name']) ? $_GET['name'] : 'no name entered';
 $company = isset($_GET['company']) ? $_GET["company"] : 'no company entered';
@@ -24,7 +24,7 @@ $numProdAmazon = isset($_GET["number-of-products-on-amazon"]) ? $_GET["number-of
 $amazonGoals = isset($_GET["amazon-goals"]) ? $_GET["amazon-goals"] : "amazon goals not entered";
 $amazonExp = isset($_GET["summary-of-experiences"]) ? $_GET["summary-of-experiences"] : null;
 $website = isset($_GET["website"]) ? $_GET["website"] : null;
-// ~ END Quote Data Model data ~
+// ~ END: Quote Data Model data ~
 
 if ($action === "gcloud-create") {
     echo " - in googleQuoteContactF() from ctrl.quote.php file - ";
@@ -52,7 +52,7 @@ if ($action === "gcloud-create") {
     echo "quotedId = $createId";
 }
 
-if ($sendEmail == "send") {
+if ($sendEmail === "send") {
     echo "<br> - In sendEmail action... <br> sendEmail = $sendEmail; email = $email; message = $message;";
     $to = "julius@lab916.com";
     $subject = "Quote Questionnaire Answers";

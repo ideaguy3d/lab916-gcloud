@@ -44,10 +44,11 @@ function scrapeReport1() {
     $report1 = file_get_contents("http://lab916.wpengine.com/mws/src/MarketplaceWebService/api/report1.php");
     $explode1 = explode('<h2>Report Contents</h2>', $report1);
     $cells = explode("\t", $explode1[1]);
-
+    $amazonRowsFbaClean = [];
     $table = [];
     $row = 0;
     $curRow = [];
+
     for ($i = 0; $i < count($cells); $i++) {
         $cel = $cells[$i];
         if (strpos($cells[$i], "\r\n") !== false) {
@@ -75,7 +76,6 @@ function scrapeReport1() {
 
     */
 
-    $amazonRowsFbaClean = [];
     $idx = 0;
     for ($i = 0; $i < count($table); $i++) {
         $tempA = array();

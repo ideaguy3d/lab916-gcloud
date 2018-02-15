@@ -59,7 +59,7 @@ class AmazonReportsModel implements AmazonReportsInterface
         for ($row = 0; $row < (count($reports) - 1); $row++) {
             $col = 0;
             foreach ($reports[$row] as $report) {
-                if (strpos($recData[$col], ':') !== false) {// ':' was found in this cell
+                if (@strpos($recData[$col], ':') !== false) {// ':' was found in this cell
                     $recData[$col] = str_replace(':', '-', $recData[$col]);
                 } else {
                     $recData[$col] = $report;
@@ -67,21 +67,48 @@ class AmazonReportsModel implements AmazonReportsInterface
                 $col++;
             }
         }
-        
-        $recDataAssoc = []; $idx = 0;
-        foreach ($reports[2] as $report) {
-            $recDataAssoc[$colNames[$idx]] = $report;
-            $idx++;
-        }
 
         $sql = sprintf(
             'INSERT INTO fba_one (%s) VALUES (%s)',
             implode(', ', $colNames),
             implode(', ', $placeholders)
         );
-
         $statement = $pdo->prepare($sql);
-        $statement->execute($recDataAssoc);
+
+        // converting indexed array to an assoc array
+        $recDataAssoc = [];
+
+        for ($row = 1; $row < (count($reports) - 1); $row++) {
+            $col = 0;
+            // some reports have 17 cells
+            $curRow = $reports[$row];
+            $sizeCurRow = count($curRow);
+            echo "<br>" . $sizeCurRow . ") Lab916 - current row:<br>";
+            print_r($curRow);
+            echo "<br><br>";
+            if ($sizeCurRow === 177) {
+                echo "<br><br>In count = 17 <br><br>";
+                foreach ($reports[$row] as $report) {
+                    $recDataAssoc[$colNames[$col]] = $report;
+                    $col++;
+                }
+                $col++;
+                echo "<br>$col) col name = <br>" . $colNames[$col] . "<br>";
+                $recDataAssoc[$colNames[$col]] = "blank";
+                echo "<br><br>In count = 17, size of recDataAssoc = " . count($recDataAssoc) . " <br><br>";
+
+            } // some reports have 18 cells
+            else if ($sizeCurRow === 18) {
+                echo "<br><br>In count = 18 <br><br>";
+                foreach ($curRow as $report) {
+                    $recDataAssoc[$colNames[$col]] = $report;
+                    $col++;
+                }
+                echo "<br>record data assoc:<br>"; print_r($recDataAssoc); echo "<br><br>";
+                $statement->execute($recDataAssoc);
+                $recDataAssoc = [];
+            }
+        }
 
         return $pdo->lastInsertId();
     }

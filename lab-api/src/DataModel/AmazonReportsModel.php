@@ -86,6 +86,7 @@ class AmazonReportsModel implements AmazonReportsInterface
             echo "<br>" . $sizeCurRow . ") Lab916 - current row:<br>";
             print_r($curRow);
             echo "<br><br>";
+            // some reports have 17 cells
             if ($sizeCurRow === 177) {
                 echo "<br><br>In count = 17 <br><br>";
                 foreach ($reports[$row] as $report) {
@@ -97,7 +98,8 @@ class AmazonReportsModel implements AmazonReportsInterface
                 $recDataAssoc[$colNames[$col]] = "blank";
                 echo "<br><br>In count = 17, size of recDataAssoc = " . count($recDataAssoc) . " <br><br>";
 
-            } // some reports have 18 cells
+            }
+            // some reports have 18 cells
             else if ($sizeCurRow === 18) {
                 echo "<br><br>In count = 18 <br><br>";
                 foreach ($curRow as $report) {
@@ -111,6 +113,15 @@ class AmazonReportsModel implements AmazonReportsInterface
         }
 
         return $pdo->lastInsertId();
+    }
+
+    private function columnCorrectAlign($data) {
+        foreach ($data as $index => $datum) {
+            // build something
+        }
+        foreach ($data as $datum) {
+            // build something else
+        }
     }
 
     public static function getMysqlDsn($dbName, $port, $connectionName = null) {

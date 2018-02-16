@@ -38,24 +38,24 @@ class AmazonReportsModel implements AmazonReportsInterface
             'order_status',         // c5
             'fulfillment_channel',  // c6
             'sales_channel',        // c7
-            'order_channel',        // c8
-            'url',                  // c9
-            'ship_service_level',   // c10
-            'product_name',         // c11
-            'sku',                  // c12
-            'asin',                 // c13
-            'item_status',          // c14
-            'quantity',             // c15
-            'currency',             // c16
-            'item_price',           // c17
-            'item_tax',             // c18
-            'shipping_price',       // c19
-            'shipping_tax',         // c20
-            'ship_city',            // c21
-            'ship_state',           // c22
-            'ship_postal_code',     // c23
-            'ship_country',         // c24
-            'purchase_order_number',// c25
+            'url',                  // c8
+            'ship_service_level',   // c9
+            'product_name',         // c10
+            'sku',                  // c11
+            'asin',                 // c12
+            'item_status',          // c13
+            'quantity',             // c14
+            'currency',             // c15
+            'item_price',           // c16
+            'shipping_price',       // c17
+            'ship_promotion_discount',// c18
+            'ship_city',            // c19
+            'ship_state',           // c20
+            'ship_postal_code',     // c21
+            'ship_country',         // c22
+            'promotion_ids',        // c23
+            'is_business_order',    // c24
+
         ];
         $placeholders = array_map(function ($key) {
             return ":$key";
@@ -78,7 +78,7 @@ class AmazonReportsModel implements AmazonReportsInterface
         */
 
         $sql = sprintf(
-            'INSERT INTO fba_one (%s) VALUES (%s)',
+            'INSERT INTO cbc_fba_sales_v1 (%s) VALUES (%s)',
             implode(', ', $colNames),
             implode(', ', $placeholders)
         );
@@ -89,6 +89,8 @@ class AmazonReportsModel implements AmazonReportsInterface
             $col = 0;
             $curRow = $reports[$row];
             $u = null;
+            // right now data is depending on index of array, but eventually there
+            // should be regex patterns to ensure the index is the data we think it is
             $amazonOrderId = isset($curRow[0]) ? $curRow[0] : $u;
             $merchantOrderId = isset($curRow[1]) ? $curRow[1] : $u;
             $purchaseDate = isset($curRow[2]) ? $curRow[2] : $u;
@@ -106,7 +108,7 @@ class AmazonReportsModel implements AmazonReportsInterface
             $price = isset($curRow[16]) ? $curRow[16] : $u;
             $shipPrice = isset($curRow[18]) ? $curRow[18] : $u;
             $shipPromoDisc = isset($curRow[23]) ? $curRow[23] : $u;
-            $shipCity = isset($curRow[24]) ? $curRow[23] : $u;
+            $shipCity = isset($curRow[24]) ? $curRow[24] : $u;
             $shipState = isset($curRow[25]) ? $curRow[25] : $u;
             $shipPostalCode = isset($curRow[26]) ? $curRow[26] : $u;
             $shipCountry = isset($curRow[27]) ? $curRow[27] : $u;
@@ -120,29 +122,53 @@ class AmazonReportsModel implements AmazonReportsInterface
                 $col++;
             }
 
+            // c1
             $recDataAssoc["amazon_order_id"] = $amazonOrderId;
+            // c2
             $recDataAssoc["merchant_order_id"] = $merchantOrderId;
+            // c3
             $recDataAssoc["purchase_date"] = $purchaseDate;
+            // c4
             $recDataAssoc["last_updated_date"] = $lastUpdated;
+            // c5
             $recDataAssoc["order_status"] = $orderStatus;
+            // c6
             $recDataAssoc["fulfillment_channel"] = $fulChannel;
+            // c7
             $recDataAssoc["sales_channel"] = $salesChannel;
+            // c8
             $recDataAssoc["url"] = $url;
+            // c9
             $recDataAssoc["ship_service_level"] = $shipServiceLabel;
+            // c10
             $recDataAssoc["product_name"] = $productName;
+            // c11
             $recDataAssoc["sku"] = $sku;
+            // c12
             $recDataAssoc["asin"] = $asin;
+            // c13
             $recDataAssoc["item_status"] = $itemStatus;
+            // c14
             $recDataAssoc["quantity"] = $quantity;
+            // c15
             $recDataAssoc["currency"] = $currency;
+            // c16
             $recDataAssoc["item_price"] = $price;
+            // c17
             $recDataAssoc["shipping_price"] = $shipPrice;
+            // c18
             $recDataAssoc["ship_promotion_discount"] = $shipPromoDisc;
+            // c19
             $recDataAssoc["ship_city"] = $shipCity;
+            // c20
             $recDataAssoc["ship_state"] = $shipState;
+            // c21
             $recDataAssoc["ship_postal_code"] = $shipPostalCode;
+            // c22
             $recDataAssoc["ship_country"] = $shipCountry;
+            // c23
             $recDataAssoc["promotion_ids"] = $promoId;
+            // c24
             $recDataAssoc["is_business_order"] = $isBusOrder;
 
             echo "<br> - record data assoc:<br>"; print_r($recDataAssoc); echo "<br><br>";

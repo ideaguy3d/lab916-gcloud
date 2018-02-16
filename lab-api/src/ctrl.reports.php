@@ -40,6 +40,7 @@ function testGetReport($reports) {
     }
 }
 
+// this function will scrape a site I made then convert the flat file data into PHP arrays.
 function scrapeReport1() {
     $report1 = file_get_contents("http://lab916.wpengine.com/mws/src/MarketplaceWebService/api/report1.php");
     $explode1 = explode('<h2>Report Contents</h2>', $report1);

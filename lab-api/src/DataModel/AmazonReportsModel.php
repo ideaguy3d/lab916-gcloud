@@ -88,18 +88,31 @@ class AmazonReportsModel implements AmazonReportsInterface
         for ($row = 1; $row < (count($reports) - 1); $row++) {
             $col = 0;
             $curRow = $reports[$row];
-            $u = "unknown";
+            $u = null;
             $amazonOrderId = isset($curRow[0]) ? $curRow[0] : $u;
             $merchantOrderId = isset($curRow[1]) ? $curRow[1] : $u;
             $purchaseDate = isset($curRow[2]) ? $curRow[2] : $u;
             $lastUpdated = isset($curRow[3]) ? $curRow[3] : $u;
+            $orderStatus = isset($curRow[4]) ? $curRow[4] : $u;
+            $fulChannel = isset($curRow[5]) ? $curRow[5] : $u;
+            $salesChannel = isset($curRow[6]) ? $curRow[6] : $u;
+            $shipServiceLabel = isset($curRow[9]) ? $curRow[9] : $u;
+            $productName = isset($curRow[10]) ? $curRow[10] : $u;
             $sku = isset($curRow[11]) ? $curRow[11] : $u;
             $asin = isset($curRow[12]) ? $curRow[12] : $u;
+            $itemStatus = isset($curRow[13]) ? $curRow[13] : $u;
             $quantity = isset($curRow[14]) ? $curRow[14] : $u;
             $currency = isset($curRow[15]) ? $curRow[15] : $u;
             $price = isset($curRow[16]) ? $curRow[16] : $u;
-
-            $url = "amazon.com/foo/" . $asin; // index 12 should contain asin
+            $shipPrice = isset($curRow[18]) ? $curRow[18] : $u;
+            $shipPromoDisc = isset($curRow[23]) ? $curRow[23] : $u;
+            $shipCity = isset($curRow[24]) ? $curRow[23] : $u;
+            $shipState = isset($curRow[25]) ? $curRow[25] : $u;
+            $shipPostalCode = isset($curRow[26]) ? $curRow[26] : $u;
+            $shipCountry = isset($curRow[27]) ? $curRow[27] : $u;
+            $promoId = isset($curRow[28]) ? $curRow[28] : $u;
+            $isBusOrder = isset($curRow[29]) ? $curRow[29] : $u;
+            $url = "amazon.com/dp/" . $asin; // index 12 should contain asin
 
             // this loops creates an assoc.ar and gives it a default val.
             foreach ($colNames as $name) {
@@ -109,12 +122,28 @@ class AmazonReportsModel implements AmazonReportsInterface
 
             $recDataAssoc["amazon_order_id"] = $amazonOrderId;
             $recDataAssoc["merchant_order_id"] = $merchantOrderId;
+            $recDataAssoc["purchase_date"] = $purchaseDate;
+            $recDataAssoc["last_updated_date"] = $lastUpdated;
+            $recDataAssoc["order_status"] = $orderStatus;
+            $recDataAssoc["fulfillment_channel"] = $fulChannel;
+            $recDataAssoc["sales_channel"] = $salesChannel;
             $recDataAssoc["url"] = $url;
+            $recDataAssoc["ship_service_level"] = $shipServiceLabel;
+            $recDataAssoc["product_name"] = $productName;
             $recDataAssoc["sku"] = $sku;
             $recDataAssoc["asin"] = $asin;
+            $recDataAssoc["item_status"] = $itemStatus;
             $recDataAssoc["quantity"] = $quantity;
             $recDataAssoc["currency"] = $currency;
             $recDataAssoc["item_price"] = $price;
+            $recDataAssoc["shipping_price"] = $shipPrice;
+            $recDataAssoc["ship_promotion_discount"] = $shipPromoDisc;
+            $recDataAssoc["ship_city"] = $shipCity;
+            $recDataAssoc["ship_state"] = $shipState;
+            $recDataAssoc["ship_postal_code"] = $shipPostalCode;
+            $recDataAssoc["ship_country"] = $shipCountry;
+            $recDataAssoc["promotion_ids"] = $promoId;
+            $recDataAssoc["is_business_order"] = $isBusOrder;
 
             echo "<br> - record data assoc:<br>"; print_r($recDataAssoc); echo "<br><br>";
             echo " Size = " . count ($recDataAssoc);

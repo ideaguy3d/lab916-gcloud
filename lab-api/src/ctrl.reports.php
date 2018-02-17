@@ -8,6 +8,7 @@
 
 $action = isset($_GET["action"]) ? $_GET["action"] : null;
 $dataReport1 = scrapeReport1();
+$cbcFbaReport = scrapeCbcReport();
 
 if ($action === 'info') {
     phpinfo();
@@ -23,7 +24,7 @@ if ($action === 'test1') {
 
 if ($action === 'gcloud-create-report1') {
     $model = $app['report.model']($app);
-    $labReportId = $model->createGetReport($dataReport1);
+    $labReportId = $model->createGetReport($cbcFbaReport);
     echo "lab GetReport creation id = $labReportId";
 }
 
@@ -89,5 +90,45 @@ function scrapeReport1() {
         $amazonRowsFbaClean[$i] = $tempA;
         $idx = 0;
     }
+    return $amazonRowsFbaClean;
+}
+
+function scrapeCbcReport() {
+    $report1 = file_get_contents("http://lab916.wpengine.com/mws/src/MarketplaceWebService/api/report1.php");
+    $explode1 = explode('<h2>Report Contents</h2>', $report1);
+    $cells = explode("\t", $explode1[1]);
+    $amazonRowsFbaClean = [];
+    $table = [];
+    $row = 0;
+    $curRow = [];
+
+    for ($i = 0; $i < count($cells); $i++) {
+        $cel = $cells[$i];
+        if (strpos($cells[$i], "\r\n") !== false) {
+            $newRowAR = explode("\r\n", $cel);
+            array_push($curRow, $newRowAR[0]);
+            $table[$row] = $curRow;
+            $curRow = [];
+            $row++;
+            $table[$row] = $curRow;
+            array_push($curRow, $newRowAR[1]);
+        } else {
+            array_push($curRow, $cel);
+        }
+    }
+
+    $idx = 0;
+    for ($i = 0; $i < count($table); $i++) {
+        $tempA = array();
+        foreach ($table[$i] as $record) {
+            if ((str_word_count($record) > 0) or (1 === preg_match('~[0-9]~', $record))) {
+                $tempA[$idx] = $record;
+            }
+            $idx++;
+        }
+        $amazonRowsFbaClean[$i] = $tempA;
+        $idx = 0;
+    }
+
     return $amazonRowsFbaClean;
 }

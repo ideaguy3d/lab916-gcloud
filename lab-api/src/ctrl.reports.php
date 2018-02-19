@@ -7,6 +7,7 @@
  */
 
 $action = isset($_GET["action"]) ? $_GET["action"] : null;
+$client = isset($_GET["client"]) ? $_GET["client"] : null;
 $dataReport1 = scrapeReport1();
 $cbcFbaReport = scrapeCbcReport();
 
@@ -22,12 +23,22 @@ if ($action === 'test1') {
     testGetReport($dataReport1);
 }
 
-if ($action === 'gcloud-create-report1') {
+if ($action === 'gcloud-create-report1' and $client === 'cbc') {
     $model = $app['report.model']($app);
     $labReportId = $model->createGetReport($cbcFbaReport);
     echo "lab GetReport creation id = $labReportId";
 }
 
+if($action === 'gcloud-cbc-report' and $client === 'cbc') {
+    $model = $app['report.model']($app);
+    $labReportId = $model->createGetReport($cbcFbaReport);
+    echo "<br>Action = $action<br>";
+    echo "lab GetReport creation id = $labReportId";
+}
+
+if($action === 'gcloud-show-')
+
+// will simply iterate over a 2-dim arr.
 function testGetReport($reports) {
     for ($row = 0; $row < count($reports); $row++) {
         echo "<p><b>Row Number $row:</b></p>";
@@ -93,8 +104,9 @@ function scrapeReport1() {
     return $amazonRowsFbaClean;
 }
 
+// this function will scrape a site I made then convert the flat file data into PHP arrays.
 function scrapeCbcReport() {
-    $report1 = file_get_contents("http://lab916.wpengine.com/mws/src/MarketplaceWebService/api/report1.php");
+    $report1 = file_get_contents("http://lab916.wpengine.com/mws/src/MarketplaceWebService/api/cbcReport.php");
     $explode1 = explode('<h2>Report Contents</h2>', $report1);
     $cells = explode("\t", $explode1[1]);
     $amazonRowsFbaClean = [];

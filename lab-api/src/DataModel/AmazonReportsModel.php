@@ -15,11 +15,15 @@ class AmazonReportsModel implements AmazonReportsInterface
     private $dsn;
     private $user;
     private $password;
+    private $allTheCurRows;
 
     public function __construct($dsn, $user, $password) {
         $this->dsn = $dsn;
         $this->user = $user;
         $this->password = $password;
+
+        // Get all the current rows of the Table to check for duplicate later
+        $this->allTheCurRows = $this->listFbaRows();
     }
 
     private function newConnection() {
@@ -69,9 +73,8 @@ class AmazonReportsModel implements AmazonReportsInterface
         );
         $statement = $pdo->prepare($sql);
 
-
         // ----------------------------------------------------------------------
-        // Converting indexed array to an assoc.ar then inserting data into table
+        // Converting indexed array to an assoc.ar THEN inserting data into table
         for ($row = 1; $row < (count($reports) - 1); $row++) {
             $col = 0;
             $curRow = $reports[$row];
@@ -103,6 +106,7 @@ class AmazonReportsModel implements AmazonReportsInterface
             $isBusOrder = isset($curRow[29]) ? $curRow[29] : $u;
             $url = "amazon.com/dp/" . $asin; // index 12 should contain asin
 
+            // O(n^2) <---------------------------------------------
             // this loops creates an assoc.ar and gives it a default val.
             foreach ($colNames as $name) {
                 $recDataAssoc[$colNames[$col]] = $name;
@@ -114,7 +118,7 @@ class AmazonReportsModel implements AmazonReportsInterface
             // c2
             $recDataAssoc["merchant_order_id"] = $merchantOrderId;
             // c3
-            $recDataAssoc["purchase_date"] = $purchaseDate;
+            $recDataAssoc["purchase_date"] = preg_replace("/T.*/", "", $purchaseDate);
             // c4
             $recDataAssoc["last_updated_date"] = $lastUpdated;
             // c5
@@ -158,12 +162,11 @@ class AmazonReportsModel implements AmazonReportsInterface
             // c24
             $recDataAssoc["is_business_order"] = $isBusOrder;
 
-
-
+            // O (n^2) <---------------------------------------------
             // there isn't duplicate data so insert data into the db table
             if ($this->duplicateCheck($recDataAssoc["amazon_order_id"], $recDataAssoc["merchant_order_id"]) === false) {
                 // Insert current row into Table
-                echo "<br> - record data assoc:<br>";
+                echo "<br>$row - record data assoc:<br>";
                 print_r($recDataAssoc);
                 echo "<br><br>";
                 echo " Size = " . count($recDataAssoc);
@@ -212,7 +215,7 @@ class AmazonReportsModel implements AmazonReportsInterface
 
     private function duplicateCheck($aoid, $moid) {
         // aoid = Amazon Order ID, moid = Merchant Order ID
-        $fbaRowsAll = $this->listFbaRows();
+        $fbaRowsAll = $this->allTheCurRows;
         $dupes = false; // true means there are duplicates
 
         for ($row = 0; count($fbaRowsAll["fbaRows"]); $row++) {

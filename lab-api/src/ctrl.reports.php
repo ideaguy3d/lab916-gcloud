@@ -29,8 +29,8 @@ $client = 'cbc';                        // TESTING
 if($action === 'gcloud-cbc-create-report' and $client === 'cbc') {
     $model = $app['cbc-report.model']($app);
     $labReportId = $model->createGetReport($cbcFbaReport);
-    echo "<br>Action = $action<br>";
-    echo "lab GetReport creation id = $labReportId";
+    echo "<br>Action = $action<br><br>";
+    echo "Result = $labReportId";
 }
 
 if($action === 'gcloud-cbc-show-rows' and $client === 'cbc') {

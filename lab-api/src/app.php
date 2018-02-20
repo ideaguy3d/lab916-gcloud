@@ -55,7 +55,7 @@ $app['quote.model'] = function ($app) {
 };
 
 // The Amazon MWS Report API
-$app["report.model"] = function ($app) {
+$app["cbc-report.model"] = function ($app) {
     $config = $app['config'];
     if (empty($config['lab916_backend'])) {
         throw new \DomainException('lab916_backend must be configured');

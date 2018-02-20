@@ -69,111 +69,120 @@ class AmazonReportsModel implements AmazonReportsInterface
         );
         $statement = $pdo->prepare($sql);
 
-        if($this->duplicateCheck(data) === false) {
-            // there isn't duplicate data so insert data into the db table
-            // converting indexed array to an assoc.ar then inserting data into table
-            for ($row = 1; $row < (count($reports) - 1); $row++) {
-                $col = 0;
-                $curRow = $reports[$row];
-                $u = null;
-                //-- Right now data is depending on index of array, but eventually there
-                // should be regex patterns to ensure the index is the data we think it is:
-                $amazonOrderId = isset($curRow[0]) ? $curRow[0] : $u;
-                $merchantOrderId = isset($curRow[1]) ? $curRow[1] : $u;
-                $purchaseDate = isset($curRow[2]) ? $curRow[2] : $u;
-                $lastUpdated = isset($curRow[3]) ? $curRow[3] : $u;
-                $orderStatus = isset($curRow[4]) ? $curRow[4] : $u;
-                $fulChannel = isset($curRow[5]) ? $curRow[5] : $u;
-                $salesChannel = isset($curRow[6]) ? $curRow[6] : $u;
-                $shipServiceLabel = isset($curRow[9]) ? $curRow[9] : $u;
-                $productName = isset($curRow[10]) ? $curRow[10] : $u;
-                $sku = isset($curRow[11]) ? $curRow[11] : $u;
-                $asin = isset($curRow[12]) ? $curRow[12] : $u;
-                $itemStatus = isset($curRow[13]) ? $curRow[13] : $u;
-                $quantity = isset($curRow[14]) ? $curRow[14] : $u;
-                $currency = isset($curRow[15]) ? $curRow[15] : $u;
-                $price = isset($curRow[16]) ? $curRow[16] : $u;
-                $shipPrice = isset($curRow[18]) ? $curRow[18] : $u;
-                $shipPromoDisc = isset($curRow[23]) ? $curRow[23] : $u;
-                $shipCity = isset($curRow[24]) ? $curRow[24] : $u;
-                $shipState = isset($curRow[25]) ? $curRow[25] : $u;
-                $shipPostalCode = isset($curRow[26]) ? $curRow[26] : $u;
-                $shipCountry = isset($curRow[27]) ? $curRow[27] : $u;
-                $promoId = isset($curRow[28]) ? $curRow[28] : $u;
-                $isBusOrder = isset($curRow[29]) ? $curRow[29] : $u;
-                $url = "amazon.com/dp/" . $asin; // index 12 should contain asin
 
-                // this loops creates an assoc.ar and gives it a default val.
-                foreach ($colNames as $name) {
-                    $recDataAssoc[$colNames[$col]] = $name;
-                    $col++;
-                }
+        // ----------------------------------------------------------------------
+        // Converting indexed array to an assoc.ar then inserting data into table
+        for ($row = 1; $row < (count($reports) - 1); $row++) {
+            $col = 0;
+            $curRow = $reports[$row];
+            $u = null;
+            //-- Right now data is depending on index of array, but eventually there
+            // should be regex patterns to ensure the index is the data we think it is:
+            $amazonOrderId = isset($curRow[0]) ? $curRow[0] : $u;
+            $merchantOrderId = isset($curRow[1]) ? $curRow[1] : $u;
+            $purchaseDate = isset($curRow[2]) ? $curRow[2] : $u;
+            $lastUpdated = isset($curRow[3]) ? $curRow[3] : $u;
+            $orderStatus = isset($curRow[4]) ? $curRow[4] : $u;
+            $fulChannel = isset($curRow[5]) ? $curRow[5] : $u;
+            $salesChannel = isset($curRow[6]) ? $curRow[6] : $u;
+            $shipServiceLabel = isset($curRow[9]) ? $curRow[9] : $u;
+            $productName = isset($curRow[10]) ? $curRow[10] : $u;
+            $sku = isset($curRow[11]) ? $curRow[11] : $u;
+            $asin = isset($curRow[12]) ? $curRow[12] : $u;
+            $itemStatus = isset($curRow[13]) ? $curRow[13] : $u;
+            $quantity = isset($curRow[14]) ? $curRow[14] : $u;
+            $currency = isset($curRow[15]) ? $curRow[15] : $u;
+            $price = isset($curRow[16]) ? $curRow[16] : $u;
+            $shipPrice = isset($curRow[18]) ? $curRow[18] : $u;
+            $shipPromoDisc = isset($curRow[23]) ? $curRow[23] : $u;
+            $shipCity = isset($curRow[24]) ? $curRow[24] : $u;
+            $shipState = isset($curRow[25]) ? $curRow[25] : $u;
+            $shipPostalCode = isset($curRow[26]) ? $curRow[26] : $u;
+            $shipCountry = isset($curRow[27]) ? $curRow[27] : $u;
+            $promoId = isset($curRow[28]) ? $curRow[28] : $u;
+            $isBusOrder = isset($curRow[29]) ? $curRow[29] : $u;
+            $url = "amazon.com/dp/" . $asin; // index 12 should contain asin
 
-                // c1
-                $recDataAssoc["amazon_order_id"] = $amazonOrderId;
-                // c2
-                $recDataAssoc["merchant_order_id"] = $merchantOrderId;
-                // c3
-                $recDataAssoc["purchase_date"] = $purchaseDate;
-                // c4
-                $recDataAssoc["last_updated_date"] = $lastUpdated;
-                // c5
-                $recDataAssoc["order_status"] = $orderStatus;
-                // c6
-                $recDataAssoc["fulfillment_channel"] = $fulChannel;
-                // c7
-                $recDataAssoc["sales_channel"] = $salesChannel;
-                // c8
-                $recDataAssoc["url"] = $url;
-                // c9
-                $recDataAssoc["ship_service_level"] = $shipServiceLabel;
-                // c10
-                $recDataAssoc["product_name"] = $productName;
-                // c11
-                $recDataAssoc["sku"] = $sku;
-                // c12
-                $recDataAssoc["asin"] = $asin;
-                // c13
-                $recDataAssoc["item_status"] = $itemStatus;
-                // c14
-                $recDataAssoc["quantity"] = $quantity;
-                // c15
-                $recDataAssoc["currency"] = $currency;
-                // c16
-                $recDataAssoc["item_price"] = $price;
-                // c17
-                $recDataAssoc["shipping_price"] = $shipPrice;
-                // c18
-                $recDataAssoc["ship_promotion_discount"] = $shipPromoDisc;
-                // c19
-                $recDataAssoc["ship_city"] = $shipCity;
-                // c20
-                $recDataAssoc["ship_state"] = $shipState;
-                // c21
-                $recDataAssoc["ship_postal_code"] = $shipPostalCode;
-                // c22
-                $recDataAssoc["ship_country"] = $shipCountry;
-                // c23
-                $recDataAssoc["promotion_ids"] = $promoId;
-                // c24
-                $recDataAssoc["is_business_order"] = $isBusOrder;
-
-                echo "<br> - record data assoc:<br>"; print_r($recDataAssoc); echo "<br><br>";
-                echo " Size = " . count ($recDataAssoc);
-
-                $statement->execute($recDataAssoc);
-                $recDataAssoc = [];
+            // this loops creates an assoc.ar and gives it a default val.
+            foreach ($colNames as $name) {
+                $recDataAssoc[$colNames[$col]] = $name;
+                $col++;
             }
-        } else {
-            echo "this data already exists in the db table";
+
+            // c1
+            $recDataAssoc["amazon_order_id"] = $amazonOrderId;
+            // c2
+            $recDataAssoc["merchant_order_id"] = $merchantOrderId;
+            // c3
+            $recDataAssoc["purchase_date"] = $purchaseDate;
+            // c4
+            $recDataAssoc["last_updated_date"] = $lastUpdated;
+            // c5
+            $recDataAssoc["order_status"] = $orderStatus;
+            // c6
+            $recDataAssoc["fulfillment_channel"] = $fulChannel;
+            // c7
+            $recDataAssoc["sales_channel"] = $salesChannel;
+            // c8
+            $recDataAssoc["url"] = $url;
+            // c9
+            $recDataAssoc["ship_service_level"] = $shipServiceLabel;
+            // c10
+            $recDataAssoc["product_name"] = $productName;
+            // c11
+            $recDataAssoc["sku"] = $sku;
+            // c12
+            $recDataAssoc["asin"] = $asin;
+            // c13
+            $recDataAssoc["item_status"] = $itemStatus;
+            // c14
+            $recDataAssoc["quantity"] = $quantity;
+            // c15
+            $recDataAssoc["currency"] = $currency;
+            // c16
+            $recDataAssoc["item_price"] = $price;
+            // c17
+            $recDataAssoc["shipping_price"] = $shipPrice;
+            // c18
+            $recDataAssoc["ship_promotion_discount"] = $shipPromoDisc;
+            // c19
+            $recDataAssoc["ship_city"] = $shipCity;
+            // c20
+            $recDataAssoc["ship_state"] = $shipState;
+            // c21
+            $recDataAssoc["ship_postal_code"] = $shipPostalCode;
+            // c22
+            $recDataAssoc["ship_country"] = $shipCountry;
+            // c23
+            $recDataAssoc["promotion_ids"] = $promoId;
+            // c24
+            $recDataAssoc["is_business_order"] = $isBusOrder;
+
+
+
+            // there isn't duplicate data so insert data into the db table
+            if ($this->duplicateCheck($recDataAssoc["amazon_order_id"], $recDataAssoc["merchant_order_id"]) === false) {
+                // Insert current row into Table
+                echo "<br> - record data assoc:<br>";
+                print_r($recDataAssoc);
+                echo "<br><br>";
+                echo " Size = " . count($recDataAssoc);
+                $statement->execute($recDataAssoc);
+            }
+            // there was duplicate data
+            else {
+                return "<br> LAB916-ERROR: Duplicate Data <br>";
+            }
+
+            $recDataAssoc = [];
         }
 
         return $pdo->lastInsertId();
     }
-    
-    public function listFbaRows($limit = 100000, $cursor = null) {
+
+    public function listFbaRows($limit = 10000, $cursor = null) {
         $pdo = $this->newConnection();
-        if($cursor) {
+        if ($cursor) {
             $query = 'SELECT * FROM `cbc_fba_sales_v1` WHERE `id` > :cursor LIMIT :limit';
             $statement = $pdo->prepare($query);
             $statement->bindValue(":cursor", $cursor, PDO::PARAM_INT);
@@ -182,15 +191,15 @@ class AmazonReportsModel implements AmazonReportsInterface
             $statement = $pdo->prepare($query);
         }
 
-        $statement->bindValue(":limit", $limit+1,PDO::PARAM_INT);
+        $statement->bindValue(":limit", $limit + 1, PDO::PARAM_INT);
         $statement->execute();
 
         $rows = [];
         $last_row = null;
         $new_cursor = null;
 
-        while($row = $statement->fetch(PDO::FETCH_ASSOC)) {
-            if(count($rows) === $limit) {
+        while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+            if (count($rows) === $limit) {
                 $new_cursor = $last_row['id'];
                 break;
             }
@@ -201,17 +210,28 @@ class AmazonReportsModel implements AmazonReportsInterface
         return ["fbaRows" => $rows, "cursor" => $new_cursor];
     }
 
-    private function duplicateCheck($data) {
-        $dupes = false;
-        
-        foreach ($data as $index => $datum) {
-            // build something
+    private function duplicateCheck($aoid, $moid) {
+        // aoid = Amazon Order ID, moid = Merchant Order ID
+        $fbaRowsAll = $this->listFbaRows();
+        $dupes = false; // true means there are duplicates
+
+        for ($row = 0; count($fbaRowsAll["fbaRows"]); $row++) {
+            $curRow = isset($fbaRowsAll["fbaRows"][$row]) ? $fbaRowsAll["fbaRows"][$row] : null;
+            if($curRow) {
+                if ($curRow["amazon_order_id"] === $aoid) {
+                    $dupes = true;
+                    return $dupes;
+                }
+                if ($curRow["merchant_order_id"] === $moid) {
+                    $dupes = true;
+                    return $dupes;
+                }
+            }
+            else {
+                return $dupes;
+            }
         }
-        
-        foreach ($data as $datum) {
-            // build something else
-        }
-        
+
         return $dupes;
     }
 

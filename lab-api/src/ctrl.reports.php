@@ -23,20 +23,22 @@ if ($action === 'test1') {
     testGetReport($dataReport1);
 }
 
-if ($action === 'gcloud-create-report1' and $client === 'cbc') {
-    $model = $app['report.model']($app);
-    $labReportId = $model->createGetReport($cbcFbaReport);
-    echo "lab GetReport creation id = $labReportId";
-}
-
-if($action === 'gcloud-cbc-report' and $client === 'cbc') {
-    $model = $app['report.model']($app);
+// TESTING TESTING TESTING TESTING TESTING TESTING TESTING
+$action = 'gcloud-cbc-create-report';   // TESTING
+$client = 'cbc';                        // TESTING
+if($action === 'gcloud-cbc-create-report' and $client === 'cbc') {
+    $model = $app['cbc-report.model']($app);
     $labReportId = $model->createGetReport($cbcFbaReport);
     echo "<br>Action = $action<br>";
     echo "lab GetReport creation id = $labReportId";
 }
 
-if($action === 'gcloud-show-')
+if($action === 'gcloud-cbc-show-rows' and $client === 'cbc') {
+   $model = $app['cbc-report.model']($app);
+   $fbaRowsAll = $model->listFbaRows();
+   echo "<br><br>All the FBA rows:<br>";
+   print_r($fbaRowsAll);
+}
 
 // will simply iterate over a 2-dim arr.
 function testGetReport($reports) {

@@ -2,18 +2,16 @@
 
 namespace Google\Cloud\Samples\Bookshelf;
 
-use Google\Cloud\Samples\Bookshelf\DataModel\DataModelInterface;
-
-$action = isset($_GET['action']);
+$action = isset($_GET["action"]) ? $_GET["action"] : null;
 $sendEmail = isset($_GET["send-email"]) ? $_GET["send-email"] : null;
 
-// ~ START: Quote Data Model data ~
+//              ~ START: Quote Data Model data ~
 $email = isset($_GET['email']) ? $_GET['email'] : 'no email created';
 $name = isset($_GET['name']) ? $_GET['name'] : 'no name entered';
 $company = isset($_GET['company']) ? $_GET["company"] : 'no company entered';
 $number = isset($_GET['number']) ? $_GET["number"] : 'no number entered';
 $message = isset($_GET['message']) ? $_GET["message"] : 'no message written';
-$currentSellingChannels = isset($_GET["current-sales-channels"]) ? $_GET["current-sales-channels"] : "no sales channels entered";
+$currentSellingChannels = isset($_GET["current-selling-channels"]) ? $_GET["current-selling-channels"] : "no sales channels entered";
 $monthlyAmazonSalesEstimate = isset($_GET["estimated-monthly-sales-amazon"]) ? $_GET["estimated-monthly-sales-amazon"] : "unknown monthly sales";
 $monthlyBudgetAmazon = isset($_GET["monthly-budget-on-amazon"]) ? $_GET["monthly-budget-on-amazon"] : "unknown marketing budget";
 $yearlySalesAllChannels = isset($_GET["estimated-yearly-sales-all-channels"]) ? $_GET["estimated-yearly-sales-all-channels"] : 'unknown yearly sales';
@@ -24,9 +22,9 @@ $numProdAmazon = isset($_GET["number-of-products-on-amazon"]) ? $_GET["number-of
 $amazonGoals = isset($_GET["amazon-goals"]) ? $_GET["amazon-goals"] : "amazon goals not entered";
 $amazonExp = isset($_GET["summary-of-experiences"]) ? $_GET["summary-of-experiences"] : null;
 $website = isset($_GET["website"]) ? $_GET["website"] : null;
-// ~ END: Quote Data Model data ~
+//              ~ END: Quote Data Model data ~
 
-if ($action === "gcloud-create") {
+if ($action === "gcloud-quote-create") {
     echo " - in googleQuoteContactF() from ctrl.quote.php file - ";
     $model = $app['quote.model']($app);
     $quoteData = [ // c = column
@@ -54,7 +52,7 @@ if ($action === "gcloud-create") {
 
 if ($sendEmail === "send") {
     echo "<br> - In sendEmail action... <br> sendEmail = $sendEmail; email = $email; message = $message;";
-    $to = "julius@lab916.com";
+    $to = "hello@lab916.com";
     $subject = "Quote Questionnaire Answers";
     $messageBody = $message . "<br> - email from $email";
     $from = $email;
@@ -65,5 +63,8 @@ if ($sendEmail === "send") {
 
     if (mail($to, $subject, $messageBody, $headers)) {
         echo " - email sent successfully";
-    } else echo " - email did not send :(";
+    }
+    else {
+        echo " - email did not send :(";
+    }
 }

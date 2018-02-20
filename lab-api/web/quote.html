@@ -26,7 +26,31 @@
 </head>
 
 <!--  style="overflow: hidden" -->
-<body id="page-top" data-ng-controller="QuoteCtrl" style="overflow: hidden">
+<body id="page-top" data-ng-controller="QuoteCtrl" class="lab-overflow">
+
+<!-- Top mobile Nav for the animated questionnaire -->
+<div ng-hide="userHasSent" id="lab916-mobile-progress-container">
+    <!-- This is for the last slide -->
+    <div class="L9-indicator-row L9-mt20" ng-click="changeActiveQuestion(myQuestions.length)">
+        <div class="L9-circle {{(myQuestions.length === activeQuestion) ? 'on' : 'off'}}"></div>
+        <div class="L9-circle-txt"><span>Complete</span></div>
+    </div>
+
+    <!-- Continue Button -->
+    <div class="feedback">
+        <div class="btn btn-sm btn-info" data-ng-click="selectContinue()"
+             ng-show="activeQuestion !== myQuestions.length">
+            <strong>Continue</strong>
+        </div>
+        <div class="btn btn-sm btn-warning" data-ng-click="makeHubspotRequest()"
+             ng-show="activeQuestion === myQuestions.length && contactHubObject.email && contactHubObject.name">
+            <strong>Send</strong>
+        </div>
+        <div ng-show="activeQuestion === myQuestions.length">
+            <div ng-show="!contactHubObject.email || !contactHubObject.name">Please fill out email and name.</div>
+        </div>
+    </div>
+</div>
 
 <!-- Get A Quote Section -->
 <section id="L9-quote-container" class="page-section">
@@ -65,7 +89,9 @@
                             <strong>Send</strong>
                         </div>
                         <div ng-show="activeQuestion === myQuestions.length">
-                            <div ng-show="!contactHubObject.email || !contactHubObject.name">Please fill out email and name.</div>
+                            <div ng-show="!contactHubObject.email || !contactHubObject.name">Please fill out email and
+                                name.
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -79,10 +105,10 @@
                     <h4 class="txt">{{ question.question }}</h4>
 
                     <div class="row">
-
+                        <!-------------------------->
                         <!-- ng-repeat inner loop -->
+                        <!-------------------------->
                         <div class="col-md-3" ng-repeat="answer in question.answers">
-
                             <!-- Extra Short Height Cards -->
                             <div ng-if="question.height === 'extra short'">
                                 <div class="card ans height-extra-short"
@@ -91,7 +117,7 @@
                                     <div class="card-body">
                                         <div data-ng-class="{'lab-answer-img-xs': !(answer.text === 'other')}"
                                              data-ng-if="answer.img">
-                                            <img ng-src="{{answer.img}}" alt="img">
+                                            <img data-ng-src="{{answer.img}}" alt="img" width="100%">
                                         </div>
                                         <div data-ng-if="!answer.img">
                                             <p><i class="fa fa-camera fa-2x"></i></p>
@@ -110,9 +136,10 @@
                             <div ng-if="question.height === 'short'">
                                 <div class="card ans height-short"
                                      ng-class="{'selected': myQuestions[$parent.$parent.$index].answers[$parent.$index].optionIsSelected}"
-                                     ng-click="selectAnswer($parent.$parent.$index, $parent.$index)">
+                                     data-ng-click="selectAnswer($parent.$parent.$index, $parent.$index)">
                                     <div class="card-body">
-                                        <div data-ng-class="{'lab-answer-img': !(answer.text==='other')}" data-ng-if="answer.img">
+                                        <div data-ng-class="{'lab-answer-img': !(answer.text==='other')}"
+                                             data-ng-if="answer.img">
                                             <img data-ng-src="{{answer.img}}" alt="img">
                                         </div>
                                         <div data-ng-if="!answer.img">
@@ -179,12 +206,16 @@
                             <input type="text" id="company" name="lastname" placeholder="Your Company.."
                                    ng-model="contactHubObject.company">
 
+                            <label for="number">Number</label>
+                            <input type="text" id="number" name="lastname" placeholder="Phone Number.."
+                                   ng-model="contactHubObject.number">
+
                             <label for="email">Email *</label>
                             <input type="email" id="email" name="email" placeholder="Email"
                                    ng-model="contactHubObject.email" required>
 
                             <label for="subject">Message</label>
-                            <textarea id="subject" name="subject" placeholder="Write something.."
+                            <textarea id="subject" name="subject" placeholder="Anything else you'd like us to know?"
                                       style="height:150px" ng-model="contactHubObject.message"></textarea>
                         </form>
                     </div>

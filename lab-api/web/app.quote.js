@@ -32,7 +32,7 @@
             name: "",
             company: "",
             message: "",
-            number: "916-123-4567",
+            number: "",
             currentSalesChannels: [],
             companySnapshot: [],
             amazonGoals: [],
@@ -226,8 +226,10 @@
             data.amazonServices.forEach(function (value) {amazonServicesStr += (value + " __ ");});
             var amazonServices = encodeURIComponent(amazonServicesStr);
 
+            //-- The Action:
+            var action = encodeURIComponent('gcloud-quote-create');
+
             //-- send the request:
-            var action = encodeURIComponent('gcloud-create');
             var reqStr = '/?action=' + action + '&name=' + name + '&email=' + email +
                 '&number=' + number + '&message=' + message +
                 '&current-selling-channels=' + currentSalesChannels +
@@ -274,8 +276,10 @@
             });
             var amazonServices = encodeURIComponent(amazonServicesStr);
 
-            //-- send the request:
+            //-- The Action:
             var action = encodeURIComponent('hubspot');
+
+            //-- Send the request:
             return $http.get('php/hubspot1.php?action=' + action + '&name=' + name + '&email=' + email +
                 '&number=' + number + '&message=' + message +
                 '&current-selling-channels=' + currentSalesChannels +

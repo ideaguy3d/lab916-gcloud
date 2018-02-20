@@ -257,6 +257,37 @@ input[type=submit]:hover {
     }
 }
 
+#lab916-mobile-progress-container {
+    display: none;
+}
+
+.lab-overflow {
+    overflow: hidden
+}
+
+@media screen and (max-width: 600px) {
+    #lab916-mobile-progress-container {
+        display: block;
+        position: fixed;
+        width: 100%;
+        text-align: center;
+        z-index: 9999;
+    }
+
+    #lab916-quote .active {
+        top: 0 !important;
+    }
+
+    .lab-overflow {
+        overflow: auto;
+    }
+
+    #lab916-mobile-progress-container .L9-indicator-row {
+        display: none;
+    }
+}
+
+
 /*
 ---- END: Quote Style Rules ----
 */

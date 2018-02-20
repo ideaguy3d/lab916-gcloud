@@ -9,12 +9,12 @@
 include __DIR__ . "/php/connect.php";
 
 $error = "";
-$actionGoogle = isset($_GET['action']) ? $_GET['action'] : '';
+$actionGoogle = isset($_GET['action']) ? $_GET['action'] : 'no action';
 
-$name = isset($_GET['name']) ? $_GET['name'] : '';
-$number = isset($_GET['number']) ? $_GET['number'] : '';
+$name = isset($_GET['name']) ? $_GET['name'] : 'no name';
+$number = isset($_GET['number']) ? $_GET['number'] : 'no number';
 
-$email = isset($_GET['email']) ? $_GET['email'] : '';
+$email = isset($_GET['email']) ? $_GET['email'] : 'no email';
 $validEmail = filter_var($email, FILTER_VALIDATE_EMAIL);
 $realEmail = mysqli_real_escape_string($link, $validEmail);
 

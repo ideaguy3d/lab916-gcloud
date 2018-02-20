@@ -24,6 +24,7 @@ class AmazonReportsModel implements AmazonReportsInterface
 
         // Get all the current rows of the Table to check for duplicate later
         $this->allTheCurRows = $this->listFbaRows();
+        echo "all the current rows cached... I hope";
     }
 
     private function newConnection() {
@@ -106,7 +107,7 @@ class AmazonReportsModel implements AmazonReportsInterface
             $isBusOrder = isset($curRow[29]) ? $curRow[29] : $u;
             $url = "amazon.com/dp/" . $asin; // index 12 should contain asin
 
-            // O(n^2) <---------------------------------------------
+            // O(n^2) <---------------------------------------------X
             // this loops creates an assoc.ar and gives it a default val.
             foreach ($colNames as $name) {
                 $recDataAssoc[$colNames[$col]] = $name;
@@ -118,7 +119,8 @@ class AmazonReportsModel implements AmazonReportsInterface
             // c2
             $recDataAssoc["merchant_order_id"] = $merchantOrderId;
             // c3
-            $recDataAssoc["purchase_date"] = preg_replace("/T.*/", "", $purchaseDate);
+            $tempPurDate = preg_replace("/T.*/", "", $purchaseDate);
+            $recDataAssoc["purchase_date"] = preg_replace("/-/", "", $tempPurDate);
             // c4
             $recDataAssoc["last_updated_date"] = $lastUpdated;
             // c5
@@ -162,7 +164,6 @@ class AmazonReportsModel implements AmazonReportsInterface
             // c24
             $recDataAssoc["is_business_order"] = $isBusOrder;
 
-            // O (n^2) <---------------------------------------------
             // there isn't duplicate data so insert data into the db table
             if ($this->duplicateCheck($recDataAssoc["amazon_order_id"], $recDataAssoc["merchant_order_id"]) === false) {
                 // Insert current row into Table
@@ -174,7 +175,7 @@ class AmazonReportsModel implements AmazonReportsInterface
             }
             // there was duplicate data
             else {
-                return "<br> LAB916-ERROR: Duplicate Data <br>";
+                echo "<br> LAB916-ERROR: Duplicate Data <br>";
             }
 
             $recDataAssoc = [];
@@ -231,6 +232,7 @@ class AmazonReportsModel implements AmazonReportsInterface
                 }
             }
             else {
+                $dupes = false;
                 return $dupes;
             }
         }

@@ -86,11 +86,18 @@
                             <!-- Extra Short Height Cards -->
                             <div ng-if="question.height === 'extra short'">
                                 <div class="card ans height-extra-short"
-                                     ng-class="{'selected': myQuestions[$parent.$parent.$index].answers[$parent.$index].optionIsSelected}"
+                                     data-ng-class="{'selected': myQuestions[$parent.$parent.$index].answers[$parent.$index].optionIsSelected}"
                                      ng-click="selectAnswer($parent.$parent.$index, $parent.$index)">
                                     <div class="card-body">
-                                        <p><i class="fa fa-camera fa-2x"></i></p>
-                                        <p class="L9-mb-0">{{ answer.text }}</p>
+                                        <div data-ng-class="{'lab-answer-img-xs': !(answer.text === 'other')}"
+                                             data-ng-if="answer.img">
+                                            <img ng-src="{{answer.img}}" alt="img">
+                                        </div>
+                                        <div data-ng-if="!answer.img">
+                                            <p><i class="fa fa-camera fa-2x"></i></p>
+                                            <p class="L9-mb-0">{{ answer.text }}</p>
+                                        </div>
+
                                         <!-- Forms -->
                                         <textarea ng-show="answer.type === 'textarea'"></textarea>
                                         <input type="text" ng-model="contactHubObject.amazonServices[answer.id]"
@@ -105,9 +112,13 @@
                                      ng-class="{'selected': myQuestions[$parent.$parent.$index].answers[$parent.$index].optionIsSelected}"
                                      ng-click="selectAnswer($parent.$parent.$index, $parent.$index)">
                                     <div class="card-body">
-                                        <p><i class="fa fa-bus fa-2x"></i></p>
-                                        <p>{{ answer.text }}</p>
-
+                                        <div data-ng-class="{'lab-answer-img': !(answer.text==='other')}" data-ng-if="answer.img">
+                                            <img data-ng-src="{{answer.img}}" alt="img">
+                                        </div>
+                                        <div data-ng-if="!answer.img">
+                                            <p><i class="fa fa-bus fa-2x"></i></p>
+                                            <p>{{ answer.text }}</p>
+                                        </div>
                                         <!-- Forms -->
                                         <textarea placeholder="Other channels"
                                                   ng-model="contactHubObject.currentSalesChannels[4]"

@@ -125,7 +125,15 @@ label {
     cursor: pointer;
     transition: all 0.1s linear;
     margin-top: 12px;
-    background-color: rgb(246, 249, 252);
+    /*background-color: rgb(246, 249, 252);*/
+}
+
+.lab-answer-img {
+    padding-top: 32px;
+}
+
+.lab-answer-img-xs {
+    padding-top: 14px;
 }
 
 .height-extra-short {

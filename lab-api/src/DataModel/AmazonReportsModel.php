@@ -66,6 +66,7 @@ class AmazonReportsModel implements AmazonReportsInterface
             return ":$key";
         }, $colNames);
         $recDataAssoc = [];
+        $track = 0; // so error is echoed only once.
 
         $sql = sprintf(
             'INSERT INTO cbc_fba_sales_v1 (%s) VALUES (%s)',
@@ -170,12 +171,16 @@ class AmazonReportsModel implements AmazonReportsInterface
             }
             catch (\PDOException $e) {
                 $errorMessage = $e->getMessage();
-
-                echo "<br> - LAB916 - Error:<br>";
-                if(strpos($errorMessage, "Duplicate") !== false) {
+                if(strpos($errorMessage, "Duplicate") !== false and $track<1) {
+                    echo "<br> - LAB916 - Error:<br>";
+                    $track++;
                     echo " There was duplicate data";
                 } else {
-                    echo $errorMessage;
+                    if($track<1) {
+                        echo "<br> - LAB916 - Error:<br>";
+                        $track++;
+                        echo $errorMessage;
+                    }
                 }
                 echo "<br>";
             }

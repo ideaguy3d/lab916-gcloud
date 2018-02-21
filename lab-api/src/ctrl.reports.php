@@ -23,9 +23,9 @@ if ($action === 'test1') {
     testGetReport($dataReport1);
 }
 
-// TESTING TESTING TESTING TESTING TESTING TESTING TESTING
-$action = 'gcloud-cbc-create-report';   // TESTING TESTING
-$client = 'cbc';                        // TESTING TESTING
+// DEBUGGING DEBUGGING DEBUGGING DEBUGGING DEBUGGING DEBUGGING
+$action = 'gcloud-cbc-create-report';   // DEBUGGING DEBUGGING
+$client = 'cbc';                        // DEBUGGING DEBUGGING
 if($action === 'gcloud-cbc-create-report' and $client === 'cbc') {
     $model = $app['cbc-report.model']($app);
     $labReportId = $model->createGetReport($cbcFbaReport);

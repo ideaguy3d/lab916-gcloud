@@ -164,24 +164,26 @@ class AmazonReportsModel implements AmazonReportsInterface
             // c24
             $recDataAssoc["is_business_order"] = $isBusOrder;
 
-            // there isn't duplicate data so insert data into the db table
-            if ($this->duplicateCheck($recDataAssoc["amazon_order_id"], $recDataAssoc["merchant_order_id"]) === false) {
-                // Insert current row into Table
-                echo "<br>$row - record data assoc:<br>";
-                print_r($recDataAssoc);
-                echo "<br><br>";
-                echo " Size = " . count($recDataAssoc);
+            try {
+                //-- INSERT DATA:
                 $statement->execute($recDataAssoc);
             }
-            // there was duplicate data
-            else {
-                echo "<br> LAB916-ERROR: Duplicate Data <br>";
+            catch (\PDOException $e) {
+                $errorMessage = $e->getMessage();
+
+                echo "<br> - LAB916 - Error:<br>";
+                if(strpos($errorMessage, "Duplicate") !== false) {
+                    echo " There was duplicate data";
+                } else {
+                    echo $errorMessage;
+                }
+                echo "<br>";
             }
 
             $recDataAssoc = [];
         }
 
-        return $pdo->lastInsertId();
+        return " - LAB 916 - last inserted id = " . $pdo->lastInsertId();
     }
 
     public function listFbaRows($limit = 10000, $cursor = null) {

@@ -27,7 +27,11 @@ $website = isset($_GET["website"]) ? $_GET["website"] : null;
 if ($action === "gcloud-quote-create") {
     echo " - in googleQuoteContactF() from ctrl.quote.php file - ";
     $model = $app['quote.model']($app);
+    
+    $quoteDate = date("Ymd");
+
     $quoteData = [ // c = column
+        "quote_date" => $quoteDate, // c0
         "email" => $email, // c1
         "name" => $name, // c2
         "company" => $company, // c3
@@ -51,10 +55,10 @@ if ($action === "gcloud-quote-create") {
 }
 
 if ($sendEmail === "send") {
-    echo "<br> - In sendEmail action... <br> sendEmail = $sendEmail; email = $email; message = $message;";
+    echo "\n<br> - In sendEmail action... \n<br> sendEmail = $sendEmail; email = $email; message = $message;\n<br>";
     $to = "hello@lab916.com";
     $subject = "Quote Questionnaire Answers";
-    $messageBody = $message . "<br> - email from $email";
+    $messageBody = $message . "<br>\n - email from $email";
     $from = $email;
 
     $headers = 'MIME-Version: 1.0' . "\r\n";
@@ -62,9 +66,9 @@ if ($sendEmail === "send") {
     $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
     if (mail($to, $subject, $messageBody, $headers)) {
-        echo " - email sent successfully";
+        echo "\n<br> - email sent successfully \n<br>";
     }
     else {
-        echo " - email did not send :(";
+        echo "\n<br> - email did not send :( \n<br>";
     }
 }

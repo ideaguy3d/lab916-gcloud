@@ -11,21 +11,6 @@ $client = isset($_GET["client"]) ? $_GET["client"] : null;
 $dataReport1 = scrapeReport1();
 $cbcFbaReport = scrapeCbcReport();
 
-if ($action === 'info') {
-    phpinfo();
-}
-
-if ($action === 'show-report') {
-    print_r($dataReport1);
-}
-
-if ($action === 'test1') {
-    testGetReport($dataReport1);
-}
-
-// DEBUGGING DEBUGGING DEBUGGING DEBUGGING DEBUGGING DEBUGGING
-$action = 'gcloud-cbc-create-report';   // DEBUGGING DEBUGGING
-$client = 'cbc';                        // DEBUGGING DEBUGGING
 if($action === 'gcloud-cbc-create-report' and $client === 'cbc') {
     $model = $app['cbc-report.model']($app);
     $labReportId = $model->createGetReport($cbcFbaReport);
@@ -40,7 +25,7 @@ if($action === 'gcloud-cbc-show-rows' and $client === 'cbc') {
    print_r($fbaRowsAll);
 }
 
-// will simply iterate over a 2-dim arr.
+// function was made just to practice iterating over a 2-dim arr.
 function testGetReport($reports) {
     for ($row = 0; $row < count($reports); $row++) {
         echo "<p><b>Row Number $row:</b></p>";
@@ -54,7 +39,7 @@ function testGetReport($reports) {
     }
 }
 
-// this function will scrape a site I made then convert the flat file data into PHP arrays.
+// function will scrape a TEST site I made then convert the flat file data into PHP arrays.
 function scrapeReport1() {
     $report1 = file_get_contents("http://lab916.wpengine.com/mws/src/MarketplaceWebService/api/report1.php");
     $explode1 = explode('<h2>Report Contents</h2>', $report1);
@@ -106,7 +91,7 @@ function scrapeReport1() {
     return $amazonRowsFbaClean;
 }
 
-// this function will scrape a site I made then convert the flat file data into PHP arrays.
+// function will scrape the CBC report site then convert the flat file data into PHP arrays.
 function scrapeCbcReport() {
     $report1 = file_get_contents("http://lab916.wpengine.com/mws/src/MarketplaceWebService/api/cbcReport.php");
     $explode1 = explode('<h2>Report Contents</h2>', $report1);

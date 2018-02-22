@@ -21,10 +21,6 @@ class AmazonReportsModel implements AmazonReportsInterface
         $this->dsn = $dsn;
         $this->user = $user;
         $this->password = $password;
-
-        // Get all the current rows of the Table to check for duplicate later
-        $this->allTheCurRows = $this->listFbaRows();
-        echo "all the current rows cached... I hope";
     }
 
     private function newConnection() {
@@ -67,6 +63,7 @@ class AmazonReportsModel implements AmazonReportsInterface
         }, $colNames);
         $recDataAssoc = [];
         $track = 0; // so error is echoed only once.
+        $col = 0;
 
         $sql = sprintf(
             'INSERT INTO cbc_fba_sales_v1 (%s) VALUES (%s)',
@@ -75,10 +72,19 @@ class AmazonReportsModel implements AmazonReportsInterface
         );
         $statement = $pdo->prepare($sql);
 
+        // this loops creates an assoc.ar and gives it a default val.
+        foreach ($colNames as $name) {
+            $recDataAssoc[$colNames[$col]] = $name;
+            $col++;
+        }
+
         // ----------------------------------------------------------------------
         // Converting indexed array to an assoc.ar THEN inserting data into table
         for ($row = 1; $row < (count($reports) - 1); $row++) {
-            $col = 0;
+            if($track > 0) {
+                echo "LAB 916 Error - There was duplicate data";
+                break;
+            }
             $curRow = $reports[$row];
             $u = null;
             //-- Right now data is depending on index of array, but eventually there
@@ -107,13 +113,6 @@ class AmazonReportsModel implements AmazonReportsInterface
             $promoId = isset($curRow[28]) ? $curRow[28] : $u;
             $isBusOrder = isset($curRow[29]) ? $curRow[29] : $u;
             $url = "amazon.com/dp/" . $asin; // index 12 should contain asin
-
-            // O(n^2) <---------------------------------------------X
-            // this loops creates an assoc.ar and gives it a default val.
-            foreach ($colNames as $name) {
-                $recDataAssoc[$colNames[$col]] = $name;
-                $col++;
-            }
 
             // c1
             $recDataAssoc["amazon_order_id"] = $amazonOrderId;
@@ -174,7 +173,7 @@ class AmazonReportsModel implements AmazonReportsInterface
                 if(strpos($errorMessage, "Duplicate") !== false and $track<1) {
                     echo "<br> - LAB916 - Error:<br>";
                     $track++;
-                    echo " There was duplicate data";
+                    echo "<strong>There was duplicate data</strong>";
                 } else {
                     if($track<1) {
                         echo "<br> - LAB916 - Error:<br>";

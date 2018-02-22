@@ -10,8 +10,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 $app = require __DIR__ . '/../src/app.php';
 
-//-- The Lab916 Quote Questionnaire ctrl:
+//-- CONTROLLER = Quote Questionnaire:
 require __DIR__ . '/../src/ctrl.quote.php';
-
-//-- The Amazon MWS Reports API ctrl:
+//-- CONTROLLER = Amazon MWS Reports API:
 require __DIR__ . '/../src/ctrl.reports.php';

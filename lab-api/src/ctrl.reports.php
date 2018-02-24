@@ -11,7 +11,7 @@ $client = isset($_GET["client"]) ? $_GET["client"] : null;
 $dataReport1 = scrapeReport1();
 $cbcFbaReport = scrapeCbcReport();
 
-if($action === 'gcloud-cbc-create-report' and $client === 'cbc') {
+if($action === 'gcloud-create-report' and $client === 'cbc') {
     $model = $app['cbc-report.model']($app);
     $labReportId = $model->createGetReport($cbcFbaReport);
     echo "<br>Action = $action<br><br>";

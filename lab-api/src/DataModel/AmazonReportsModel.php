@@ -82,10 +82,6 @@ class AmazonReportsModel implements AmazonReportsInterface
         // ----------------------------------------------------------------------
         // Converting indexed array to an assoc.ar THEN inserting data into table
         for ($row = 1; $row < (count($reports) - 1); $row++) {
-            if($track > 0) {
-                echo "LAB 916 Error - There was duplicate data";
-                break;
-            }
             $curRow = $reports[$row];
             $u = null;
             //-- Right now data is depending on index of array, but eventually there
@@ -244,10 +240,7 @@ class AmazonReportsModel implements AmazonReportsInterface
         // ----------------------------------------------------------------------
         // Converting indexed array to an assoc.ar THEN inserting data into table
         for ($row = 1; $row < (count($reports) - 1); $row++) {
-            if($track > 0) {
-                echo "LAB 916 Error - There was duplicate data";
-                break;
-            }
+
             $curRow = $reports[$row];
             $u = null;
             //-- Right now data is depending on index of array, but eventually there

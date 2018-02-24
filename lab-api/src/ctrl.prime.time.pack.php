@@ -10,7 +10,7 @@ $action = isset($_GET["action"]) ? $_GET["action"] : null;
 $client = isset($_GET["client"]) ? $_GET["client"] : null;
 $ptpFbaReport = scrapePtpReport();
 
-if ($action === 'gcloud-ptp-create-report' and $client === 'ptp') {
+if ($action === 'gcloud-create-report' and $client === 'ptp') {
     $model = $app['cbc-report.model']($app);
     $labReportId = $model->createPtpGetReport($ptpFbaReport);
     echo "<br>Action = $action<br><br>";
@@ -22,14 +22,19 @@ function scrapePtpReport() {
     $report1 = file_get_contents("http://lab916.wpengine.com/mws/src/MarketplaceWebService/api/ptp-report.php");
     $explode1 = explode('<h2>Report Contents</h2>', $report1);
     $cells = explode("\t", $explode1[1]);
+    sleep(5); // give the report data a while to stream since report may be a very large str
     $amazonRowsFbaClean = [];
     $table = [];
     $row = 0;
     $curRow = [];
+    $idx = 0;
 
+    // convert $cells to rows, each row is delimited by \r\n, currently there are thousands of cells because
+    // they were all delimited by \t
     for ($i = 0; $i < count($cells); $i++) {
         $cel = $cells[$i];
-        if (strpos($cells[$i], "\r\n") !== false) {
+        if (strpos($cel, "\r\n") !== false) {
+            // there is a new line char in this cel
             $newRowAR = explode("\r\n", $cel);
             array_push($curRow, $newRowAR[0]);
             $table[$row] = $curRow;
@@ -42,9 +47,10 @@ function scrapePtpReport() {
         }
     }
 
-    $idx = 0;
+    // sanitize each field in each row, get rid of fields that have gunk.
     for ($i = 0; $i < count($table); $i++) {
         $tempA = array();
+        // O (n^2) <-------------------------------------------xx
         foreach ($table[$i] as $record) {
             if ((str_word_count($record) > 0) or (1 === preg_match('~[0-9]~', $record))) {
                 $tempA[$idx] = $record;

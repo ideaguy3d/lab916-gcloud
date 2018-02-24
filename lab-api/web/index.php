@@ -8,6 +8,7 @@ echo "<p>For example: <code>site.com/?action=...</code></p>";
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+//-- The application:
 $app = require __DIR__ . '/../src/app.php';
 
 //-- CONTROLLER =Quote Questionnaire:

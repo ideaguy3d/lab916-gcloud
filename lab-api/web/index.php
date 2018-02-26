@@ -1,10 +1,12 @@
 <?php
 
-echo "<h1> ~ The Lab916 API ~</h1>";
-echo "<h2>Front ends:</h2>";
-echo "<p>Quote front end: <a href='/quote.html'>Quote</a></p>";
-echo "<h2>Back end are query strings from root.</h2>";
-echo "<p>For example: <code>site.com/?action=...</code></p>";
+echo "<style> .lab-btn {padding: 16px; border: solid 1px cornflowerblue;}</style>";
+
+
+echo "<h1>Navigation:</h1>";
+
+echo "<a href='/info.php' class='lab-btn'>LAB 916 api info</a>";
+
 
 require_once __DIR__ . '/../vendor/autoload.php';
 

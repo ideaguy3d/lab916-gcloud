@@ -231,7 +231,7 @@ class AmazonReportsModel implements AmazonReportsInterface
         );
         $statement = $pdo->prepare($sql);
 
-        // this loops creates an assoc.ar and gives it a default val.
+        //-- Loop creates an assoc.ar and gives it a default val:
         foreach ($colNames as $name) {
             $recDataAssoc[$colNames[$col]] = $name;
             $col++;
@@ -242,7 +242,7 @@ class AmazonReportsModel implements AmazonReportsInterface
         for ($row = 1; $row < (count($reports) - 1); $row++) {
 
             $curRow = $reports[$row];
-            $u = null;
+            $u = null; // unknown
             //-- Right now data is depending on index of array, but eventually there
             // should be regex patterns to ensure the index is the data we think it is:
             $amazonOrderId = isset($curRow[0]) ? $curRow[0] : $u;

@@ -19,3 +19,5 @@ require __DIR__ . '/../src/ctrl.quote.php';
 require __DIR__ . '/../src/ctrl.reports.php';
 //-- CONTROLLER =PTP Prime Time Packaging API:
 require __DIR__ . '/../src/ctrl.prime.time.pack.php';
+//-- CONTROLLER =Dynamically Add client to get report
+require  __DIR__ . '/../src/ctrl.dynamic.client.add.php';

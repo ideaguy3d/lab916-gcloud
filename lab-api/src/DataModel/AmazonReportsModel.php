@@ -223,7 +223,7 @@ class AmazonReportsModel implements AmazonReportsInterface
         $recDataAssoc = [];
         $track = 0; // so error is echoed only once.
         $col = 0;
-
+        
         $sql = sprintf(
             'INSERT INTO ptp_fba_sales_v1 (%s) VALUES (%s)',
             implode(', ', $colNames),

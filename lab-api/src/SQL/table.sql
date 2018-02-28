@@ -1,0 +1,3 @@
+CREATE TABLE `lab916`.`sales_v1` ( `id` INT NOT NULL AUTO_INCREMENT , `amazon_order_id` VARCHAR(255) NOT NULL , `quantity` INT NOT NULL , `item_price` VARCHAR(255) NOT NULL , PRIMARY KEY (`id`), UNIQUE `AMAZON_ORDER` (`amazon_order_id`(255))) ENGINE = InnoDB;
+
+CREATE TABLE `lab916`.`sales_v1` ( `id` INT NOT NULL AUTO_INCREMENT , `amazon_order_id` VARCHAR(255) NULL DEFAULT NULL , `quantity` INT NULL DEFAULT NULL , `item_price` VARCHAR(255) NULL DEFAULT NULL , `timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`), UNIQUE `AMAZON_ORDER` (`amazon_order_id`(255))) ENGINE = InnoDB;

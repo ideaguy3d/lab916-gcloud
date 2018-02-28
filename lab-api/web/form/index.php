@@ -26,16 +26,22 @@
 
 <div class="container" data-ng-controller="FormCtrl">
     <br><br>
+
     <h1>LAB 916</h1>
     <p>Add a new client "FBA All Orders Data" Report</p>
-    <form>
-        <input type="text" placeholder="MWS Auth Token">
-        <input type="text" placeholder="Client Name">
-        <input type="text" placeholder="Sellers' ID">
 
-        <br>
-        <div class="btn btn-sm btn-warning mt-2">Enter</div>
-    </form>
+    <div class="row">
+        <div class="col-6">
+            <form>
+                <input type="text" placeholder="MWS Auth Token">
+                <input type="text" placeholder="Client Name">
+                <input type="text" placeholder="Sellers' ID">
+
+                <br>
+                <div class="btn btn-sm btn-warning mt-2">Enter</div>
+            </form>
+        </div>
+    </div>
 
     <br>
     <p>v{{43-42 + message}}</p>

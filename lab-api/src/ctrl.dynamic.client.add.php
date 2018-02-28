@@ -7,4 +7,4 @@
  */
 
 $clientName = isset($_GET["client-name"]) ? $_GET["client-name"] : null;
-
+$tableName = isset($_GET["table-name"]) ? $_GET["table-name"] : null;

@@ -21,17 +21,26 @@ class AddClientModel implements AddClientInterface
         $this->dsn = $dsn;
         $this->user = $user;
         $this->password = $password;
+    }
 
+    public function createCustomFbaOrdersTable($clientName) {
+        $pdo = $this->newConnection();
         $columns = [
-            'id serial PRIMARY KEY ',
-            'amazon_order_id VARCHAR(255)',
-            'quantity VARCHAR(255)',
-            'purchase_date VARCHAR(255)',
-            'asin VARCHAR(255)',
-            'product_name VARCHAR(255)',
-            'url VARCHAR(255)',
-            'sku VARCHAR(255)',
-            'item_price VARCHAR(255)'
+            '`id` serial PRIMARY KEY ',                                     // c1
+            '`timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP',     // c2
+            '`amazon_order_id` VARCHAR(255) NULL DEFAULT NULL ',            // c3
+            '`merchant_order_id` VARCHAR(255) ',                            // c4
+            '`purchase_date` VARCHAR(255) NULL DEFAULT NULL ',              // c5
+            '`quantity` VARCHAR(255) NULL DEFAULT NULL ',                   // c6
+            '`item_price` VARCHAR(255) NULL DEFAULT NULL ',                 // c7
+            '`asin` VARCHAR(255) NULL DEFAULT NULL ',                       // c8
+            '`product_name` VARCHAR(255) NULL DEFAULT NULL ',               // c9
+            '`url` VARCHAR(255) NULL DEFAULT NULL ',                        // c10
+            '`sku` VARCHAR(255) NULL DEFAULT NULL ',                        // c11
+            '`item_price` VARCHAR(255) NULL DEFAULT NULL ',                 // c12
+
+            // set the index
+            'UNIQUE `AMAZON_ORDER` (`amazon_order_id`(255))',
         ];
 
         // set column names so other functions can access it
@@ -39,14 +48,15 @@ class AddClientModel implements AddClientInterface
             return explode(" ", $colDef)[0];
         }, $columns);
 
+        $tableName = $clientName . "_fba_sales_v1";
+
+        // actually create the table
         $colText = implode(", ", $columns);
-        $pdo = $this->newConnection();
-        // "custom_report" table will have to become a variable
-        $pdo->query("CREATE TABLE IF NOT EXISTS custom_report ($colText)");
+        $pdo->query("CREATE TABLE IF NOT EXISTS $tableName ($colText)");
     }
 
     public function storeReportData($reportData) {
-        
+
     }
 
     private function newConnection() {
@@ -54,9 +64,9 @@ class AddClientModel implements AddClientInterface
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $pdo;
     }
-    
+
     public static function getMysqlDsn($dbName, $port, $connectionName = null) {
-        if($connectionName) {
+        if ($connectionName) {
             return sprintf(
                 'mysql:unix_socket=/cloudsql/%s;dbname=%s',
                 $connectionName,

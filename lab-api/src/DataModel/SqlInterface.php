@@ -21,7 +21,7 @@ namespace Google\Cloud\Samples\Bookshelf\DataModel;
 /**
  * The common model implemented by Google Datastore, mysql, etc.
  */
-interface DataModelInterface
+interface SqlInterface
 {
     /**
      * Lists all the books in the data model.

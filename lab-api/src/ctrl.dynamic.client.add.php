@@ -6,3 +6,5 @@
  * Time: 3:24 PM
  */
 
+$clientName = isset($_GET["client-name"]) ? $_GET["client-name"] : null;
+

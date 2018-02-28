@@ -21,7 +21,7 @@ use PDO;
 /**
  * Class Sql implements the DataModelInterface with a mysql or postgres database.
  */
-class Sql implements DataModelInterface
+class SqlModel implements DataModelInterface
 {
     private $dsn;
     private $user;
@@ -49,9 +49,13 @@ class Sql implements DataModelInterface
             'created_by_id VARCHAR(255)',
             'currently_selling VARCHAR(255)'
         );
+
+        // set column names here so they can be accessed else where in the model
         $this->columnNames = array_map(function ($columnDefinition) {
             return explode(' ', $columnDefinition)[0];
         }, $columns);
+
+        // now create the table
         $columnText = implode(', ', $columns);
         $pdo = $this->newConnection();
         $pdo->query("CREATE TABLE IF NOT EXISTS books ($columnText)");

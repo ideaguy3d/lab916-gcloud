@@ -46,12 +46,24 @@ class AddClientModel implements AddClientInterface
     }
 
     public function storeReportData($reportData) {
-
+        
     }
 
     private function newConnection() {
         $pdo = new PDO($this->dsn, $this->user, $this->password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $pdo;
+    }
+    
+    public static function getMysqlDsn($dbName, $port, $connectionName = null) {
+        if($connectionName) {
+            return sprintf(
+                'mysql:unix_socket=/cloudsql/%s;dbname=%s',
+                $connectionName,
+                $dbName
+            );
+        }
+
+        return sprintf('mysql:host=127.0.0.1;port=%s;dbname=%s', $port, $dbName);
     }
 }

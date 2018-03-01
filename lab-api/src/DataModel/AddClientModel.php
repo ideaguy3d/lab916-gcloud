@@ -15,7 +15,7 @@ class AddClientModel implements AddClientInterface
     private $dsn;
     private $user;
     private $password;
-    private $allTheCurRows;
+    private $allTheCurRowsNames;
 
     public function __construct($dsn, $user, $password) {
         $this->dsn = $dsn;
@@ -25,6 +25,7 @@ class AddClientModel implements AddClientInterface
 
     public function createCustomFbaOrdersTable($clientName) {
         $pdo = $this->newConnection();
+
         $columns = [
             '`id` serial PRIMARY KEY ',                                     // c1
             '`timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP',     // c2
@@ -37,14 +38,13 @@ class AddClientModel implements AddClientInterface
             '`product_name` VARCHAR(255) NULL DEFAULT NULL ',               // c9
             '`url` VARCHAR(255) NULL DEFAULT NULL ',                        // c10
             '`sku` VARCHAR(255) NULL DEFAULT NULL ',                        // c11
-            '`item_price` VARCHAR(255) NULL DEFAULT NULL ',                 // c12
 
             // set the index
             'UNIQUE `AMAZON_ORDER` (`amazon_order_id`(255))',
         ];
 
         // set column names so other functions can access it
-        $this->colNames = array_map(function ($colDef) {
+        $this->allTheCurRowsNames = array_map(function ($colDef) {
             return explode(" ", $colDef)[0];
         }, $columns);
 
@@ -67,10 +67,8 @@ class AddClientModel implements AddClientInterface
 
     public static function getMysqlDsn($dbName, $port, $connectionName = null) {
         if ($connectionName) {
-            return sprintf(
-                'mysql:unix_socket=/cloudsql/%s;dbname=%s',
-                $connectionName,
-                $dbName
+            return sprintf('mysql:unix_socket=/cloudsql/%s;dbname=%s',
+                $connectionName, $dbName
             );
         }
 

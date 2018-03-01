@@ -2,6 +2,8 @@
 
 use Lab916\Cloud\Quote\DataModel\SqlQuoteLab916;
 use Lab916\Cloud\Amazon\Mws\Reports\DataModel\AmazonReportsModel;
+use Lab916\Cloud\Amazon\Mws\Reports\DataModel\AddClientModel;
+
 use Symfony\Component\Yaml\Yaml;
 
 $app = [];
@@ -28,6 +30,7 @@ $app['quote.model'] = function ($app) {
 // The Amazon MWS Report API
 $app["cbc-report.model"] = function ($app) {
     $config = $app['config'];
+
     if (empty($config['lab916_backend'])) {
         throw new \DomainException('lab916_backend must be configured');
     }
@@ -42,11 +45,20 @@ $app["cbc-report.model"] = function ($app) {
 };
 
 // Dynamically adding client reports via a form
-$app["dynamic-client-add"] = function ($app) {
+$app["dynamic-client-add.model"] = function ($app) {
     $config = $app['config'];
+
     if (empty($config['lab916_backend'])) {
         throw new \DomainException('lab916_backend must be configured');
     }
+
+    $mysql_dsn = AddClientModel::getMysqlDsn(
+        $config['cloudsql_database_name'],
+        $config['cloudsql_port'],
+        getenv('GAE_INSTANCE') ? $config['cloudsql_connection_name'] : null
+    );
+
+    return new AddClientModel($mysql_dsn, $config['cloudsql_user'], $config['cloudsql_password']);
 };
 
 // Turn on debug locally

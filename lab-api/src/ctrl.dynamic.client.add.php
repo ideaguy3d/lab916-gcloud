@@ -12,16 +12,17 @@ $mwsAuthKey = isset($_GET["mws-auth-key"]) ? $_GET["mws-auth-key"] : null;
 
 
 //-- Invoke Functions:
-// createTable($app, $clientName);
+echo "recId = " . createTable($app, $clientName);
 // createReport($app);
 
 function createTable($app, $clientName) {
-    $model = $app["some.model"]($app);
-    $model->createCustomFbaOrdersTable($clientName);
+    $model = $app["dynamic-client-add.model"]($app);
+    $labId = $model->createCustomFbaOrdersTable($clientName);
+    return $labId;
 }
 
 function createReport($app) {
-    $model = $app["some.model"]($app);
+    $model = $app["dynamic-client-add.model"]($app);
 }
 
 // function will scrape the Prime Time Packaging report site.

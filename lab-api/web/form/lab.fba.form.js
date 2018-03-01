@@ -30,8 +30,6 @@
 
     // CLASS SERVICE OBJECT "DataSerClass"
     function DataSerClass($http) {
-        var base = "/?";
-
         var createReportF = function (data) {
             var action = "dynamic-client-add";
             var enAction = encodeURIComponent(action);
@@ -39,11 +37,13 @@
             var sellerId = encodeURIComponent(data.sellerId);
             var mwsAuthKey = encodeURIComponent(data.mwsAuthKey);
 
-            //-- make the HTTP request:
-            return $http.get(base + "action=" + enAction +
+            var reqStr = "/?action=" + enAction +
                 "&client-name=" + clientName +
                 "&seller-id=" + sellerId +
-                "&mws-auth-key=" + mwsAuthKey);
+                "&mws-auth-key=" + mwsAuthKey;
+
+            //-- make the HTTP request:
+            return $http.get(reqStr);
         };
 
         return {

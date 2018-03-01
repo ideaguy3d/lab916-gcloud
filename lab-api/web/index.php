@@ -25,6 +25,7 @@ switch ($action) {
         require __DIR__ . '/../src/ctrl.prime.time.pack.php';
         break;
     case "dynamic-client-add":
+        echo "lab916 - in dynamic-client-add case";
         require __DIR__ . '/../src/ctrl.dynamic.client.add.php';
         break;
     case "action":

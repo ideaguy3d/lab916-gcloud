@@ -28,17 +28,19 @@
     <br><br>
 
     <h1>LAB 916</h1>
-    <p>Add a new client "FBA All Orders Data" Report</p>
+    <p>Add a new client <strong>"FBA All Orders Data"</strong> Report</p>
 
     <div class="row">
-        <div class="col-6">
+        <div class="col-sm-12 col-md-8 col-lg-6 col-xl-4">
             <form>
-                <input type="text" placeholder="MWS Auth Token">
-                <input type="text" placeholder="Client Name">
-                <input type="text" placeholder="Sellers' ID">
+                <input type="text" ng-model="clientObj.mwsAuthKey" placeholder="MWS Auth Token">
+                <input type="text" ng-model="clientObj.clientName" placeholder="Client Name: no spaces, all lower case letters please">
+                <input type="text" ng-model="clientObj.sellerId" placeholder="Sellers' ID">
 
                 <br>
-                <div class="btn btn-sm btn-warning mt-2">Enter</div>
+                <div type="submit" class="btn btn-sm btn-warning mt-2" data-ng-click="createReport()">
+                    Enter
+                </div>
             </form>
         </div>
     </div>

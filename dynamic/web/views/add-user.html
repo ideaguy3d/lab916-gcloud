@@ -1,0 +1,27 @@
+<section data-ng-app="myApp" class="container">
+    <div data-ng-controller="CoreCtrl">
+        <ul class="menu">
+            <li><a href="#!/view1">view1</a></li>
+            <li><a href="#!/view2">view2</a></li>
+        </ul>
+
+        <h2>{{ccMessage}}</h2>
+        <form data-ng-submit="signup()">
+            <input type="email" placeholder="Email">
+            <input type="text" placeholder="Name">
+            <input type="password" placeholder="Password">
+            <button type="submit">Sign up</button>
+        </form>
+        <br>
+
+        <form data-ng-submit="login()">
+            <input type="email" placeholder="Email">
+            <input type="password" placeholder="Password">
+            <button type="submit">Login</button>
+        </form>
+
+        <p>User: {{ccUser}}</p>
+
+        <br>
+    </div>
+</section>

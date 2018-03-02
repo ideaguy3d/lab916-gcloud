@@ -1,0 +1,50 @@
+/** BitGo css **/
+.header-directive {
+
+}
+
+h1, h2, h3, h4, h5, h6, p, li, a {
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
+table {
+    font-size: 24px;
+    width: 100%;
+}
+
+table tr {
+    cursor: pointer;
+    height: 60px;
+    border-bottom: 2px solid #111;
+}
+
+table input {
+    position: relative;
+    top: -3px;
+}
+
+/* app css stylesheet */
+/**********************/
+.menu {
+  list-style: none;
+  margin-bottom: 2em;
+  padding: 0 0 0.5em;
+}
+
+.menu:before {
+  content: "[";
+}
+
+.menu:after {
+  content: "]";
+}
+
+.menu > li {
+  display: inline;
+}
+
+.menu > li + li:before {
+  content: "|";
+  padding-right: 0.3em;
+}

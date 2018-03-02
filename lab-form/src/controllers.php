@@ -30,10 +30,10 @@ $app->get('/', function (Request $request) use ($app) {
 });
 
 $app->get('/api/', function (Request $request) use ($app) {
-    $clientName = $request->get('client-name');
-    $model = $app['bookshelf.model'];
-    $model->createCustomTable($clientName);
-    return "table request acknowledged"; 
+    //$clientName = $request->get('client-name');
+    //$model = $app['bookshelf.model'];
+    //$model->createCustomTable($clientName);
+    return "table request acknowledged, but all the code was commented out";
 });
 
 // [START index]

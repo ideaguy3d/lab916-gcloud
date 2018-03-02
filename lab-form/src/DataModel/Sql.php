@@ -28,15 +28,19 @@ class Sql implements DataModelInterface
     private $dsn;
     private $user;
     private $password;
+    private $tableName;
 
     /**
      * Creates the SQL books table if it doesn't already exist.
      */
-    public function __construct($dsn, $user, $password)
+    public function __construct($dsn, $user, $password, $clientName)
     {
         $this->dsn = $dsn;
         $this->user = $user;
         $this->password = $password;
+        $this->tableName = $clientName . "_cloud_test";
+
+        $tableName = $this->tableName;
 
         $columns = array(
             'id serial PRIMARY KEY ',
@@ -54,7 +58,7 @@ class Sql implements DataModelInterface
         }, $columns);
         $columnText = implode(', ', $columns);
         $pdo = $this->newConnection();
-        $pdo->query("CREATE TABLE IF NOT EXISTS books ($columnText)");
+        $pdo->query("CREATE TABLE IF NOT EXISTS $tableName ($columnText)");
     }
 
     /**

@@ -70,21 +70,12 @@ $app['bookshelf.model'] = function ($app) {
                 $config['cloudsql_port'],
                 getenv('GAE_INSTANCE') ? $config['cloudsql_connection_name'] : null
             );
+            $clientName = isset($_GET["client-name"]) ? $_GET["client-name"] : null;
             return new Sql(
                 $mysql_dsn,
                 $config['cloudsql_user'],
-                $config['cloudsql_password']
-            );
-        case 'postgres':
-            $postgres_dsn = Sql::getPostgresDsn(
-                $config['cloudsql_database_name'],
-                $config['cloudsql_port'],
-                getenv('GAE_INSTANCE') ? $config['cloudsql_connection_name'] : null
-            );
-            return new Sql(
-                $postgres_dsn,
-                $config['cloudsql_user'],
-                $config['cloudsql_password']
+                $config['cloudsql_password'],
+                $clientName
             );
         default:
             throw new \DomainException("Invalid \"bookshelf_backend\" given: $config[bookshelf_backend]. "

@@ -38,7 +38,7 @@
             var sellerId = encodeURIComponent(data.sellerId);
             var mwsAuthKey = encodeURIComponent(data.mwsAuthKey);
 
-            var reqStr = "/api/?client-name=" + clientName;
+            var reqStr = "/?client-name=" + clientName;
 
             console.log("lab916 - The reqStr = "+reqStr);
 

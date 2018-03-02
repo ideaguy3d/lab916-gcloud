@@ -1,0 +1,297 @@
+@charset "UTF-8";
+
+label {
+    margin: .5em .2em;
+}
+
+/* ---- START: Quote Style Rules ---- */
+.L9-mb-0 {
+    margin-bottom: 0 !important;
+}
+
+#L9-masthead-title {
+    margin-top: -10%;
+}
+
+#lab916-quote {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    margin: auto;
+    height: 90vh;
+}
+
+@media screen and (max-width: 600px) {
+    #lab916-quote {
+        height: 200vh;
+    }
+}
+
+#lab916-quote #lab916-progress-container {
+    position: absolute;
+    top: 110px;
+    left: 0;
+    text-align: left;
+}
+
+.navbar-nav .nav-link {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+@media screen and (max-width: 600px) {
+    #lab916-quote #lab916-progress-container {
+        display: none;
+    }
+}
+
+.L9-mt20 {
+    margin-top: 20px;
+}
+
+#lab916-quote #lab916-progress-container .L9-circle {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid #ffda0c;
+    background-color: #FFFFFF;
+    transition: all 500ms linear;
+}
+
+.L9-indicator-row {
+    cursor: pointer;
+}
+
+#lab916-quote #lab916-progress-container .L9-circle-txt {
+    display: inline-block;
+    position: relative;
+    bottom: 8px;
+    font-size: 14px;
+}
+
+#lab916-quote #lab916-progress-container .L9-circle.on {
+    background-color: #ffda0c;
+    transition: all 500ms linear;
+}
+
+/* - Intro slide - */
+#lab916-quote .intro {
+    position: absolute;
+    top: 1400px;
+    left: 300px;
+    width: 890px;
+    background: linear-gradient(0deg, #434343, #575757);
+    padding: 12px;
+    min-height: 450px;
+    height: 100%;
+}
+
+#lab916-quote div#contact {
+    position: absolute;
+    top: 1400px;
+    left: 300px;
+    width: 60%;
+}
+
+
+/*
+#lab916-quote .intro.inactive,
+#lab916-quote .inactive.answered,
+#lab916-quote #contact.inactive{
+    top: 1200px;
+}
+*/
+
+#lab916-quote .intro.inactive,
+#lab916-quote .inactive.answered,
+#lab916-quote #contact.inactive {
+    top: -1200px;
+}
+
+/* - question slide - */
+#lab916-quote .question {
+    position: absolute;
+    top: 1400px;
+    left: 14%;
+    width: 80%;
+    min-height: 450px;
+    height: 100%;
+    /* background: linear-gradient(0deg, #434343, #575757); */
+    padding: 12px;
+}
+
+#lab916-quote .question .ans {
+    cursor: pointer;
+    transition: all 0.1s linear;
+    margin-top: 12px;
+    /*background-color: rgb(246, 249, 252);*/
+}
+
+.lab-answer-img {
+    padding-top: 32px;
+}
+
+.lab-answer-img-xs {
+    padding-top: 14px;
+}
+
+.height-extra-short {
+    height: 134px;
+}
+
+.height-short {
+    height: 190px;
+}
+
+.height-medium {
+    height: 278px;
+}
+
+#lab916-quote .question .ans-old {
+    display: inline-block;
+    background-color: whitesmoke;
+    width: 200px;
+    height: 200px;
+    position: relative;
+    cursor: pointer;
+    margin: 8px 8px;
+    transition: all 0.1s linear;
+}
+
+#lab916-quote .question .ans.selected {
+    border: 2px solid #ffcd0e;
+    box-shadow: 0 4px 10px 5px rgba(0,0,0, 0.2);
+    transition: all 0.1s linear;
+}
+
+#lab916-quote .active,
+#lab916-quote .inactive {
+    transition: top 0.7s linear;
+}
+
+/* ---- FEEDBACK ----*/
+#lab916-quote .question.unanswered .feedback {
+    transition: opacity 0.5s, margin-top 0.5s;
+    visibility: hidden;
+    opacity: 0;
+}
+
+#lab916-quote .question.answered .feedback {
+    visibility: visible;
+    transition: opacity 1.5s, margin-top 1.5s;
+    opacity: 1;
+    margin-top: 10px;
+}
+
+.feedback {
+    visibility: visible;
+    transition: opacity 1.5s, margin-top 1.5s;
+    opacity: 1;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#lab916-quote .active {
+    top: 50px !important;
+}
+
+.L9-mobile-area {
+    display: none;
+    color: #FFFFFF;
+}
+
+@media screen and (max-width: 600px) {
+    .L9-mobile-area {
+        display: inline-block;
+    }
+}
+
+#lab916-quote #contact.active {
+    top: 10px !important;
+}
+
+/* Style inputs with type="text", select elements and textareas */
+input[type=text], input[type=email], select {
+    width: 95%;
+    padding: 2px; /* Some padding */
+    border: 1px solid #ccc; /* Gray border */
+    border-radius: 4px; /* Rounded borders */
+    box-sizing: border-box; /* Make sure that padding and width stays in place */
+    margin: 4px 4px;
+    resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
+}
+
+textarea {
+    width: 100%;
+}
+
+/* Style the submit button with a specific background color etc */
+input[type=submit] {
+    background-color: #434343;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 200ms linear;
+}
+
+/* When moving the mouse over the submit button, add a darker green color */
+input[type=submit]:hover {
+    background-color: #2c2c2c;
+    color: #ffffff;
+    transition: all 200ms linear;
+}
+
+.L9-form-container {
+    padding: 24px;
+    text-align: left;
+}
+
+@media screen and (max-width: 600px) {
+    .L9-form-container {
+        position: relative;
+        width: 370px;
+        margin-left: -140%;
+    }
+}
+
+#lab916-mobile-progress-container {
+    display: none;
+}
+
+.lab-overflow {
+    overflow: hidden
+}
+
+@media screen and (max-width: 600px) {
+    #lab916-mobile-progress-container {
+        display: block;
+        position: fixed;
+        width: 100%;
+        text-align: center;
+        z-index: 9999;
+    }
+
+    #lab916-quote .active {
+        top: 0 !important;
+    }
+
+    .lab-overflow {
+        overflow: auto;
+    }
+
+    #lab916-mobile-progress-container .L9-indicator-row {
+        display: none;
+    }
+}
+
+
+/*
+---- END: Quote Style Rules ----
+*/
+
+
+
+

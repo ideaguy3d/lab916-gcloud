@@ -21,7 +21,7 @@ use PDO;
 /**
  * Class Sql implements the DataModelInterface with a mysql or postgres database.
  */
-class SqlModel implements DataModelInterface
+class BookShelfModel implements BookShelfInterface
 {
     private $dsn;
     private $user;

@@ -10,15 +10,15 @@ $clientName = isset($_GET["client-name"]) ? $_GET["client-name"] : null;
 $sellerId = isset($_GET["table-name"]) ? $_GET["table-name"] : null;
 $mwsAuthKey = isset($_GET["mws-auth-key"]) ? $_GET["mws-auth-key"] : null;
 
-
 //-- Invoke Functions:
-echo "recId = " . createTable($app, $clientName);
+echo " - lab916 - recId = " . createTable($app);
 // createReport($app);
 
-function createTable($app, $clientName) {
+function createTable($app) {
     $model = $app["dynamic-client-add.model"]($app);
-    $labId = $model->createCustomFbaOrdersTable($clientName);
-    return $labId;
+    // $labId = $model->createCustomFbaOrdersTable($clientName);
+    // return $labId;
+    return "nothing really happened :T";
 }
 
 function createReport($app) {

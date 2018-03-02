@@ -37,10 +37,9 @@
             var sellerId = encodeURIComponent(data.sellerId);
             var mwsAuthKey = encodeURIComponent(data.mwsAuthKey);
 
-            var reqStr = "/?action=" + enAction +
-                "&client-name=" + clientName +
-                "&seller-id=" + sellerId +
-                "&mws-auth-key=" + mwsAuthKey;
+            var reqStr = "&client-name=" + clientName ;
+
+            console.log("lab916 - The reqStr = "+reqStr);
 
             //-- make the HTTP request:
             return $http.get(reqStr);

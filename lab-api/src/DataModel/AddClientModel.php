@@ -9,7 +9,10 @@
 namespace Lab916\Cloud\Amazon\Mws\Reports\DataModel;
 
 use PDO;
-
+/**
+ * Class AddClientModel
+ * @package Lab916\Cloud\Amazon\Mws\Reports\DataModel
+ */
 class AddClientModel implements AddClientInterface
 {
     private $dsn;
@@ -17,13 +20,11 @@ class AddClientModel implements AddClientInterface
     private $password;
     private $allTheCurRowsNames;
 
-    public function __construct($dsn, $user, $password) {
+    public function __construct($dsn, $user, $password, $clientName) {
         $this->dsn = $dsn;
         $this->user = $user;
         $this->password = $password;
-    }
 
-    public function createCustomFbaOrdersTable($clientName) {
         $pdo = $this->newConnection();
 
         $columns = [
@@ -49,10 +50,14 @@ class AddClientModel implements AddClientInterface
         }, $columns);
 
         $tableName = $clientName . "_fba_sales_v1";
-
+        echo "in the AddClientModel, table name = $tableName";
         // actually create the table
         $colText = implode(", ", $columns);
         $pdo->query("CREATE TABLE IF NOT EXISTS $tableName ($colText)");
+    }
+
+    public function createCustomFbaOrdersTable($clientName) {
+
     }
 
     public function storeReportData($reportData) {
@@ -67,8 +72,10 @@ class AddClientModel implements AddClientInterface
 
     public static function getMysqlDsn($dbName, $port, $connectionName = null) {
         if ($connectionName) {
-            return sprintf('mysql:unix_socket=/cloudsql/%s;dbname=%s',
-                $connectionName, $dbName
+            return sprintf(
+                'mysql:unix_socket=/cloudsql/%s;dbname=%s',
+                $connectionName,
+                $dbName
             );
         }
 

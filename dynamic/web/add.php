@@ -17,6 +17,7 @@
 <section data-ng-app="myApp" class="container">
     <div data-ng-controller="CoreCtrl">
         <h2>{{ccMessage}}</h2>
+        <h4>March 2nd, ninja test</h4>
         <form data-ng-submit="createTable()">
             <input type="text" placeholder="MWS Auth Key" ng-model="newClientReport.mwsAuthKey">
             <input type="text" placeholder="Client Name" ng-model="newClientReport.clientName">

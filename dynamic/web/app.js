@@ -13,7 +13,7 @@ angular.module('myApp', ['ngRoute']).config(['$locationProvider', '$routeProvide
         $scope.newClientReport = {
             mwsAuthKey: "asdlkj23415",
             clientName: "julius3d",
-            tableName: "julius3d_fba_orders_v1"
+            tableName: "a"+Math.floor(Math.random() * 2000)+"_test"
         };
 
         $scope.testGetOne = function () {

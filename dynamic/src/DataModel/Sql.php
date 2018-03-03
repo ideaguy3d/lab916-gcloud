@@ -39,10 +39,10 @@ class Sql implements DataModelInterface
         $this->user = $user;
         $this->password = $password;
 
-        $pdo = $this->newConnection();
+        //$pdo = $this->newConnection();
 
-        $this->createBooksTable($pdo);
-        $this->createTasksTable($pdo);
+        //$this->createBooksTable($pdo);
+        //$this->createTasksTable($pdo);
     }
 
     private function createBooksTable($pdo) {
@@ -106,6 +106,24 @@ class Sql implements DataModelInterface
         $pdo->query("CREATE TABLE IF NOT EXISTS $tableName ($columnValues)");
     }
 
+    public function createSimpleClientReport($clientInfo, $tableName) {
+        $pdo = $this->newConnection();
+
+        // create the table
+        $this->createSimpleClientTable($pdo, $tableName);
+
+        $names = array_keys($clientInfo);
+        $placeholders = array_map(function($key) {
+            return ":$key";
+        }, $names);
+        $sql = sprintf("INSERT INTO $tableName (%s) VALUES (%s)",
+            implode(", ", $names), implode(", ", $placeholders));
+        $statement = $pdo->prepare($sql);
+        $statement->execute($clientInfo);
+
+        return $pdo->lastInsertId();
+    }
+
     /**
      * Creates a new PDO instance and sets error mode to exception.
      *
@@ -165,22 +183,6 @@ class Sql implements DataModelInterface
             'books' => $rows,
             'cursor' => $new_cursor,
         );
-    }
-
-    public function createSimpleClientReport($clientInfo, $tableName) {
-        $pdo = $this->newConnection();
-        $this->createSimpleClientTable($pdo, $tableName);
-
-        $names = array_keys($clientInfo);
-        $placeholders = array_map(function($key) {
-            return ":$key";
-        }, $names);
-        $sql = sprintf("INSERT INTO $tableName (%s) VALUES (%s)",
-            implode(", ", $names), implode(", ", $placeholders));
-        $statement = $pdo->prepare($sql);
-        $statement->execute($clientInfo);
-
-        return $pdo->lastInsertId();
     }
 
     public function create($book, $id = null) {

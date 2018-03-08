@@ -24,7 +24,7 @@ $amazonExp = isset($_GET["summary-of-experiences"]) ? $_GET["summary-of-experien
 $website = isset($_GET["website"]) ? $_GET["website"] : null;
 //              ~ END: Quote Data Model data ~
 
-if ($action === "gcloud-quote-create") {
+if ($action === "quote") {
     echo " - in googleQuoteContactF() from ctrl.quote.php file - ";
     $model = $app['quote.model']($app);
     

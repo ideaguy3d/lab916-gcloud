@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bookshelf - PHP on Google Cloud Platform</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="app.css">
+</head>
+
+
+<body>
+
+<section data-ng-app="myApp" class="container">
+    <div data-ng-controller="CoreCtrl">
+        <h2>{{ccMessage}}</h2>
+        <form data-ng-submit="createTable()">
+            <input type="text" placeholder="MWS Auth Key" ng-model="newClientReport.mwsAuthKey">
+            <input type="text" placeholder="Client Name" ng-model="newClientReport.clientName">
+            <input type="text" placeholder="Table Name" ng-model="newClientReport.tableName">
+            <!-- submit button -->
+            <button type="submit">Enter</button>
+        </form>
+
+        <br>
+
+        <p>Server Response: {{ccCreateTableResponse}}</p>
+    </div>
+</section>
+
+<!-- In production use:
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+-->
+
+<!-- Vendor JavaScript -->
+<script src="bower_components/angular.min.js"></script>
+<script src="bower_components/angular-route.min.js"></script>
+
+<!-- Custom JavaScript -->
+<script src="app.js"></script>
+</body>
+</html>

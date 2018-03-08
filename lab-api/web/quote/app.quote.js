@@ -227,7 +227,7 @@
             var amazonServices = encodeURIComponent(amazonServicesStr);
 
             //-- The Action:
-            var action = encodeURIComponent('gcloud-quote-create');
+            var action = encodeURIComponent('quote');
 
             //-- send the request:
             var reqStr = '/?action=' + action + '&name=' + name + '&email=' + email +
@@ -242,7 +242,10 @@
                 '&number-of-products=' + numberProductsCompany + '&send-email=' + sendEmail +
                 '&number-of-products-on-amazon=' + numberProductsAmazon + '&company=' + company;
             console.log("jha - request string = " + reqStr);
-            return $http.get(reqStr);
+            return $http.get(reqStr).then(function(res) {
+                console.log("lab916 res data =");
+                console.log(res.data);
+            });
         };
 
         var createHubspotContact = function (data) {

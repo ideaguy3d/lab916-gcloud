@@ -1,0 +1,187 @@
+[
+    {
+        "question": "Where are you currently selling?",
+        "height": "short",
+        "shortenedQuestion": "Currently Selling",
+        "answers": [
+            {
+                "id": 0,
+                "text": "Amazon Seller Central",
+                "img": "img/icons/SellerCentral.jpg",
+                "optionIsSelected": false
+            },
+            {
+                "id": 1,
+                "text": "Amazon Vendor Central",
+                "img": "img/icons/VendorCentral.jpg",
+                "optionIsSelected": false
+            },
+            {
+                "id": 2,
+                "text": "Website",
+                "img": "img/icons/Website.jpg",
+                "optionIsSelected": false
+            },
+            {
+                "id": 3,
+                "text": "Amazon Vendor Express",
+                "img": "img/icons/VendorExpress.jpg",
+                "optionIsSelected": false
+            },
+            {
+                "id": 4,
+                "text": "other",
+                "img": "img/icons/Other.jpg",
+                "type": "textarea",
+                "optionIsSelected": false
+            }
+        ],
+        "correct": 0,
+        "feedback": "Lab916 are specialist in this service"
+    },
+    {
+        "question": "What are some details about your Company?",
+        "height": "medium",
+        "shortenedQuestion": "Company Snapshot",
+        "answers": [
+            {
+                "id": 0,
+                "text": "Estimated Yearly Gross Sales All Channels?",
+                "type": "input text",
+                "optionIsSelected": false
+            },
+            {
+                "id": 1,
+                "text": "Estimate Monthly Gross Sales on Amazon?",
+                "type": "input text",
+                "optionIsSelected": false
+            },
+            {
+                "id": 2,
+                "text": "Annual marketing budget for Company?",
+                "type": "input text",
+                "optionIsSelected": false
+            },
+            {
+                "id": 3,
+                "text": "Monthly marketing budget on Amazon?",
+                "type": "input text",
+                "optionIsSelected": false
+            }
+        ],
+        "correct": 0,
+        "feedback": "Lab916 are specialist in this service"
+    },
+    {
+        "question": "What are the Goals you have for Amazon?",
+        "height": "medium",
+        "shortenedQuestion": "Amazon Goals",
+        "answers": [
+            {
+                "id": 0,
+                "text": "Summary of experience to date with Amazon (highlights and painpoints)?",
+                "type": "textarea",
+                "optionIsSelected": false
+            },
+            {
+                "id": 1,
+                "text": "Goals for Amazon Business",
+                "type": "textarea",
+                "optionIsSelected": false
+            }
+        ],
+        "correct": 0,
+        "feedback": "Lab916 are specialist in this service"
+    },
+    {
+        "question": "What services do you need help with?",
+        "height": "extra short",
+        "shortenedQuestion": "Amazon Services",
+        "answers": [
+            {
+                "id": 0,
+                "text": "Account Creation",
+                "img": "img/icons/AccountCreation.jpg",
+                "optionIsSelected": false
+            },
+            {
+                "id": 1,
+                "text": "Account Management",
+                "img": "img/icons/AccountManage.jpg",
+                "optionIsSelected": false
+            },
+            {
+                "id": 2,
+                "text": "Content Creation (copywrite, images, enhanced content)",
+                "img": "img/icons/ContentCreate.jpg",
+                "optionIsSelected": false
+            },
+            {
+                "id": 3,
+                "text": "Inventory uploading and organization",
+                "img": "img/icons/Inventory.jpg",
+                "optionIsSelected": false
+            },
+            {
+                "id": 4,
+                "text": "Advertising",
+                "img": "img/icons/Promote.jpg",
+                "optionIsSelected": false
+            },
+            {
+                "id": 5,
+                "text": "FBA Organization",
+                "img": "img/icons/FBAorganize.jpg",
+                "optionIsSelected": false
+            },
+            {
+                "id": 6,
+                "text": "Reviews",
+                "img": "img/icons/Reviews.jpg",
+                "optionIsSelected": false
+            },
+            {
+                "id": 7,
+                "text": "Expanding to other Amazon marketplaces",
+                "img": "img/icons/ExpandingMarketplace.jpg",
+                "optionIsSelected": false
+            },
+            {
+                "id": 8,
+                "text": "other",
+                "img": "img/icons/Other2.jpg",
+                "type": "input text",
+                "optionIsSelected": false
+            }
+        ],
+        "correct": 0,
+        "feedback": "Lab916 are specialist in this service"
+    },
+    {
+        "question": "A little bit more information about your Company",
+        "height": "medium",
+        "shortenedQuestion": "Other Questions",
+        "answers": [
+            {
+                "id": 0,
+                "text": "Link to your website/other online presence",
+                "type": "textarea",
+                "optionIsSelected": false
+            },
+            {
+                "id": 1,
+                "text": "Number of products in Company/Brand",
+                "type": "input text",
+                "optionIsSelected": false
+            },
+            {
+                "id": 2,
+                "text": "Number of products On Amazon",
+                "type": "input text",
+                "optionIsSelected": false
+            }
+        ],
+        "correct": 0,
+        "feedback": "Lab916 are specialist in this service"
+    }
+]

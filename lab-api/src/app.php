@@ -84,7 +84,7 @@ switch ($action) {
         // require __DIR__ . '';
         break;
     default:
-        echo "Please include an action!";
+        echo " { app.php switch default } ";
 }
 
 // Turn on debug locally

@@ -46,6 +46,10 @@
     </div>
 
     <br>
+
+    <h6>Server Response = [ {{reportResponse}} ]</h6>
+
+    <br>
     <p>v{{43-42 + message}}</p>
 </div>
 

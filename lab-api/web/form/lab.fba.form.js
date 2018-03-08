@@ -12,9 +12,9 @@
 
         // data model
         $scope.clientObj = {
-            clientName: "",
-            mwsAuthKey: "",
-            sellerId: ""
+            clientName: "a" + Math.floor(Math.random() * 2000) + "test",
+            mwsAuthKey: "mws.adslfj324token",
+            sellerId: "adlsjfk324lkafjoiu"
         };
 
         $scope.createReport = function () {
@@ -24,6 +24,7 @@
                 console.log(res.data);
                 console.log("response object =");
                 console.log(res);
+                $scope.reportResponse = res.data;
             });
         }
     }
@@ -37,7 +38,7 @@
             var sellerId = encodeURIComponent(data.sellerId);
             var mwsAuthKey = encodeURIComponent(data.mwsAuthKey);
 
-            var reqStr = "&client-name=" + clientName ;
+            var reqStr = "/?action=dynamic-client-add&client-name=" + clientName ;
 
             console.log("lab916 - The reqStr = "+reqStr);
 

@@ -17,7 +17,7 @@ $app = require __DIR__ . '/../src/app.php';
 //-- CONTROLLERS --\\
 switch ($action) {
     case "dynamic-client-add":
-        echo " - lab916 - in dynamic-client-add case";
+        echo " \n( in dynamic-client-add case ) ";
         require __DIR__ . '/../src/ctrl.dynamic.client.add.php';
         break;
     case "quote":
@@ -33,5 +33,5 @@ switch ($action) {
         // require __DIR__ . '';
         break;
     default:
-        echo " { index.php switch default } ";
+        echo " \n( index.php switch default ) ";
 }

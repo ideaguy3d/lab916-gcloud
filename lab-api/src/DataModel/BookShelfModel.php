@@ -58,7 +58,8 @@ class BookShelfModel implements BookShelfInterface
         // now create the table
         $columnText = implode(', ', $columns);
         $pdo = $this->newConnection();
-        $pdo->query("CREATE TABLE IF NOT EXISTS books ($columnText)");
+        $resultSet = $pdo->query("CREATE TABLE IF NOT EXISTS books ($columnText)");
+        return $resultSet;
     }
 
     /**

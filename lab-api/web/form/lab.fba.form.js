@@ -38,9 +38,10 @@
             var sellerId = encodeURIComponent(data.sellerId);
             var mwsAuthKey = encodeURIComponent(data.mwsAuthKey);
 
-            var reqStr = "/?action=dynamic-client-add&client-name=" + clientName ;
 
-            console.log("lab916 - The reqStr = "+reqStr);
+            var reqStr = "/?action=" + enAction + "&client-name=" + clientName;
+
+            console.log("lab916 - The reqStr = " + reqStr);
 
             //-- make the HTTP request:
             return $http.get(reqStr);

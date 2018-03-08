@@ -50,7 +50,7 @@ class AddClientModel implements AddClientInterface
         }, $columns);
 
         $tableName = $clientName . "_fba_sales_v1";
-        echo "in the AddClientModel, table name = $tableName";
+        echo " \n( in the AddClientModel, table name = $tableName )";
         // actually create the table
         $colText = implode(", ", $columns);
         $pdo->query("CREATE TABLE IF NOT EXISTS $tableName ($colText)");

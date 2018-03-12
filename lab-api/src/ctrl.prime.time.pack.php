@@ -10,16 +10,18 @@ $action = isset($_GET["action"]) ? $_GET["action"] : null;
 $client = isset($_GET["client"]) ? $_GET["client"] : null;
 $ptpFbaReport = scrapePtpReport();
 
+
 if ($action === 'gcloud-create-report' and $client === 'ptp') {
     $model = $app['cbc-report.model']($app);
     $labReportId = $model->createPtpGetReport($ptpFbaReport);
     echo "<br>Action = $action<br><br>";
     echo "Result = $labReportId";
 }
-
-// function will scrape the Prime Time Packaging report site.
+// ?mws-auth-token=amzn.mws.eab0dfe5-9c2b-743b-6f84-05e4348b9f3f&merchant-id=A328KHL2CSCCRL
+// will scrape the Prime Time Packaging report site.
 function scrapePtpReport() {
-    $report1 = file_get_contents("http://lab916.wpengine.com/mws/src/MarketplaceWebService/api/ptp-report.php");
+    $report1 = file_get_contents("http://lab916.wpengine.com/mws/src/MarketplaceWebService/api/ptp-report.php"
+    +);
     $explode1 = explode('<h2>Report Contents</h2>', $report1);
     $cells = explode("\t", $explode1[1]);
     sleep(5); // give the report data a while to stream since report may be a very large str

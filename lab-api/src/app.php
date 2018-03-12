@@ -11,6 +11,7 @@ $config =  __DIR__ . '/../config/' . 'settings.yml';
 
 $app['config'] = Yaml::parse(file_get_contents($config));
 
+// figure out how to implement this switch using an associative array.
 switch ($action) {
     case "dynamic-client-add":
         // Dynamically adding client reports via a form

@@ -17,5 +17,5 @@ interface AddClientInterface
      *
      * @return mixed The id of the last inserted record
      */
-    public function storeReportData($reportData);
+    public function createReport($reportData);
 }

@@ -12,9 +12,9 @@
 
         // data model
         $scope.clientObj = {
-            clientName: "a" + Math.floor(Math.random() * 2000) + "test",
-            mwsAuthKey: "mws.adslfj324token",
-            sellerId: "adlsjfk324lkafjoiu"
+            clientName: "",
+            mwsAuthKey: "",
+            merchantId: ""
         };
 
         $scope.createReport = function () {
@@ -35,11 +35,11 @@
             var action = "dynamic-client-add";
             var enAction = encodeURIComponent(action);
             var clientName = encodeURIComponent(data.clientName);
-            var sellerId = encodeURIComponent(data.sellerId);
+            var merchantId = encodeURIComponent(data.sellerId);
             var mwsAuthKey = encodeURIComponent(data.mwsAuthKey);
 
-
-            var reqStr = "/?action=" + enAction + "&client-name=" + clientName;
+            var reqStr = "/?action=" + enAction + "&client-name=" + clientName + "&mws-auth-key=" + mwsAuthKey
+                + "&merchant-id=" + merchantId;
 
             console.log("lab916 - The reqStr = " + reqStr);
 

@@ -9,15 +9,18 @@
 $clientName = isset($_GET["client-name"]) ? $_GET["client-name"] : null;
 $sellerId = isset($_GET["table-name"]) ? $_GET["table-name"] : null;
 $mwsAuthKey = isset($_GET["mws-auth-key"]) ? $_GET["mws-auth-key"] : null;
+$merchantId = isset($_GET["merchant-id"]) ? $_GET["merchant-id"] : null;
+
+$reportData = scrapeAmazonMwsFbaReport($merchantId, $mwsAuthKey);
 
 //-- Invoke Functions:
 echo " ( lab916 - recId = " . createTable($app, $clientName) . " ) ";
 // createReport($app);
 
-function createTable($app, $clientName) {
+function createTable($app, $reportData) {
     $model = $app["dynamic-client-add.model"]($app);
-    $labId = $model->createCustomFbaOrdersTable($clientName);
-    return $labId;
+    $labReportId = $model->createReport($reportData);
+    return " - ID Of last created report = $labReportId - ";
 }
 
 function createReport($app) {
@@ -25,11 +28,12 @@ function createReport($app) {
 }
 
 // function will scrape the Prime Time Packaging report site.
-function scrapeAmazonMwsReport() {
-    $report1 = file_get_contents("http://lab916.wpengine.com/mws/src/MarketplaceWebService/api/amazon-fba.php");
+function scrapeAmazonMwsFbaReport($merchantId, $mwsAuthToken) {
+    $labResource = "http://mws.lab916.space/src/MarketplaceWebService/api/fba.php";
+    $report1 = file_get_contents($labResource . "?merchant-id=" . $merchantId . "&mws-auth-token=" . $mwsAuthToken);
     $explode1 = explode('<h2>Report Contents</h2>', $report1);
     $cells = explode("\t", $explode1[1]);
-    sleep(5); // give the report data a while to stream since report may be a very large str
+    sleep(4); // give the report data a while to stream since report may be a very large str
     $amazonRowsFbaClean = [];
     $table = [];
     $row = 0;

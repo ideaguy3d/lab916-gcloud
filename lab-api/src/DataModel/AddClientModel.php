@@ -19,6 +19,7 @@ class AddClientModel implements AddClientInterface
     private $user;
     private $password;
     private $allTheCurRowsNames;
+    private $tableName;
 
     public function __construct($dsn, $user, $password, $clientName) {
         $this->dsn = $dsn;
@@ -49,19 +50,23 @@ class AddClientModel implements AddClientInterface
             return explode(" ", $colDef)[0];
         }, $columns);
 
-        $tableName = $clientName . "_fba_sales_v1";
-        echo " \n( in the AddClientModel, table name = $tableName )";
+        $this->tableName = $clientName . "_fba_sales_v1";
+        echo " \n( in the AddClientModel, table name = $this->tableName )";
         // actually create the table
         $colText = implode(", ", $columns);
-        $pdo->query("CREATE TABLE IF NOT EXISTS $tableName ($colText)");
+        $pdo->query("CREATE TABLE IF NOT EXISTS $this->tableName ($colText)");
     }
 
-    public function createCustomFbaOrdersTable($clientName) {
+    public function createReport($reportData) {
+        $pdo = $this->newConnection();
+        $plaholders = array_map(function ($key) {
+            return ":$key";
+        }, $this->allTheCurRowsNames);
+        $recDataAssoc = [];
+        $track = 0;
+        $col = 0;
 
-    }
-
-    public function storeReportData($reportData) {
-
+        
     }
 
     private function newConnection() {

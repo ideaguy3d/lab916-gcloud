@@ -15,6 +15,7 @@ $action = isset($_GET["action"]) ? $_GET["action"] : null;
 $app = require __DIR__ . '/../src/app.php';
 
 //-- CONTROLLERS --\\
+// figure out how to implement this using an associative array.
 switch ($action) {
     case "dynamic-client-add":
         echo " \n( in dynamic-client-add case ) ";

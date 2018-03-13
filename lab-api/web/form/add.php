@@ -34,8 +34,8 @@
         <div class="col-sm-12 col-md-8 col-lg-6 col-xl-4">
             <form>
                 <input type="text" ng-model="clientObj.mwsAuthKey" placeholder="MWS Auth Token">
-                <input type="text" ng-model="clientObj.clientName" placeholder="Client Name: no spaces, all lower case letters please">
-                <input type="text" ng-model="clientObj.sellerId" placeholder="Sellers' ID">
+                <input type="text" ng-model="clientObj.clientName" placeholder="Client Name(no spaces, all lower case letters)">
+                <input type="text" ng-model="clientObj.merchantId" placeholder="Seller/Merchant ID">
 
                 <br>
                 <div type="submit" class="btn btn-sm btn-warning mt-2" data-ng-click="createReport()">

@@ -215,7 +215,6 @@ class AmazonReportsModel implements AmazonReportsInterface
             'ship_country',         // c22
             'promotion_ids',        // c23
             'is_business_order',    // c24
-
         ];
         $placeholders = array_map(function ($key) {
             return ":$key";

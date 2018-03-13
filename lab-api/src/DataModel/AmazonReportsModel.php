@@ -237,10 +237,10 @@ class AmazonReportsModel implements AmazonReportsInterface
             $col++;
         }
 
-        // ----------------------------------------------------------------------
+        // ------------------------------------------------------------------------
         // Converting indexed array to an assoc.ar THEN inserting data into table
+        // ------------------------------------------------------------------------
         for ($row = 1; $row < (count($reports) - 1); $row++) {
-
             $curRow = $reports[$row];
             $u = null; // unknown
             //-- Right now data is depending on index of array, but eventually there

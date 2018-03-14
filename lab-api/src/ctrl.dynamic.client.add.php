@@ -7,14 +7,13 @@
  */
 
 $clientName = isset($_GET["client-name"]) ? $_GET["client-name"] : null;
-$sellerId = isset($_GET["table-name"]) ? $_GET["table-name"] : null;
 $mwsAuthKey = isset($_GET["mws-auth-key"]) ? $_GET["mws-auth-key"] : null;
 $merchantId = isset($_GET["merchant-id"]) ? $_GET["merchant-id"] : null;
 
 // Force values for debugging
 $mwsAuthKey = "amzn.mws.eab0dfe5-9c2b-743b-6f84-05e4348b9f3f";
 $merchantId = "A328KHL2CSCCRL";
-
+$clientName = "test" . rand(1,2000);
 $reportData = scrapeAmazonMwsFbaReport($merchantId, $mwsAuthKey);
 
 //-- Invoke Functions:

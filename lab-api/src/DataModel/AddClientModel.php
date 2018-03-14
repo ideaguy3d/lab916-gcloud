@@ -48,6 +48,7 @@ class AddClientModel implements AddClientInterface
             'quantity VARCHAR(255) NULL DEFAULT NULL ',                   // c16
             'currency VARCHAR(255) NULL DEFAULT NULL ',                   // c17
             'item_price VARCHAR(255) NULL DEFAULT NULL ',                 // c18
+            'item_tax VARCHAR(255) NULL DEFAULT NULL ',
             'shipping_price VARCHAR(255) NULL DEFAULT NULL ',             // c19
             'ship_promotion_discount VARCHAR(255) NULL DEFAULT NULL ',    // c20
             'ship_city VARCHAR(255) NULL DEFAULT NULL ',                  // c19
@@ -56,6 +57,8 @@ class AddClientModel implements AddClientInterface
             'ship_country VARCHAR(255) NULL DEFAULT NULL ',               // c22
             'promotion_ids VARCHAR(255) NULL DEFAULT NULL ',              // c23
             'is_business_order VARCHAR(255) NULL DEFAULT NULL ',          // c24
+            'purchase_order_number VARCHAR(255) NULL DEFAULT NULL ',
+            'price_designation VARCHAR(255) NULL DEFAULT NULL ',
             // set the index
             'UNIQUE `AMAZON_ORDER` (`amazon_order_id`(255))',
         ];

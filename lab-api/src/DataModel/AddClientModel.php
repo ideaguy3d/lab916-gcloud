@@ -81,7 +81,32 @@ class AddClientModel implements AddClientInterface
     // Will dynamically create a report from a web form.
     public function createReport($reports) {
         $pdo = $this->newConnection();
-        $colNames = $this->allTheCurRowsNames;
+        $colNames = [
+            'amazon_order_id',      // c1
+            'merchant_order_id',    // c2
+            'purchase_date',        // c3
+            'last_updated_date',    // c4
+            'order_status',         // c5
+            'fulfillment_channel',  // c6
+            'sales_channel',        // c7
+            'url',                  // c8
+            'ship_service_level',   // c9
+            'product_name',         // c10
+            'sku',                  // c11
+            'asin',                 // c12
+            'item_status',          // c13
+            'quantity',             // c14
+            'currency',             // c15
+            'item_price',           // c16
+            'shipping_price',       // c17
+            'ship_promotion_discount',// c18
+            'ship_city',            // c19
+            'ship_state',           // c20
+            'ship_postal_code',     // c21
+            'ship_country',         // c22
+            'promotion_ids',        // c23
+            'is_business_order',    // c24
+        ];
         $recDataAssoc = [];
         $track = 0;
         $col = 0;
@@ -97,9 +122,10 @@ class AddClientModel implements AddClientInterface
         $statement = $pdo->prepare($sql);
 
         // ----------------------------------------------------------------------
-        // Insert data into table (CREATE op of CRUD).
+        // Insert data into table (CREATE op of CRUD), $row = 1 because index 0
+        // are the column names.
         // ----------------------------------------------------------------------
-        for ($row = 0; $row < (count($reports) - 1); $row++) {
+        for ($row = 1; $row < (count($reports) - 1); $row++) {
             $curRow = $reports[$row];
             $u = null;
             //-- Right now data is depending on index of array, but eventually there
@@ -127,7 +153,7 @@ class AddClientModel implements AddClientInterface
             $shipCountry = isset($curRow[27]) ? $curRow[27] : $u;
             $promoId = isset($curRow[28]) ? $curRow[28] : $u;
             $isBusOrder = isset($curRow[29]) ? $curRow[29] : $u;
-            $url = "amazon.com/dp/" . $asin; // index 12 should contain asin
+            $url = "amazon.com/dp/" . $asin; // index 12 should contain asin, c30
 
             // c1
             $recDataAssoc["amazon_order_id"] = $amazonOrderId;
@@ -181,7 +207,8 @@ class AddClientModel implements AddClientInterface
 
             try {
                 //-- INSERT DATA:
-                $statement->execute($recDataAssoc);
+                $resultSet = $statement->execute($recDataAssoc);
+                echo "<p>res set = $resultSet</p>";
             }
             catch (\PDOException $e) {
                 $errorMessage = $e->getMessage();
@@ -199,7 +226,7 @@ class AddClientModel implements AddClientInterface
                 echo "<br>";
             }
 
-            print_r($recDataAssoc);
+            // print_r($recDataAssoc);
             $recDataAssoc = [];
         }
 

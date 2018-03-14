@@ -41,9 +41,7 @@
                        placeholder="Seller/Merchant ID">
 
                 <br>
-                <button type="submit" class="btn btn-sm btn-warning mt-2" data-ng-click="createReport()">
-                    ADD
-                </button>
+                <div type="submit" class="btn btn-sm btn-warning mt-2" data-ng-click="createReport()">Create</div>
             </form>
         </div>
     </div>

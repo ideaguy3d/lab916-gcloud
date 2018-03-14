@@ -7,7 +7,7 @@ use Symfony\Component\Yaml\Yaml;
 
 $app = [];
 
-$config =  __DIR__ . '/../config/' . 'settings.yml';
+$config = __DIR__ . '/../config/' . 'settings.yml';
 
 $app['config'] = Yaml::parse(file_get_contents($config));
 

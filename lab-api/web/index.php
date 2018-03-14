@@ -11,6 +11,9 @@ require_once __DIR__ . '/../vendor/autoload.php';
 //-- The action:
 $action = isset($_GET["action"]) ? $_GET["action"] : null;
 
+// force action for debugging purposes:
+$action = "dynamic-client-add";
+
 //-- The application:
 $app = require __DIR__ . '/../src/app.php';
 
@@ -18,7 +21,7 @@ $app = require __DIR__ . '/../src/app.php';
 // figure out how to implement this using an associative array.
 switch ($action) {
     case "dynamic-client-add":
-        echo " \n( in dynamic-client-add case ) ";
+        echo " \n( in index.php dynamic-client-add switch case ) ";
         require __DIR__ . '/../src/ctrl.dynamic.client.add.php';
         break;
     case "quote":

@@ -3,12 +3,13 @@
 
     var app = angular.module("lab-fba-form", []);
 
-    app.controller("FormCtrl", ["$scope", "labDataSer", FormCtrlClass]);
+    app.controller("FormCtrl", ["$scope", "labDataSer", "$sce", "$interval", FormCtrlClass]);
     app.factory("labDataSer", ["$http", DataSerClass]);
 
     // CLASS CTRL OBJECT "FormCtrlClass"
-    function FormCtrlClass($scope, labDataSer) {
+    function FormCtrlClass($scope, labDataSer, $sce, $interval) {
         $scope.message = " FBA Form";
+        $scope.showGif = false;
 
         // data model
         $scope.clientObj = {
@@ -19,12 +20,18 @@
 
         $scope.createReport = function () {
             console.log("lab916 - making the request");
+            $scope.showGif = true;
+
+            $interval(function () {
+                $scope.countdown = 8;
+                $scope.countdown--;
+            }, 1000, 10, true);
+
             labDataSer.createReport($scope.clientObj).then(function (res) {
-                console.log("response data =");
-                console.log(res.data);
                 console.log("response object =");
                 console.log(res);
-                $scope.reportResponse = res.data;
+                $scope.showGif = false;
+                $scope.reportResponse = $sce.trustAsHtml(res.data);
             });
         }
     }
@@ -35,7 +42,7 @@
             var action = "dynamic-client-add";
             var enAction = encodeURIComponent(action);
             var clientName = encodeURIComponent(data.clientName);
-            var merchantId = encodeURIComponent(data.sellerId);
+            var merchantId = encodeURIComponent(data.merchantId);
             var mwsAuthKey = encodeURIComponent(data.mwsAuthKey);
 
             var reqStr = "/?action=" + enAction + "&client-name=" + clientName + "&mws-auth-key=" + mwsAuthKey

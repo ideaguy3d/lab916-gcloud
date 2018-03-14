@@ -11,29 +11,38 @@ $sellerId = isset($_GET["table-name"]) ? $_GET["table-name"] : null;
 $mwsAuthKey = isset($_GET["mws-auth-key"]) ? $_GET["mws-auth-key"] : null;
 $merchantId = isset($_GET["merchant-id"]) ? $_GET["merchant-id"] : null;
 
+// Force values for debugging
+$mwsAuthKey = "amzn.mws.eab0dfe5-9c2b-743b-6f84-05e4348b9f3f";
+$merchantId = "A328KHL2CSCCRL";
+
 $reportData = scrapeAmazonMwsFbaReport($merchantId, $mwsAuthKey);
 
 //-- Invoke Functions:
-echo " ( lab916 - recId = " . createTable($app, $clientName) . " ) ";
-// createReport($app);
+createReport($app, $reportData, $clientName);
 
-function createTable($app, $reportData) {
-    $model = $app["dynamic-client-add.model"]($app);
-    $labReportId = $model->createReport($reportData);
-    return " - ID Of last created report = $labReportId - ";
-}
 
-function createReport($app) {
-    $model = $app["dynamic-client-add.model"]($app);
+
+
+// ----------------------------------------------------------------------
+// File relevant functions
+// ----------------------------------------------------------------------
+
+function createReport($app, $reports, $clientName) {
+    $model = $app["dynamic-client-add.model"]($app, $clientName);
+    $labReportId = $model->createReport($reports);
+    echo " ( Report Result ID = $labReportId ) ";
 }
 
 // function will scrape the Prime Time Packaging report site.
 function scrapeAmazonMwsFbaReport($merchantId, $mwsAuthToken) {
     $labResource = "http://mws.lab916.space/src/MarketplaceWebService/api/fba.php";
-    $report1 = file_get_contents($labResource . "?merchant-id=" . $merchantId . "&mws-auth-token=" . $mwsAuthToken);
+    $urlStr = $labResource . "?merchant-id=" . $merchantId . "&mws-auth-token=" . $mwsAuthToken;
+
+    $report1 = file_get_contents($urlStr);
+    sleep(8); // give the report data a while to stream since report may be a very large str
+
     $explode1 = explode('<h2>Report Contents</h2>', $report1);
     $cells = explode("\t", $explode1[1]);
-    sleep(4); // give the report data a while to stream since report may be a very large str
     $amazonRowsFbaClean = [];
     $table = [];
     $row = 0;
@@ -71,6 +80,9 @@ function scrapeAmazonMwsFbaReport($merchantId, $mwsAuthToken) {
         $amazonRowsFbaClean[$i] = $tempA;
         $idx = 0;
     }
+
+    echo " ( scrapeAmazonMwsFbaReport() did get invoked";
+    echo " && the url string = $urlStr) ";
 
     return $amazonRowsFbaClean;
 }

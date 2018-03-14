@@ -15,9 +15,8 @@ $app['config'] = Yaml::parse(file_get_contents($config));
 switch ($action) {
     case "dynamic-client-add":
         // Dynamically adding client reports via a form
-        $app["dynamic-client-add.model"] = function ($app) {
+        $app["dynamic-client-add.model"] = function ($app, $clientName) {
             $config = $app['config'];
-            $clientName = isset($_GET["client-name"]) ? $_GET["client-name"] : null;
 
             if (empty($config['lab916_backend'])) {
                 throw new \DomainException('lab916_backend must be configured');

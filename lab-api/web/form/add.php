@@ -33,21 +33,33 @@
     <div class="row">
         <div class="col-sm-12 col-md-8 col-lg-6 col-xl-4">
             <form>
-                <input type="text" ng-model="clientObj.mwsAuthKey" placeholder="MWS Auth Token">
-                <input type="text" ng-model="clientObj.clientName" placeholder="Client Name(no spaces, all lower case letters)">
-                <input type="text" ng-model="clientObj.merchantId" placeholder="Seller/Merchant ID">
+                <input type="text" ng-model="clientObj.mwsAuthKey"  required
+                       placeholder="MWS Auth Token">
+                <input type="text" ng-model="clientObj.clientName" required
+                       placeholder="Client Name(no spaces, all lower case letters)">
+                <input type="text" ng-model="clientObj.merchantId" required
+                       placeholder="Seller/Merchant ID">
 
                 <br>
-                <div type="submit" class="btn btn-sm btn-warning mt-2" data-ng-click="createReport()">
-                    Enter
-                </div>
+                <button type="submit" class="btn btn-sm btn-warning mt-2" data-ng-click="createReport()">
+                    ADD
+                </button>
             </form>
         </div>
     </div>
 
     <br>
 
-    <h6>Server Response = [ {{reportResponse}} ]</h6>
+    <div ng-if="showGif">
+        <p>Give it plenty of time to stream data.</p>
+        <p>{{ countdown }}</p>
+        <img src="../img/ripple.gif" alt="loader">
+    </div>
+    
+    <br>
+
+    <h6>Server Response =</h6>
+    <div ng-bind-html="reportResponse"></div>
 
     <br>
     <p>v{{43-42 + message}}</p>

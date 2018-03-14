@@ -65,20 +65,20 @@ class AddClientModel implements AddClientInterface
             return explode(" ", $colDef)[0];
         }, $columns);
         // get rid of last elem since it's an index not a column name
-        array_splice($this->allTheCurRowsNames, 1, -1);
 
         $this->tableName = $clientName . "_fba_sales_v1";
         echo " \n( in the AddClientModel.php __c, table name = $this->tableName )";
         // actually create the table
         $colText = implode(", ", $columns);
         $pdo->query("CREATE TABLE IF NOT EXISTS $this->tableName ($colText)");
+
+        array_splice($this->allTheCurRowsNames, -1);
     }
 
     // Will dynamically create a report from a web form.
     public function createReport($reports) {
         $pdo = $this->newConnection();
         $colNames = $this->allTheCurRowsNames;
-        $tableName = $this->tableName;
         $recDataAssoc = [];
         $track = 0;
         $col = 0;
@@ -86,7 +86,7 @@ class AddClientModel implements AddClientInterface
             return ":$key";
         }, $colNames);
 
-        $sql = sprintf("INSERT INTO $tableName (%s) VALUES (%s)",
+        $sql = sprintf("INSERT INTO $this->tableName (%s) VALUES (%s)",
             implode(", ", $colNames),
             implode(", ", $placeholders)
         );
@@ -196,6 +196,7 @@ class AddClientModel implements AddClientInterface
                 echo "<br>";
             }
 
+            print_r($recDataAssoc);
             $recDataAssoc = [];
         }
 

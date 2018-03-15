@@ -207,8 +207,7 @@ class AddClientModel implements AddClientInterface
 
             try {
                 //-- INSERT DATA:
-                $resultSet = $statement->execute($recDataAssoc);
-                echo "<p>res set = $resultSet</p>";
+                $statement->execute($recDataAssoc);
             }
             catch (\PDOException $e) {
                 $errorMessage = $e->getMessage();

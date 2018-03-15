@@ -11,8 +11,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
 //-- The action:
 $action = isset($_GET["action"]) ? $_GET["action"] : null;
 
-// force action for debugging purposes:
-$action = "dynamic-client-add";
+//-- Force action for debugging purposes:
+//$action = "dynamic-client-add";
 
 //-- The application:
 $app = require __DIR__ . '/../src/app.php';

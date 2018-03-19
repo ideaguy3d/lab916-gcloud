@@ -56,22 +56,35 @@ class Sql implements DataModelInterface
         $columns = array(
             'id serial PRIMARY KEY ',
             'title VARCHAR(255)',
-            'author VARCHAR(255)',
-            'published_date VARCHAR(255)',
-            'image_url VARCHAR(255)',
             'description VARCHAR(255)',
-            'created_by VARCHAR(255)',
-            'created_by_id VARCHAR(255)',
         );
 
-        // local function var to use later in the function
+        $mockData = [
+            "id" => "spartan124",
+            "title" => "Spartan Task",
+            "description" => "The Spartans were the fiercest and most well trained warriors of their time...",
+        ];
+
+        // local var to use later in the function
         $columnNames = array_map(function ($columnDefs) {
             return explode(' ', $columnDefs)[0];
         }, $columns);
 
-       $tableName = "spartan" . rand(0,2000);
-       $columnTitles = implode(", ", $columnNames);
-       $pdo->query("CREATE TABLE IF NOT EXISTS $tableName ($columnTitles)");
+        //--  1) create a table:
+        $tableName = "spartan" . rand(0, 2000);
+        $columnTitles = implode(", ", $columnNames);
+        $pdo->query("CREATE TABLE IF NOT EXISTS $tableName ($columnTitles)");
+
+        //-- 2) insert data into the newly created table:
+        $placeHolders = array_map(function ($key) {
+            return ":$key";
+        }, $columnNames);
+        $sql = sprintf("INSERT INTO $tableName (%s) VALUES (%s)",
+            implode(", ", $columnNames),
+            implode(", ", $placeHolders)
+        );
+        $statement = $pdo->prepare($sql);
+        $statement->execute($mockData);
     }
 
     private function createBooksTable($pdo) {

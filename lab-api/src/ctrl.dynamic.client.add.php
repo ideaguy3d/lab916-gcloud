@@ -40,7 +40,7 @@ function scrapeAmazonMwsFbaReport($merchantId, $mwsAuthToken) {
     $urlStr = $labResource . "?merchant-id=" . $merchantId . "&mws-auth-token=" . $mwsAuthToken;
 
     $report1 = file_get_contents($urlStr);
-    sleep(8); // give the report data a while to stream since report may be a very large str
+    sleep(3); // give the report data a while to stream since report may be a very large str
 
     $explode1 = explode('<h2>Report Contents</h2>', $report1);
     $cells = explode("\t", $explode1[1]);

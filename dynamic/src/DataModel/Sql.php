@@ -33,7 +33,11 @@ class Sql implements DataModelInterface
 
     /**
      * Creates the SQL books table if it doesn't already exist.
-     */
+     *
+     * @param mixed $dsn
+     * @param mixed $user
+     * @param mixed $password
+    **/
     public function __construct($dsn, $user, $password) {
         $this->dsn = $dsn;
         $this->user = $user;

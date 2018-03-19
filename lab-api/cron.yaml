@@ -1,0 +1,4 @@
+cron:
+- description: "practice one job"
+  url: /tasks/practice
+  schedule: every 24 hours

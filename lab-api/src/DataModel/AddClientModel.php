@@ -57,10 +57,10 @@ class AddClientModel implements AddClientInterface
             'ship_country VARCHAR(255) NULL DEFAULT NULL ',               // c22
             'promotion_ids VARCHAR(255) NULL DEFAULT NULL ',              // c23
             'is_business_order VARCHAR(255) NULL DEFAULT NULL ',          // c24
-            'purchase_order_number VARCHAR(255) NULL DEFAULT NULL ',
-            'price_designation VARCHAR(255) NULL DEFAULT NULL ',
-            // set the index
-            'UNIQUE `AMAZON_ORDER` (`amazon_order_id`(255))',
+            'purchase_order_number VARCHAR(255) NULL DEFAULT NULL ',      //
+            'price_designation VARCHAR(255) NULL DEFAULT NULL ',          //
+            // set the index, no longer needed
+            // 'UNIQUE `AMAZON_ORDER` (`amazon_order_id`(255))',
         ];
 
         // set column names so other functions can access it

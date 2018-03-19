@@ -37,5 +37,5 @@ switch ($action) {
         // require __DIR__ . '';
         break;
     default:
-        echo " <br>( index.php switch default ) ";
+        echo " <br>( index.php switch default )<br> ";
 }

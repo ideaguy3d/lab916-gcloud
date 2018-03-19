@@ -1,4 +1,0 @@
-dispatch:
- # the Amazon MWS FBA cron job
- - url: "*/fbatask/*"
-   service: fbatask

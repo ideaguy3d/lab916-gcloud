@@ -37,7 +37,7 @@ class Sql implements DataModelInterface
      * @param mixed $dsn
      * @param mixed $user
      * @param mixed $password
-    **/
+     **/
     public function __construct($dsn, $user, $password) {
         $this->dsn = $dsn;
         $this->user = $user;
@@ -47,6 +47,31 @@ class Sql implements DataModelInterface
 
         //$this->createBooksTable($pdo);
         //$this->createTasksTable($pdo);
+    }
+
+    // just to make sure something is happening when cron job is invoked.
+    public function spartanTask() {
+        $pdo = $this->newConnection();
+
+        $columns = array(
+            'id serial PRIMARY KEY ',
+            'title VARCHAR(255)',
+            'author VARCHAR(255)',
+            'published_date VARCHAR(255)',
+            'image_url VARCHAR(255)',
+            'description VARCHAR(255)',
+            'created_by VARCHAR(255)',
+            'created_by_id VARCHAR(255)',
+        );
+
+        // local function var to use later in the function
+        $columnNames = array_map(function ($columnDefs) {
+            return explode(' ', $columnDefs)[0];
+        }, $columns);
+
+       $tableName = "spartan" . rand(0,2000);
+       $columnTitles = implode(", ", $columnNames);
+       $pdo->query("CREATE TABLE IF NOT EXISTS $tableName ($columnTitles)");
     }
 
     private function createBooksTable($pdo) {
@@ -84,7 +109,7 @@ class Sql implements DataModelInterface
         ];
 
         // store tasks table column names so it can be accessed by other functions
-        $this->tasksColumnNamesAR = array_map(function($columnDefinition) {
+        $this->tasksColumnNamesAR = array_map(function ($columnDefinition) {
             return explode(" ", $columnDefinition)[0];
         }, $columns);
 
@@ -102,7 +127,7 @@ class Sql implements DataModelInterface
         ];
 
         // store column names so they can be used else where in the model
-        $this->simpleClientColumnNamesAR = array_map(function($columnDefinition) {
+        $this->simpleClientColumnNamesAR = array_map(function ($columnDefinition) {
             return explode(" ", $columnDefinition)[0];
         }, $columns);
 
@@ -117,7 +142,7 @@ class Sql implements DataModelInterface
         $this->createSimpleClientTable($pdo, $tableName);
 
         $names = array_keys($clientInfo);
-        $placeholders = array_map(function($key) {
+        $placeholders = array_map(function ($key) {
             return ":$key";
         }, $names);
         $sql = sprintf("INSERT INTO $tableName (%s) VALUES (%s)",

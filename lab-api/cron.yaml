@@ -1,4 +1,5 @@
 cron:
 - description: "practice one job"
-  url: /tasks/practice
-  schedule: every 24 hours
+  url: /labcron/tasks/spartan
+  schedule: every 10 mins
+  target: fbatask

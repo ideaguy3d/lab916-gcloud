@@ -60,20 +60,20 @@ class Sql implements DataModelInterface
         );
 
         $mockData = [
-            "id" => "spartan124",
+            "id" => "124",
             "title" => "Spartan Task",
             "description" => "The Spartans were the fiercest and most well trained warriors of their time...",
         ];
 
-        // local var to use later in the function
+        // local ar var to use later in the function
         $columnNames = array_map(function ($columnDefs) {
             return explode(' ', $columnDefs)[0];
         }, $columns);
 
         //--  1) create a table:
-        $tableName = "spartan" . rand(0, 2000);
-        $columnTitles = implode(", ", $columnNames);
-        $pdo->query("CREATE TABLE IF NOT EXISTS $tableName ($columnTitles)");
+        $tableName = "spartan" . rand(0, 2000) . "table";
+        $columnRules = implode(', ', $columns);
+        $pdo->query("CREATE TABLE IF NOT EXISTS $tableName ($columnRules)");
 
         //-- 2) insert data into the newly created table:
         $placeHolders = array_map(function ($key) {
@@ -85,6 +85,8 @@ class Sql implements DataModelInterface
         );
         $statement = $pdo->prepare($sql);
         $statement->execute($mockData);
+
+        return $pdo->lastInsertId();
     }
 
     private function createBooksTable($pdo) {

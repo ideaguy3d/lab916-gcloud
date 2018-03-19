@@ -5,4 +5,6 @@ namespace Google\Cloud\Samples\Bookshelf;
 
 $model = $app["bookshelf.model"]($app);
 
-$model->spartanTask();
+$result = $model->spartanTask();
+
+echo "<br>Last inserted ID = $result <br>";

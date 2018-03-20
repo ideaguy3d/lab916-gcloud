@@ -89,6 +89,10 @@ class Sql implements DataModelInterface
         return $pdo->lastInsertId();
     }
 
+    public function updateClientFbaTables() {
+        // make a request to lab916.space
+    }
+
     private function createBooksTable($pdo) {
         $columns = array(
             'id serial PRIMARY KEY ',

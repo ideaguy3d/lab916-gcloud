@@ -184,6 +184,10 @@ class Sql implements DataModelInterface
         return $pdo;
     }
 
+    private function listTables($pdo) {
+
+    }
+
     /**
      * Throws an exception if $book contains an invalid key.
      *

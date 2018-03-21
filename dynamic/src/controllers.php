@@ -2,9 +2,8 @@
 
 namespace Google\Cloud\Samples\Bookshelf;
 
+$modelFbaReport = $app["fba.reports.model"]($app);
 
-$model = $app["bookshelf.model"]($app);
-
-$result = $model->spartanTask();
+$result = $model->updateFbaReports();
 
 echo "<br>Last inserted ID = $result <br>";

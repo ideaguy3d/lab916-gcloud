@@ -2,7 +2,6 @@
 // namespace Google\Cloud\Samples\Bookshelf\DataModel;
 
 use Google\Cloud\Samples\Bookshelf\DataModel\Sql;
-use Symfony\Component\Yaml\Yaml;
 
 $app = [];
 
@@ -35,6 +34,14 @@ $app['bookshelf.model'] = function ($app) {
         default:
             throw new \DomainException("Invalid \"bookshelf_backend\" given: $config[bookshelf_backend]. "
                 . "Possible values are mysql, postgres, mongodb, or datastore.");
+    }
+};
+
+$app['fba.reports.model'] = function ($app) {
+    $config = $app['config'];
+
+    if(empty($config['lab916_backend'])) {
+        throw new \DomainException('"lab916_backend" needs to be defined in settings.yaml');
     }
 };
 

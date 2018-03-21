@@ -6,4 +6,4 @@ $modelFbaReport = $app["fba.reports.model"]($app);
 
 $result = $model->updateFbaReports();
 
-echo "<br>Last inserted ID = $result <br>";
+echo "<br> Last inserted ID = $result <br>";

@@ -29,6 +29,7 @@ class AddClientModel implements AddClientInterface
 
         $pdo = $this->newConnection();
 
+        // The column rules for the table about to be created
         $columns = [
             'id serial PRIMARY KEY ',                                     // c1
             'timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP',     // c2
@@ -67,7 +68,6 @@ class AddClientModel implements AddClientInterface
         $this->allTheCurRowsNames = array_map(function ($colDef) {
             return explode(" ", $colDef)[0];
         }, $columns);
-        // get rid of last elem since it's an index not a column name
 
         $this->tableName = $clientName . "_fba_sales_v1";
         echo " \n( in the AddClientModel.php __c, table name = $this->tableName )";
@@ -75,6 +75,7 @@ class AddClientModel implements AddClientInterface
         $colText = implode(", ", $columns);
         $pdo->query("CREATE TABLE IF NOT EXISTS $this->tableName ($colText)");
 
+        // get rid of last elem because it's an index not a column name
         array_splice($this->allTheCurRowsNames, -1);
     }
 

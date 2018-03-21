@@ -2,6 +2,7 @@
 // namespace Google\Cloud\Samples\Bookshelf\DataModel;
 
 use Google\Cloud\Samples\Bookshelf\DataModel\Sql;
+use Lab916\Cloud\Reports\Fba\UpdateFbaReports;
 
 $app = [];
 
@@ -43,6 +44,12 @@ $app['fba.reports.model'] = function ($app) {
     if(empty($config['lab916_backend'])) {
         throw new \DomainException('"lab916_backend" needs to be defined in settings.yaml');
     }
+
+    $mysql_dsn = UpdateFbaReports::getMysqlDsn(
+        $config['cloudsql_database_name'],
+        $config['cloudsql_port'],
+        getenv('GAE_INSTANCE') ? $config['cloudsql_connection_name'] : null
+    );
 };
 
 return $app;

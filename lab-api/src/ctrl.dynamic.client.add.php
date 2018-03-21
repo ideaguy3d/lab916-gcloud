@@ -15,7 +15,7 @@ $merchantId = isset($_GET["merchant-id"]) ? $_GET["merchant-id"] : null;
 //$merchantId = "";
 //$clientName = "test" . rand(1,2000);
 
-// Real
+// Real report data
 $reportData = scrapeAmazonMwsFbaReport($merchantId, $mwsAuthKey);
 
 //-- Invoke Functions:

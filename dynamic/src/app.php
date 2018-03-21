@@ -2,7 +2,8 @@
 // namespace Google\Cloud\Samples\Bookshelf\DataModel;
 
 use Google\Cloud\Samples\Bookshelf\DataModel\Sql;
-use Lab916\Cloud\Reports\Fba\UpdateFbaReports;
+use Lab916\Cloud\Reports\DataModel\UpdateFbaReports;
+use Symfony\Component\Yaml\Yaml;
 
 $app = [];
 
@@ -50,6 +51,8 @@ $app['fba.reports.model'] = function ($app) {
         $config['cloudsql_port'],
         getenv('GAE_INSTANCE') ? $config['cloudsql_connection_name'] : null
     );
+
+    return new UpdateFbaReports($mysql_dsn, $config['cloudsql_user'], $config['cloudsql_password']);
 };
 
 return $app;

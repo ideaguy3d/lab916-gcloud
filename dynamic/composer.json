@@ -5,7 +5,7 @@
                 "src",
                 "test/lib"
             ],
-            "Lab916\\Cloud\\Reports": [
+            "Lab916\\Cloud\\Reports\\": [
                 "src",
                 "test/lib"
             ]

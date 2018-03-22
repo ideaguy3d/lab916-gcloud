@@ -156,6 +156,7 @@ class UpdateFbaReports implements UpdateFbaReportsInterface
             try {
                 //-- INSERT DATA:
                 $statement->execute($recDataAssoc);
+                echo "<br>LAB 916 - <h1>Successfully inserted data</h1> <br>";
             }
             catch (\PDOException $e) {
                 $errorMessage = $e->getMessage();

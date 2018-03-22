@@ -22,8 +22,6 @@ $reportData = scrapeAmazonMwsFbaReport($merchantId, $mwsAuthKey);
 createReport($app, $reportData, $clientName);
 
 
-
-
 // ----------------------------------------------------------------------
 // File relevant functions
 // ----------------------------------------------------------------------

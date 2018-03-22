@@ -1,5 +1,5 @@
 cron:
-- description: "practice cron job"
+- description: "Amazon MWS cron job"
   url: /labcron/tasks/spartan
   schedule: every 3 hours
   target: fbatask

@@ -6,13 +6,16 @@ $modelFbaReport = $app["fba.reports.model"]($app);
 $clientsAR = $modelFbaReport->listClientInfo();
 
 for ($i=0; $i<count($clientsAR); $i++) {
-    $clientsAR['clients'][$i]
+    $merchantId = isset($clientsAR['clients'][$i]['seller_id']) ? $clientsAR['clients'][$i]['seller_id'] : null;
+    $mwsAuthKey = isset($clientsAR['clients'][$i]['mws_auth_token']) ? $clientsAR['clients'][$i]['mws_auth_token'] : null;
+    $tableName = isset($clientsAR['clients'][$i]['table_name']) ? $clientsAR['clients'][$i]['table_name'] : null;
 
-    // Real report data
-    $reportData = scrapeAmazonMwsFbaReport($merchantId, $mwsAuthKey);
-
-    // Append new report data to appropriate client table
-    $result = $modelFbaReport->appendFbaReports($tableName);
+    if($merchantId && $mwsAuthKey) {
+        // Real report data
+        $reportData = scrapeAmazonMwsFbaReport($merchantId, $mwsAuthKey);
+        // Append new report data to appropriate client table
+        $result = $modelFbaReport->appendFbaReports($reportData, $tableName);
+    }
 }
 
 
@@ -25,7 +28,7 @@ function scrapeAmazonMwsFbaReport($merchantId, $mwsAuthToken) {
     $urlStr = $labResource . "?merchant-id=" . $merchantId . "&mws-auth-token=" . $mwsAuthToken;
 
     $report1 = file_get_contents($urlStr);
-    sleep(3); // give the report data a while to stream since report may be a very large str
+    // sleep(3); // give the report data a while to stream since report may be a very large str
 
     $explode1 = explode('<h2>Report Contents</h2>', $report1);
     $cells = explode("\t", $explode1[1]);

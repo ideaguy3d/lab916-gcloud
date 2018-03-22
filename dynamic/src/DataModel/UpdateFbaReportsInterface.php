@@ -31,8 +31,8 @@ interface UpdateFbaReportsInterface
     /**
      * List all the clients and their information
      *
-     * @return array ['clients_info' => an array of assoc.ar's mapping
-     *                                  column name to column value]
+     * @return array ['clients_info' => an array of assoc.ar's mapping column name to column value
+     *              'last_row' => the result sets last fetched row]
     **/
     public function listClientInfo();
 }

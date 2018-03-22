@@ -10,6 +10,17 @@ for ($i=0; $i<count($clientsAR); $i++) {
     $mwsAuthKey = isset($clientsAR['clients'][$i]['mws_auth_token']) ? $clientsAR['clients'][$i]['mws_auth_token'] : null;
     $tableName = isset($clientsAR['clients'][$i]['table_name']) ? $clientsAR['clients'][$i]['table_name'] : null;
 
+    // City Bicycle Company is a LAB 916 conglomerate so no mwsAuthKey is needed
+    // cbc will always have inx 0 because it's the 1st row in the DB.
+    if($i === 0) {
+        $mwsAuthKey = "";
+        // Real report data
+        $reportData = scrapeAmazonMwsFbaReport($merchantId, $mwsAuthKey);
+        // Append new report data to appropriate client table
+        $result = $modelFbaReport->appendFbaReports($reportData, $tableName);
+    }
+
+    // LAB 916 clients has both a $merchantId && $mwsAuthKey
     if($merchantId && $mwsAuthKey) {
         // Real report data
         $reportData = scrapeAmazonMwsFbaReport($merchantId, $mwsAuthKey);

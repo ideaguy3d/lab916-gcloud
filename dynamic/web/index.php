@@ -1,5 +1,7 @@
 <?php
 
+echo "<h1>LAB 916 Amazon MWS reports.</h1>";
+
 // autoload
 require_once __DIR__ . '/../vendor/autoload.php';
 

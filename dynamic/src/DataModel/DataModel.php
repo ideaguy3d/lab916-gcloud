@@ -22,7 +22,7 @@ use PDO;
 /**
  * Class Sql implements the DataModelInterface with a mysql or postgres database.
  **/
-class Sql implements DataModelInterface
+class DataModel implements DataModelInterface
 {
     private $dsn;
     private $user;

@@ -1,8 +1,0 @@
-**/vendor
-**/settings.yml
-build/*
-config
-app.yaml
-**/connect.php
-.idea
-

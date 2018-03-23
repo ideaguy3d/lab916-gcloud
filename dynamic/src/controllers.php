@@ -1,5 +1,7 @@
 <?php
 
+echo "<br>At the very top of controllers.php";
+
 $modelFbaReport = $app["fba.reports.model"]($app);
 
 // Model method to get each client table name, merchant id, and mws key
@@ -42,7 +44,9 @@ function scrapeAmazonMwsFbaReport($merchantId, $mwsAuthToken) {
     // sleep(3); // give the report data a while to stream since report may be a very large str
 
     $explode1 = explode('<h2>Report Contents</h2>', $report1);
-    $cells = explode("\t", $explode1[1]);
+    // next lines breaks app :\
+    $cells = explode("\t", isset($explode1[1]) ? $explode1[1] : null);
+
     $amazonRowsFbaClean = [];
     $table = [];
     $row = 0;

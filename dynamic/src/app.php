@@ -1,48 +1,33 @@
 <?php
-// namespace Google\Cloud\Samples\Bookshelf\DataModel;
 
-use Google\Cloud\Samples\Bookshelf\DataModel\Sql;
+echo "<br>At the very top of app.php<br><br>";
+
 use Lab916\Cloud\Reports\DataModel\UpdateFbaReports;
 use Symfony\Component\Yaml\Yaml;
+
+echo "<br><br>below The 'use' statements<br><br>";
 
 $app = [];
 
 $config = getenv('BOOKSHELF_CONFIG') ?: __DIR__ . '/../config/' . 'settings.yml';
+echo "<br><br>config var = $config <br><br>";
+print_r($config);
 
-$app['config'] = Yaml::parse(file_get_contents($config));
+$labConfig = [
+    
+];
 
-$app['bookshelf.model'] = function ($app) {
-    /** @var array $config * */
-    $config = $app['config'];
-
-    if (empty($config['bookshelf_backend'])) {
-        throw new \DomainException('"bookshelf_backend" must be set in bookshelf config');
-    }
-
-    echo "bookshelf_backend = " . $config['bookshelf_backend'];
-    // Data Model
-    switch ($config['bookshelf_backend']) {
-        case 'mysql':
-            $mysql_dsn = Sql::getMysqlDsn(
-                $config['cloudsql_database_name'],
-                $config['cloudsql_port'],
-                getenv('GAE_INSTANCE') ? $config['cloudsql_connection_name'] : null
-            );
-            return new Sql(
-                $mysql_dsn,
-                $config['cloudsql_user'],
-                $config['cloudsql_password']
-            );
-        default:
-            throw new \DomainException("Invalid \"bookshelf_backend\" given: $config[bookshelf_backend]. "
-                . "Possible values are mysql, postgres, mongodb, or datastore.");
-    }
-};
+//$app['yamlConfig'] = Yaml::parse(file_get_contents($config)); // this way breaks
+$app['config'] = $labConfig;
+// echo "<br><br>app['config'] =<br><br>";
+print_r($app['config']);
 
 $app['fba.reports.model'] = function ($app) {
+    echo "<br> - LAB 916 in app['fba.reports.model'] = function() - ";
+
     $config = $app['config'];
 
-    if(empty($config['lab916_backend'])) {
+    if (empty($config['lab916_backend'])) {
         throw new \DomainException('"lab916_backend" needs to be defined in settings.yaml');
     }
 

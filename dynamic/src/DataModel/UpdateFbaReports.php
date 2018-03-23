@@ -19,12 +19,14 @@ class UpdateFbaReports implements UpdateFbaReportsInterface
     private $clientTables;
 
     public function __construct($dsn, $user, $password) {
+        echo "<br>The the top of the UpdateFbaReports class constructor";
         $this->dsn = $dsn;
         $this->user = $user;
         $this->password = $password;
     }
 
     public function appendFbaReports($reports, $tableName) {
+        echo "At the top of 'appendFbaReports' method of UpdateFbaReports class";
         $pdo = $this->newConnection();
         $colNames = [
             'amazon_order_id',      // c1
@@ -182,6 +184,7 @@ class UpdateFbaReports implements UpdateFbaReportsInterface
 
     // TODO: implement a 'limit' and 'cursor' like example app did
     public function listClientInfo() {
+        echo "at the top of listClientInfo() of UpdateFbaReports class";
         $pdo = $this->newConnection();
         $query = 'SELECT * FROM client_info ORDER BY id';
         $statement = $pdo->prepare($query);
@@ -203,12 +206,14 @@ class UpdateFbaReports implements UpdateFbaReportsInterface
     }
 
     private function newConnection() {
+        echo " <br>in newConnection() of UpdateFbaReports class";
         $pdo = new PDO($this->dsn, $this->user, $this->password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $pdo;
     }
 
     public static function getMysqlDsn($dbName, $port, $connectionName = null) {
+        echo "<br>in getMysqlDsn() of UpdateFbaReports class";
         if ($connectionName) {
             return sprintf('mysql:unix_socket=/cloudsql/%s;dbname=%s',
                 $connectionName, $dbName);

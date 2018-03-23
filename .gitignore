@@ -14,4 +14,5 @@ node_modules
 .idea/workspace.xml
 api/.idea/workspace.xml
 **/**/connect.php
+dynamic/src/app.php
 

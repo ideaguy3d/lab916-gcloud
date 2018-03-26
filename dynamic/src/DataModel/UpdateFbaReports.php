@@ -206,14 +206,14 @@ class UpdateFbaReports implements UpdateFbaReportsInterface
     }
 
     private function newConnection() {
-        echo " <br>in newConnection() of UpdateFbaReports class";
+        echo "<br> ( In newConnection() of UpdateFbaReports class ) ";
         $pdo = new PDO($this->dsn, $this->user, $this->password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $pdo;
     }
 
     public static function getMysqlDsn($dbName, $port, $connectionName = null) {
-        echo "<br>in getMysqlDsn() of UpdateFbaReports class";
+        echo "<br> ( in getMysqlDsn() of UpdateFbaReports class ) ";
         if ($connectionName) {
             return sprintf('mysql:unix_socket=/cloudsql/%s;dbname=%s',
                 $connectionName, $dbName);

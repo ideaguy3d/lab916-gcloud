@@ -33,9 +33,9 @@ switch ($action) {
     case "prime-time-packaging":
         require __DIR__ . '/../src/ctrl.prime.time.pack.php';
         break;
-    case "action":
-        // require __DIR__ . '';
+    case "majide":
+        require __DIR__ . '/../src/ctrl.majide.php';
         break;
     default:
-        echo " <br>( index.php switch default )<br> ";
+        echo "<br> ( index.php switch default ) <br> ";
 }

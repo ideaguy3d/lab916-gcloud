@@ -1,8 +1,8 @@
 <?php
 
 use Lab916\Cloud\Quote\DataModel\SqlQuoteLab916;
-use Lab916\Cloud\Amazon\Mws\Reports\DataModel\AmazonReportsModel;
-use Lab916\Cloud\Amazon\Mws\Reports\DataModel\AddClientModel;
+use Lab916\Cloud\Amazon\Mws\Reports\DataModels\AmazonReportsModel;
+use Lab916\Cloud\Amazon\Mws\Reports\DataModels\AddClientModel;
 use Symfony\Component\Yaml\Yaml;
 
 $app = [];
@@ -13,6 +13,7 @@ $app['config'] = Yaml::parse(file_get_contents($config));
 
 // figure out how to implement this using an associative array.
 switch ($action) {
+    // uses "AddClientModel"
     case "dynamic-client-add":
         // Dynamically adding client reports via a form
         $app["dynamic-client-add.model"] = function ($app, $clientName) {
@@ -36,6 +37,7 @@ switch ($action) {
             );
         };
         break;
+    // uses "SqlQuoteLab916"
     case "quote":
         // The data model for the interactive quote questionnaire I built.
         $app['quote.model'] = function ($app) {
@@ -49,6 +51,7 @@ switch ($action) {
             return new SqlQuoteLab916($mysql_dsn, $config['cloudsql_user'], $config['cloudsql_password']);
         };
         break;
+    // uses "AmazonReportsModel"
     case "city-bicycle-company":
         // The Amazon MWS Report API
         $app["cbc-report.model"] = function ($app) {
@@ -63,9 +66,10 @@ switch ($action) {
             return new AmazonReportsModel($mysql_dsn, $config['cloudsql_user'], $config['cloudsql_password']);
         };
         break;
+    // uses "AmazonReportsModel"
     case "prime-time-packaging":
         // The Amazon MWS Report API
-        $app["cbc-report.model"] = function ($app) {
+        $app["ptp-report.model"] = function ($app) {
             $config = $app['config'];
 
             if (empty($config['lab916_backend'])) {
@@ -75,13 +79,28 @@ switch ($action) {
             $mysql_dsn = AmazonReportsModel::getMysqlDsn(
                 $config['cloudsql_database_name'],
                 $config['cloudsql_port'],
-                getenv('GAE_INSTANCE') ? $config['cloudsql_connection_name'] : null);
+                getenv('GAE_INSTANCE') ? $config['cloudsql_connection_name'] : null
+            );
 
             return new AmazonReportsModel($mysql_dsn, $config['cloudsql_user'], $config['cloudsql_password']);
         };
         break;
-    case "action":
-        // require __DIR__ . '';
+    // uses "AmazonReportsModel"
+    case "majide":
+        $app["maj-report.model"] = function ($app) {
+            $config = $app['config'];
+            if(empty($config['lab916-backend'])) {
+                throw new \DomainException("lab916_backend must be configured");
+            }
+
+            $mysql_dsn = AmazonReportsModel::getMysqlDsn(
+                $config['cloudsql_database_name'],
+                $config['cloudsql_port'],
+                getenv('GAE_INSTANCE') ? $config['cloudsql_connection_name'] : null
+            );
+
+            return new AmazonReportsModel($mysql_dsn, $config['cloudsql_user'], $config['cloudsql_password']);
+        };
         break;
     default:
         echo " <br> ( app.php switch default ) <br> ";

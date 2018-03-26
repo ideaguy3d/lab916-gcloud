@@ -11,7 +11,7 @@ $client = isset($_GET["client"]) ? $_GET["client"] : null;
 $ptpFbaReport = scrapePtpReport();
 
 if ($action === 'gcloud-create-report' and $client === 'ptp') {
-    $model = $app['cbc-report.model']($app);
+    $model = $app['ptp-report.model']($app);
     $labReportId = $model->createPtpGetReport($ptpFbaReport);
 
     echo "<br>Action = $action<br><br>";

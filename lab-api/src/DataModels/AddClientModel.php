@@ -6,7 +6,7 @@
  * Time: 3:52 PM
  */
 
-namespace Lab916\Cloud\Amazon\Mws\Reports\DataModel;
+namespace Lab916\Cloud\Amazon\Mws\Reports\DataModels;
 
 use PDO;
 

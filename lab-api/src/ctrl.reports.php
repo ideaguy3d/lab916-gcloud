@@ -1,14 +1,18 @@
 <?php
 /**
- * Created by PhpStorm.
+ * Created by Julius Alvarado.
  * User: Lab916
  * Date: 2/13/2018
  * Time: 4:41 PM
+ *
+ * This is the "City Bicycle Group" ctrl
+ * It'll append new data to its' table
+ *
  */
 
 $action = isset($_GET["action"]) ? $_GET["action"] : null;
 $client = isset($_GET["client"]) ? $_GET["client"] : null;
-$dataReport1 = scrapeReport1();
+// $dataReport1 = scrapeReport1();
 $cbcFbaReport = scrapeCbcReport();
 
 if($action === 'gcloud-create-report' and $client === 'cbc') {

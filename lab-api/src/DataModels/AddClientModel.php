@@ -12,7 +12,7 @@ use PDO;
 
 /**
  * Class AddClientModel
- * @package Lab916\Cloud\Amazon\Mws\Reports\DataModel
+ * @package Lab916\Cloud\Amazon\Mws\Reports\DataModels
  */
 class AddClientModel implements AddClientInterface
 {

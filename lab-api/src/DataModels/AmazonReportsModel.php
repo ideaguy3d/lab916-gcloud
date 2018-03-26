@@ -6,7 +6,7 @@
  * Time: 3:50 PM
  */
 
-namespace Lab916\Cloud\Amazon\Mws\Reports\DataModel;
+namespace Lab916\Cloud\Amazon\Mws\Reports\DataModels;
 
 use PDO;
 
@@ -29,8 +29,7 @@ class AmazonReportsModel implements AmazonReportsInterface
         return $pdo;
     }
 
-    // Will create report for "City Bicycle Company"
-    public function createGetReport($reports, $id = null) {
+    public function createCbcGetReport($reports, $id = null) {
         $pdo = $this->newConnection();
         $colNames = [
             'amazon_order_id',      // c1
@@ -187,7 +186,6 @@ class AmazonReportsModel implements AmazonReportsInterface
         return " - LAB 916 - last inserted id = " . $pdo->lastInsertId();
     }
 
-    // Will create report for "Prime Time Packaging"
     public function createPtpGetReport($reports) {
         $pdo = $this->newConnection();
         $colNames = [
@@ -344,6 +342,10 @@ class AmazonReportsModel implements AmazonReportsInterface
         }
 
         return " - LAB 916 - last inserted id = " . $pdo->lastInsertId();
+    }
+
+    public function appendMajideReport($reports) {
+
     }
     
     public function listFbaRows($limit = 10000, $cursor = null) {

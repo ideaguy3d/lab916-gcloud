@@ -6,7 +6,7 @@
  * Time: 3:53 PM
  */
 
-namespace Lab916\Cloud\Amazon\Mws\Reports\DataModel;
+namespace Lab916\Cloud\Amazon\Mws\Reports\DataModels;
 
 interface AddClientInterface
 {
@@ -16,6 +16,6 @@ interface AddClientInterface
      * @param array $reportData - Should be an associative array of the report data
      *
      * @return mixed The id of the last inserted record
-     */
+    **/
     public function createReport($reportData);
 }

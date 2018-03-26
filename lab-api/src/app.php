@@ -12,7 +12,7 @@ $config = __DIR__ . '/../config/' . 'settings.yml';
 $app['config'] = Yaml::parse(file_get_contents($config));
 
 // figure out how to implement this using an associative array.
-switch ($action) {
+switch ($action) { // action gets set in index.php
     // uses "AddClientModel"
     case "dynamic-client-add":
         // Dynamically adding client reports via a form
@@ -87,7 +87,7 @@ switch ($action) {
         break;
     // uses "AmazonReportsModel"
     case "majide":
-        $app["maj-report.model"] = function ($app) {
+        $app["majide-report.model"] = function ($app) {
             $config = $app['config'];
             if(empty($config['lab916-backend'])) {
                 throw new \DomainException("lab916_backend must be configured");

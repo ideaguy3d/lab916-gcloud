@@ -10,17 +10,11 @@ $clientName = isset($_GET["client-name"]) ? $_GET["client-name"] : null;
 $mwsAuthKey = isset($_GET["mws-auth-key"]) ? $_GET["mws-auth-key"] : null;
 $merchantId = isset($_GET["merchant-id"]) ? $_GET["merchant-id"] : null;
 
-//-- Force values for debugging:
-//$mwsAuthKey = "";
-//$merchantId = "";
-//$clientName = "test" . rand(1,2000);
-
 // Real report data
 $reportData = scrapeAmazonMwsFbaReport($merchantId, $mwsAuthKey);
 
 //-- Invoke Functions:
 createReport($app, $reportData, $clientName);
-
 
 // ----------------------------------------------------------------------
 // File relevant functions
@@ -29,16 +23,17 @@ createReport($app, $reportData, $clientName);
 function createReport($app, $reports, $clientName) {
     $model = $app["dynamic-client-add.model"]($app, $clientName);
     $labReportId = $model->createReport($reports);
-    echo " ( Report Result ID = $labReportId ) ";
+    echo "<br> ( Report Result ID = $labReportId ) <br>";
 }
 
-// function will scrape the Prime Time Packaging report site.
+// fails to maintain DRY principles :(
+// function will dynamically scrape the AMWS FBA report site.
 function scrapeAmazonMwsFbaReport($merchantId, $mwsAuthToken) {
     $labResource = "http://mws.lab916.space/src/MarketplaceWebService/api/fba.php";
     $urlStr = $labResource . "?merchant-id=" . $merchantId . "&mws-auth-token=" . $mwsAuthToken;
 
     $report1 = file_get_contents($urlStr);
-    sleep(3); // give the report data a while to stream since report may be a very large str
+    sleep(3); // give the report data a while to stream since it may be a very large str
 
     $explode1 = explode('<h2>Report Contents</h2>', $report1);
     $cells = explode("\t", $explode1[1]);

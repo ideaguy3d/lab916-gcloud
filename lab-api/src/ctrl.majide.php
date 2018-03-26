@@ -9,26 +9,30 @@
  *
  */
 
-$action = isset($_GET["action"]) ? $_GET["action"] : null;
-$client = isset($_GET["client"]) ? $_GET["client"] : null;
+$mwsAuthKey = isset($_GET["mws-auth-key"]) ? $_GET["mws-auth-key"] : null;
+$merchantId = isset($_GET["merchant-id"]) ? $_GET["merchant-id"] : null;
 
-if ($action === 'gcloud-create-report' and $client === 'ptp') {
-    $model = $app['ptp-report.model']($app);
-    $labReportId = $model->createPtpGetReport($ptpFbaReport);
+$reportData = scrapeAmazonMwsFbaReport($merchantId, $mwsAuthKey);
 
-    echo "<br>Action = $action<br><br>";
-    echo "Result = $labReportId";
-}
+$model = $app['majide-report.model']($app);
+$labReportId = $model->createMajideReport($reportData);
 
-// ?mws-auth-token=amzn.mws.eab0dfe5-9c2b-743b-6f84-05e4348b9f3f&merchant-id=A328KHL2CSCCRL
-// will scrape the Prime Time Packaging report site.
-function scrapePtpReport() {
-    // going to get query string values from 'client_info' table
-    $labResource = "http://mws.lab916.space/src/MarketplaceWebService/api/ptp-report.php";
-    $report1 = file_get_contents($labResource);
+echo "<br>Action = $action<br><br>";
+echo "Result = $labReportId";
+
+
+// TODO: this function fails to maintain DRY principles :( fix that! Create a factory in a functions.php file
+// function will dynamically scrape the AMWS FBA report site.
+// ?action=majide&mws-auth-key=
+function scrapeAmazonMwsFbaReport($merchantId, $mwsAuthToken) {
+    $labResource = "http://mws.lab916.space/src/MarketplaceWebService/api/fba.php";
+    $urlStr = $labResource . "?merchant-id=" . $merchantId . "&mws-auth-token=" . $mwsAuthToken;
+
+    $report1 = file_get_contents($urlStr);
+    sleep(3); // give the report data a while to stream since report may be a very large str
+
     $explode1 = explode('<h2>Report Contents</h2>', $report1);
     $cells = explode("\t", $explode1[1]);
-    sleep(4); // give the report data a while to stream since report may be a very large str
     $amazonRowsFbaClean = [];
     $table = [];
     $row = 0;
@@ -66,6 +70,9 @@ function scrapePtpReport() {
         $amazonRowsFbaClean[$i] = $tempA;
         $idx = 0;
     }
+
+    echo " ( scrapeAmazonMwsFbaReport() did get invoked";
+    echo " && the url string = $urlStr) ";
 
     return $amazonRowsFbaClean;
 }

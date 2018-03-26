@@ -10,6 +10,7 @@ interface AmazonReportsInterface
 {
     /**
      * Inserts City Bicycle Company Amazon MWS GetReport API operation data into a Lab916 db
+     * After the initial create op this function becomes an append
      *
      * @param $reports
      * @param null $id
@@ -23,10 +24,10 @@ interface AmazonReportsInterface
      *
      * @param array $reportData - the data that'll get scraped from our web page
      **/
-    public function appendMajideReport($reportData);
+    public function createMajideReport($reportData);
 
     /**
-     * Will create report for "Prime Time Packaging"
+     * Will create report for "Prime Time Packaging" then start to append thereafter.
      *
      * @param array $reportData - the data that'll get scraped from our web page
     **/
@@ -39,5 +40,12 @@ interface AmazonReportsInterface
      * @param mixed $cursor - I think this is for pagination
     **/
     public function listFbaRows($limit, $cursor);
+
+    /**
+     * In order to dynamically get Amazon MWS report data query our 'client_info' table
+     *
+     * @param string $clientName = client whose authToken && merchantId is needed
+    **/
+    public function getAmwsCredentials($clientName);
 }
 

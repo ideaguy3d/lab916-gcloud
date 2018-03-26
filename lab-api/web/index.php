@@ -21,19 +21,23 @@ $app = require __DIR__ . '/../src/app.php';
 // figure out how to implement this using an associative array.
 switch ($action) {
     case "dynamic-client-add":
-        echo " <br>( in index.php dynamic-client-add switch case ) ";
+        echo "<br>( in index.php dynamic-client-add switch case )<br>";
         require __DIR__ . '/../src/ctrl.dynamic.client.add.php';
         break;
     case "quote":
+        echo "<br>( in index.php QUOTE switch case )<br>";
         require __DIR__ . '/../src/ctrl.quote.php';
         break;
     case "city-bicycle-company":
+        echo "<br>( in index.php City Bicycle switch case )<br>";
         require __DIR__ . '/../src/ctrl.reports.php';
         break;
     case "prime-time-packaging":
+        echo "<br>( in index.php Prime Time Packaging switch case )<br>";
         require __DIR__ . '/../src/ctrl.prime.time.pack.php';
         break;
     case "majide":
+        echo "<br>( in index.php MAJIDE switch case )<br>";
         require __DIR__ . '/../src/ctrl.majide.php';
         break;
     default:

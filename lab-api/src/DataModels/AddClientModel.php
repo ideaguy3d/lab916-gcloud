@@ -70,7 +70,7 @@ class AddClientModel implements AddClientInterface
         }, $columns);
 
         $this->tableName = $clientName . "_fba_sales_v1";
-        echo " \n( in the AddClientModel.php __c, table name = $this->tableName )";
+        //echo "<br> ( in the AddClientModel.php __c, table name = $this->tableName ) <br>";
 
         // actually create the table
         $colText = implode(", ", $columns);

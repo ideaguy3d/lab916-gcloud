@@ -108,6 +108,24 @@ switch ($action) { // action gets set in index.php
         echo " <br> ( app.php switch default ) <br> ";
 }
 
+if($clientAction) {
+    echo "<br><br>( in app.php if(clientAction){} )<br><br>";
+    $app["append-report.model"] = function ($app) {
+        $config = $app['config'];
+        if(empty($config['lab916_backend'])) {
+            throw new \DomainException("lab916_backend not configured");
+        }
+
+        $mysql_dsn = AmazonReportsModel::getMysqlDsn(
+            $config['cloudsql_database_name'],
+            $config['cloudsql_port'],
+            getenv('GAE_INSTANCE') ? $config['cloudsql_connection_name'] : null
+        );
+
+        return new AmazonReportsModel($mysql_dsn, $config['cloudsql_user'], $config['cloudsql_password']);
+    };
+}
+
 // Turn on debug locally
 if (in_array(@$_SERVER['REMOTE_ADDR'], ['127.0.0.1', 'fe80::1', '::1']) || php_sapi_name() === 'cli-server') {
     $app['debug'] = true;

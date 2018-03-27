@@ -2,19 +2,23 @@
 /**
  * Created by Julius Alvarado.
  * User: Lab916
- * Date: 3/26/2018
- * Time: 1:46 PM
+ * Date: 3/27/2018
+ * Time: 2:54 PM
  *
- * This is the "Majide" ctrl, it'll append new data to the table
+ * This controller will append new data from our Amazon MWS script
  *
+ * IMPORTANT:
+ * I will really need to do DB Admin work to clean up and audit
+ * our data via LINQPad to ensure it's what we expect it to be.
  */
 
-$model = $app['majide-report.model']($app);
 
-// HARD CODED VALUE "Majide", maybe use q string value?
-// This 1 line is why I'm making a new ctrl file, there is a better way
-// I could just grab a q string value
-$clientInfo = $model->getAmwsCredentials("Majide");
+$model = $app['append-report.model']($app);
+
+echo "<br> ( <h1>Client Action = $clientAction</h1> ) <br>";
+
+// q string value
+$clientInfo = $model->getAmwsCredentials($clientAction);
 
 $mwsAuthKey = isset($clientInfo["mws_auth_token"]) ? $clientInfo["mws_auth_token"] : null;
 $merchantId = isset($clientInfo["seller_id"]) ? $clientInfo["seller_id"] : null;
@@ -24,8 +28,9 @@ $reportData = scrapeAmazonMwsFbaReport($merchantId, $mwsAuthKey);
 // Append the new data
 $labReportId = $model->createReport($reportData, $clientInfo['table_name']);
 
-echo "<br><br> ( ctrl.majide.php -- Action = $action <br> ";
-echo "Result = $labReportId ) <br><br>";
+echo "<br><br> ( <h2>append.ctrl.php -- client info =</h2>";
+print_r($clientInfo);
+echo "<br><br> Result = $labReportId ) <br><br>";
 
 // TODO: this function fails to maintain DRY principles :( fix that! Create a factory in a functions.php file
 // function will dynamically scrape the AMWS FBA report site.
@@ -77,7 +82,7 @@ function scrapeAmazonMwsFbaReport($merchantId, $mwsAuthToken) {
         $idx = 0;
     }
 
-    echo "<br><br>( ctrl.majide.php > scrapeAmazonMwsFbaReport() -- scrapeAmazonMwsFbaReport() did get invoked ";
+    echo "<br><br>( append.ctrl.php > scrapeAmazonMwsFbaReport() -- scrapeAmazonMwsFbaReport() did get invoked ";
     echo " && the url string = $urlStr )<br><br>";
 
     return $amazonRowsFbaClean;

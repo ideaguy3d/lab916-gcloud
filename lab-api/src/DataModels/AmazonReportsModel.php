@@ -168,12 +168,12 @@ class AmazonReportsModel implements AmazonReportsInterface
             }
             catch (\PDOException $e) {
                 $errorMessage = $e->getMessage();
-                if(strpos($errorMessage, "Duplicate") !== false and $track<1) {
+                if (strpos($errorMessage, "Duplicate") !== false and $track < 1) {
                     echo "<br> - LAB916 - Error:<br>";
                     $track++;
                     echo "<strong>There was duplicate data</strong>";
                 } else {
-                    if($track<1) {
+                    if ($track < 1) {
                         echo "<br> - LAB916 - Error:<br>";
                         $track++;
                         echo $errorMessage;
@@ -326,12 +326,12 @@ class AmazonReportsModel implements AmazonReportsInterface
             }
             catch (\PDOException $e) {
                 $errorMessage = $e->getMessage();
-                if(strpos($errorMessage, "Duplicate") !== false and $track<1) {
+                if (strpos($errorMessage, "Duplicate") !== false and $track < 1) {
                     echo "<br> - LAB916 - Error:<br>";
                     $track++;
                     echo "<strong>There was duplicate data</strong>";
                 } else {
-                    if($track<1) {
+                    if ($track < 1) {
                         echo "<br> - LAB916 - Error:<br>";
                         $track++;
                         echo $errorMessage;
@@ -346,8 +346,8 @@ class AmazonReportsModel implements AmazonReportsInterface
         return " - LAB 916 - last inserted id = " . $pdo->lastInsertId();
     }
 
-    // dynamic created from url qstring
-    public function createMajideReport($reports, $tableName) {
+    // dynamic created from url q string
+    public function createReport($reports, $tableName) {
         $pdo = $this->newConnection();
         $colNames = [
             'amazon_order_id',      // c1
@@ -383,7 +383,7 @@ class AmazonReportsModel implements AmazonReportsInterface
         $col = 0;
 
         $sql = sprintf(
-            'INSERT INTO '.$tableName.' (%s) VALUES (%s)',
+            'INSERT INTO ' . $tableName . ' (%s) VALUES (%s)',
             implode(', ', $colNames),
             implode(', ', $placeholders)
         );
@@ -478,20 +478,18 @@ class AmazonReportsModel implements AmazonReportsInterface
             try {
                 //-- INSERT DATA:
                 $statement->execute($recDataAssoc);
-                echo "<br><br> LAB 916, successfully inserted <strong>Majide</strong> data in AmazonReportsModel.php <br>";
+                echo "<br><br> LAB 916, successfully inserted <strong>data into $tableName</strong>, AmazonReportsModel.php -> createReport() <br>";
             }
             catch (\PDOException $e) {
                 $errorMessage = $e->getMessage();
-                if(strpos($errorMessage, "Duplicate") !== false && $track<1) {
+                if (strpos($errorMessage, "Duplicate") !== false && $track < 1) {
                     echo "<br><br> - LAB 916 - Error AmazonReportsModel.php createMajideReport():<br>";
                     $track++;
                     echo "<strong>There was duplicate data</strong>";
                 } else {
-                    if($track<1) {
-                        echo "<br><br> - LAB916 - Error AmazonReportsModel.php createMajideReport() line 489 ish:<br>";
-                        $track++;
-                        echo $errorMessage;
-                    }
+                    echo "<br><br> - LAB916 - Error AmazonReportsModel.php createMajideReport() line 489 ish:<br>";
+                    $track++;
+                    echo $errorMessage;
                 }
                 echo "<br>";
             }
@@ -500,11 +498,11 @@ class AmazonReportsModel implements AmazonReportsInterface
         }
     }
 
-    public function getAmwsCredentials($clientName) {
+    public function getAmwsCredentials($clientAction) {
         $pdo = $this->newConnection();
-        $query = 'SELECT * FROM client_info WHERE client_name = :clientName';
+        $query = 'SELECT * FROM client_info WHERE client_action = :clientAction';
         $statement = $pdo->prepare($query);
-        $statement->bindValue('clientName', $clientName);
+        $statement->bindValue('clientAction', $clientAction);
         $statement->execute();
 
         return $statement->fetch(PDO::FETCH_ASSOC);
@@ -547,7 +545,7 @@ class AmazonReportsModel implements AmazonReportsInterface
 
         for ($row = 0; count($fbaRowsAll["fbaRows"]); $row++) {
             $curRow = isset($fbaRowsAll["fbaRows"][$row]) ? $fbaRowsAll["fbaRows"][$row] : null;
-            if($curRow) {
+            if ($curRow) {
                 if ($curRow["amazon_order_id"] === $aoid) {
                     $dupes = true;
                     return $dupes;
@@ -556,8 +554,7 @@ class AmazonReportsModel implements AmazonReportsInterface
                     $dupes = true;
                     return $dupes;
                 }
-            }
-            else {
+            } else {
                 $dupes = false;
                 return $dupes;
             }

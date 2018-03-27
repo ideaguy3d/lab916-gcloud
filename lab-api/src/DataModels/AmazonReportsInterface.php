@@ -19,14 +19,14 @@ interface AmazonReportsInterface
     public function createCbcGetReport($reports, $id=null);
 
     /**
-     * This will append new AMWS fba data that I will do DBAdmin tasks on later to sanitize
+     * This will append new AMWS fba data that I will do DB Admin tasks on later to sanitize
      * and audit data.
      *
      * @param array $reportData - the data that'll get scraped from our web page
      * @param string $tableName - tableName will get initialized from the getAmwsCredentials()
      *                          and passed in as a param from the ctrl
      **/
-    public function createMajideReport($reportData, $tableName);
+    public function createReport($reportData, $tableName);
 
     /**
      * Will create report for "Prime Time Packaging" then start to append thereafter.

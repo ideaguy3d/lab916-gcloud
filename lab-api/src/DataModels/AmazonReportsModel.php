@@ -389,9 +389,12 @@ class AmazonReportsModel implements AmazonReportsInterface
         );
         $statement = $pdo->prepare($sql);
 
-        // ------------------------------------------------------------------------
-        // Converting indexed array to an assoc.ar THEN inserting data into table
-        // ------------------------------------------------------------------------
+        /*
+        ------------------------------------------------------------------------
+        Converting indexed array to an assoc.ar THEN inserting data into table
+        Starting at $row=1 because $row=0 would be column titles
+        ------------------------------------------------------------------------
+        */
         for ($row = 1; $row < (count($reports) - 1); $row++) {
             $curRow = $reports[$row];
             $u = null; // unknown

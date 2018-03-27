@@ -10,7 +10,7 @@
  */
 
 $model = $app['majide-report.model']($app);
-$majideInfo =$model->getAmwsCredentials("Majide");
+$majideInfo = $model->getAmwsCredentials("Majide");
 
 $mwsAuthKey = isset($majideInfo["mws_auth_token"]) ? $majideInfo["mws_auth_token"] : null;
 $merchantId = isset($majideInfo["seller_id"]) ? $majideInfo["seller_id"] : null;
@@ -19,8 +19,8 @@ $reportData = scrapeAmazonMwsFbaReport($merchantId, $mwsAuthKey);
 
 $labReportId = $model->createMajideReport($reportData, $majideInfo['table_name']);
 
-echo "<br>Action = $action<br><br>";
-echo "Result = $labReportId";
+echo "<br><br> ( ctrl.majide.php -- Action = $action <br> ";
+echo "Result = $labReportId ) <br><br>";
 
 // TODO: this function fails to maintain DRY principles :( fix that! Create a factory in a functions.php file
 // function will dynamically scrape the AMWS FBA report site.
@@ -30,7 +30,7 @@ function scrapeAmazonMwsFbaReport($merchantId, $mwsAuthToken) {
     $urlStr = $labResource . "?merchant-id=" . $merchantId . "&mws-auth-token=" . $mwsAuthToken;
 
     $report1 = file_get_contents($urlStr);
-    sleep(3); // give the report data a while to stream since report may be a very large str
+    //sleep(3); // give the report data a while to stream since report may be a very large str
 
     $explode1 = explode('<h2>Report Contents</h2>', $report1);
     $cells = explode("\t", $explode1[1]);
@@ -72,8 +72,8 @@ function scrapeAmazonMwsFbaReport($merchantId, $mwsAuthToken) {
         $idx = 0;
     }
 
-    echo " ( scrapeAmazonMwsFbaReport() did get invoked";
-    echo " && the url string = $urlStr) ";
+    echo "<br><br>( ctrl.majide.php > scrapeAmazonMwsFbaReport() -- scrapeAmazonMwsFbaReport() did get invoked ";
+    echo " && the url string = $urlStr )<br><br>";
 
     return $amazonRowsFbaClean;
 }

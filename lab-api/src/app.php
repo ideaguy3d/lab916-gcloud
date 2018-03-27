@@ -15,6 +15,7 @@ $app['config'] = Yaml::parse(file_get_contents($config));
 switch ($action) { // action gets set in index.php
     // uses "AddClientModel"
     case "dynamic-client-add":
+        echo "<br>( in app.php 'dynamic-client-add' switch case )<br>";
         // Dynamically adding client reports via a form
         $app["dynamic-client-add.model"] = function ($app, $clientName) {
             $config = $app['config'];
@@ -87,6 +88,7 @@ switch ($action) { // action gets set in index.php
         break;
     // uses "AmazonReportsModel"
     case "majide":
+        echo "<br>( in app.php 'majide' switch case )<br>";
         $app["majide-report.model"] = function ($app) {
             $config = $app['config'];
             if(empty($config['lab916_backend'])) {

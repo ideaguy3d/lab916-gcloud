@@ -23,8 +23,10 @@ interface AmazonReportsInterface
      * and audit data.
      *
      * @param array $reportData - the data that'll get scraped from our web page
+     * @param string $tableName - tableName will get initialized from the getAmwsCredentials()
+     *                          and passed in as a param from the ctrl
      **/
-    public function createMajideReport($reportData);
+    public function createMajideReport($reportData, $tableName);
 
     /**
      * Will create report for "Prime Time Packaging" then start to append thereafter.
@@ -44,7 +46,8 @@ interface AmazonReportsInterface
     /**
      * In order to dynamically get Amazon MWS report data query our 'client_info' table
      *
-     * @param string $clientName = client whose authToken && merchantId is needed
+     * @param string $clientName - client whose authToken && merchantId is needed
+     * @return array - returns an assoc.ar of the client row
     **/
     public function getAmwsCredentials($clientName);
 }

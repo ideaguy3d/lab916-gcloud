@@ -9,17 +9,18 @@
  *
  */
 
-$mwsAuthKey = isset($_GET["mws-auth-key"]) ? $_GET["mws-auth-key"] : null;
-$merchantId = isset($_GET["merchant-id"]) ? $_GET["merchant-id"] : null;
+$model = $app['majide-report.model']($app);
+$majideInfo =$model->getAmwsCredentials("Majide");
+
+$mwsAuthKey = isset($majideInfo["mws_auth_token"]) ? $majideInfo["mws_auth_token"] : null;
+$merchantId = isset($majideInfo["seller_id"]) ? $majideInfo["seller_id"] : null;
 
 $reportData = scrapeAmazonMwsFbaReport($merchantId, $mwsAuthKey);
 
-$model = $app['majide-report.model']($app);
-$labReportId = $model->createMajideReport($reportData);
+$labReportId = $model->createMajideReport($reportData, $majideInfo['table_name']);
 
 echo "<br>Action = $action<br><br>";
 echo "Result = $labReportId";
-
 
 // TODO: this function fails to maintain DRY principles :( fix that! Create a factory in a functions.php file
 // function will dynamically scrape the AMWS FBA report site.

@@ -29,6 +29,7 @@ class AmazonReportsModel implements AmazonReportsInterface
         return $pdo;
     }
 
+    // hardcoded in the mws script
     public function createCbcGetReport($reports, $id = null) {
         $pdo = $this->newConnection();
         // colNames so I know which cols to insert data into.
@@ -187,6 +188,7 @@ class AmazonReportsModel implements AmazonReportsInterface
         return " - LAB 916 - last inserted id = " . $pdo->lastInsertId();
     }
 
+    // hardcoded in the mws script
     public function createPtpGetReport($reports) {
         $pdo = $this->newConnection();
         $colNames = [
@@ -344,9 +346,8 @@ class AmazonReportsModel implements AmazonReportsInterface
         return " - LAB 916 - last inserted id = " . $pdo->lastInsertId();
     }
 
-    public function createMajideReport($reports) {
-        // TODO: should eventually become a query to the client_info table
-        $tableName = "majide_fba_sales_v1";
+    // dynamic created from url qstring
+    public function createMajideReport($reports, $tableName) {
         $pdo = $this->newConnection();
         $colNames = [
             'amazon_order_id',      // c1
@@ -474,16 +475,17 @@ class AmazonReportsModel implements AmazonReportsInterface
             try {
                 //-- INSERT DATA:
                 $statement->execute($recDataAssoc);
+                echo "<br><br> LAB 916, successfully inserted <strong>Majide</strong> data in AmazonReportsModel.php <br>";
             }
             catch (\PDOException $e) {
                 $errorMessage = $e->getMessage();
-                if(strpos($errorMessage, "Duplicate") !== false and $track<1) {
-                    echo "<br> - LAB916 - Error:<br>";
+                if(strpos($errorMessage, "Duplicate") !== false && $track<1) {
+                    echo "<br><br> - LAB 916 - Error AmazonReportsModel.php createMajideReport():<br>";
                     $track++;
                     echo "<strong>There was duplicate data</strong>";
                 } else {
                     if($track<1) {
-                        echo "<br> - LAB916 - Error:<br>";
+                        echo "<br><br> - LAB916 - Error AmazonReportsModel.php createMajideReport() line 489 ish:<br>";
                         $track++;
                         echo $errorMessage;
                     }
@@ -496,7 +498,13 @@ class AmazonReportsModel implements AmazonReportsInterface
     }
 
     public function getAmwsCredentials($clientName) {
-        // TODO: Implement getAmwsCredentials() method.
+        $pdo = $this->newConnection();
+        $query = 'SELECT * FROM client_info WHERE client_name = :clientName';
+        $statement = $pdo->prepare($query);
+        $statement->bindValue('clientName', $clientName);
+        $statement->execute();
+
+        return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
     public function listFbaRows($limit = 10000, $cursor = null) {

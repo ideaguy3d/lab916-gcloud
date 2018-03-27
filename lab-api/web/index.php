@@ -6,13 +6,13 @@ echo "<h1>Navigation:</h1>";
 echo "<a href='/info.php' class='lab-btn'>LAB 916 api info</a>";
 */
 
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
 //-- The action:
 $action = isset($_GET["action"]) ? $_GET["action"] : null;
-
 //-- Force action for debugging purposes:
-//$action = "dynamic-client-add";
+$action = "majide";
 
 //-- The application:
 $app = require __DIR__ . '/../src/app.php';

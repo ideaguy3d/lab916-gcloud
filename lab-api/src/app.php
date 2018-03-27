@@ -89,7 +89,7 @@ switch ($action) { // action gets set in index.php
     case "majide":
         $app["majide-report.model"] = function ($app) {
             $config = $app['config'];
-            if(empty($config['lab916-backend'])) {
+            if(empty($config['lab916_backend'])) {
                 throw new \DomainException("lab916_backend must be configured");
             }
 

@@ -28,8 +28,8 @@ $reportData = scrapeAmazonMwsFbaReport($merchantId, $mwsAuthKey);
 // Append the new data
 $labReportId = $model->createReport($reportData, $clientInfo['table_name']);
 
-echo "<br><br> ( <h2>append.ctrl.php -- client info =</h2>";
-print_r($clientInfo);
+echo "<br><br> ( <h2>append.ctrl.php -- client =</h2>";
+print_r($clientInfo['client_name']);
 echo "<br><br> Result = $labReportId ) <br><br>";
 
 // TODO: this function fails to maintain DRY principles :( fix that! Create a factory in a functions.php file

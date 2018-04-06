@@ -3,7 +3,7 @@
 as of 2-27-2018
 
 I was going to start to build the back end using laravel
-but changed my mind because I thought it would take to 
+but changed my mind because I thought it would take too
 long to learn. 
 
 

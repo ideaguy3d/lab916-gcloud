@@ -6,13 +6,21 @@
  * Time: 3:24 PM
  */
 
+// mandatory info
 $clientName = isset($_GET["client-name"]) ? $_GET["client-name"] : null;
 $mwsAuthKey = isset($_GET["mws-auth-key"]) ? $_GET["mws-auth-key"] : null;
 $merchantId = isset($_GET["merchant-id"]) ? $_GET["merchant-id"] : null;
+// optional stuff
 $description = isset($_GET["description"]) ? $_GET["description"] : null;
 $information = isset($_GET["information"]) ? $_GET["information"] : null;
 $notes = isset($_GET["notes"]) ? $_GET["notes"] : null;
+// VERY important client action
+$clientAction = isset($_GET["client-action"]) ? $_GET["client-aciton"] : null;
 
+// Real client info Data
+$clientInfo = [
+    ''
+];
 
 // Real report data
 $reportData = scrapeAmazonMwsFbaReport($merchantId, $mwsAuthKey);
@@ -28,6 +36,10 @@ function createReport($app, $reports, $clientName) {
     $model = $app["dynamic-client-add.model"]($app, $clientName);
     $labReportId = $model->createReport($reports);
     echo "<br> ( Report Result ID = $labReportId ) <br>";
+}
+
+function insertClientInfo($app, $clientInfo) {
+
 }
 
 // fails to maintain DRY principles :(

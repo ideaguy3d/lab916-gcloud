@@ -235,7 +235,12 @@ class AddClientModel implements AddClientInterface
     }
 
     public function insertIntoClientInfo($clientInfo) {
+        $pdo = $this->newConnection();
 
+        $clientInfoTableColumns = [
+            'table_name',
+            'client_action',
+        ];
     }
 
     private function newConnection() {

@@ -18,14 +18,15 @@
             merchantId: "",
             description: "",
             information: "",
-            notes: ""
+            notes: "",
+            action: ""
         };
 
         $scope.createReport = function () {
-            $scope.clientObj.clientName = $scope.clientObj.clientName.toLowerCase();
-            $scope.clientObj.clientName = $scope.clientObj.clientName.replace(/\s/gi, '_');
+            $scope.clientObj.action = $scope.clientObj.clientName.toLowerCase();
+            $scope.clientObj.action = $scope.clientObj.clientName.replace(/\s/gi, '_');
 
-            console.log("lab916 - making the request | Client Name = " + $scope.clientObj.clientName);
+            console.log("lab916 - making the request | Client ACTION = " + $scope.clientObj.action);
 
             $scope.showGif = true;
 
@@ -58,10 +59,11 @@
             var information = encodeURIComponent(data.information);
             var description = encodeURIComponent(data.description);
             var notes = encodeURIComponent(data.notes);
+            var clientAction = encodeURIComponent(data.action);
 
             var reqStr = "/?action=" + enAction + "&client-name=" + clientName + "&mws-auth-key=" + mwsAuthKey
                 + "&merchant-id=" + merchantId + "&information=" + information + "&description=" + description
-                + "&notes=" + notes;
+                + "&notes=" + notes + "&client-action=" + clientAction;
 
             console.log("lab916 - The reqStr = " + reqStr);
 

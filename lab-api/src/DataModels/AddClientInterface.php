@@ -18,4 +18,12 @@ interface AddClientInterface
      * @return mixed The id of the last inserted record
     **/
     public function createReport($reportData);
+
+    /**
+     * Will insert data collected from our 'Add Client' form into the client_info table
+     * because when our 'Update' button is pressed our PHP uses this table to get client info
+     *
+     * @param array $clientInfo = Data collected from our 'Add Client' form
+    **/
+    public function insertIntoClientInfo($clientInfo);
 }

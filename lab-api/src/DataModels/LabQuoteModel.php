@@ -10,7 +10,7 @@ namespace Lab916\Cloud\Quote\DataModel;
 
 use PDO;
 
-class SqlQuoteLab916 implements DataModelInterfaceLab916
+class LabQuoteModel implements LabQuoteInterface
 {
     private $dsn;
     private $user;

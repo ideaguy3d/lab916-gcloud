@@ -33,14 +33,24 @@
     <div class="row">
         <div class="col-sm-12 col-md-8 col-lg-6 col-xl-4">
             <form>
-                <input type="text" ng-model="clientObj.mwsAuthKey"  required
-                       placeholder="MWS Auth Token">
+                <!-- mws auth token input -->
+                <input type="text" ng-model="clientObj.mwsAuthKey" required
+                       placeholder="MWS Auth Token*">
+                <!-- client name input -->
                 <input type="text" ng-model="clientObj.clientName" required
-                       placeholder="Client Name(no spaces, all lower case letters)">
+                       placeholder="Client Name*">
+                <!-- seller id input -->
                 <input type="text" ng-model="clientObj.merchantId" required
-                       placeholder="Seller/Merchant ID">
-
+                       placeholder="Seller/Merchant ID*">
+                <!-- description input -->
+                <input type="text" ng-model="clientObj.description" placeholder="Description">
+                <!-- information input -->
+                <input type="text" ng-model="clientObj.information" placeholder="Information (location, business type, etc.)">
+                <!-- notes info -->
+                <input type="text" ng-model="clientObj.notes" placeholder="Notes for client">
                 <br>
+
+                <!-- Submit button -->
                 <div type="submit" class="btn btn-sm btn-warning mt-2" data-ng-click="createReport()">Create</div>
             </form>
         </div>

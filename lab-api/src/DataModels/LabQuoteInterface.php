@@ -8,7 +8,7 @@
 
 namespace Lab916\Cloud\Quote\DataModel;
 
-interface DataModelInterfaceLab916
+interface LabQuoteInterface
 {
     /**
      * List all the quotes in our Table.

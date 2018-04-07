@@ -9,12 +9,16 @@
 $clientName = isset($_GET["client-name"]) ? $_GET["client-name"] : null;
 $mwsAuthKey = isset($_GET["mws-auth-key"]) ? $_GET["mws-auth-key"] : null;
 $merchantId = isset($_GET["merchant-id"]) ? $_GET["merchant-id"] : null;
+$description = isset($_GET["description"]) ? $_GET["description"] : null;
+$information = isset($_GET["information"]) ? $_GET["information"] : null;
+$notes = isset($_GET["notes"]) ? $_GET["notes"] : null;
+
 
 // Real report data
 $reportData = scrapeAmazonMwsFbaReport($merchantId, $mwsAuthKey);
 
 //-- Invoke Functions:
-createReport($app, $reportData, $clientName);
+// createReport($app, $reportData, $clientName);
 
 // ----------------------------------------------------------------------
 // File relevant functions

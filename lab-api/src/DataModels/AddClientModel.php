@@ -213,12 +213,12 @@ class AddClientModel implements AddClientInterface
             }
             catch (\PDOException $e) {
                 $errorMessage = $e->getMessage();
-                if(strpos($errorMessage, "Duplicate") !== false and $track<1) {
+                if (strpos($errorMessage, "Duplicate") !== false and $track < 1) {
                     echo "<br> - LAB916 - Error:<br>";
                     $track++;
                     echo "<strong>There was duplicate data</strong>";
                 } else {
-                    if($track<1) {
+                    if ($track < 1) {
                         echo "<br> - LAB916 - Error:<br>";
                         $track++;
                         echo $errorMessage;
@@ -232,6 +232,10 @@ class AddClientModel implements AddClientInterface
         }
 
         return " - LAB 916 - last inserted id = " . $pdo->lastInsertId();
+    }
+
+    public function insertIntoClientInfo($clientInfo) {
+
     }
 
     private function newConnection() {

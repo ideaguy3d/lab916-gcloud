@@ -15,7 +15,7 @@ $description = isset($_GET["description"]) ? $_GET["description"] : null;
 $information = isset($_GET["information"]) ? $_GET["information"] : null;
 $notes = isset($_GET["notes"]) ? $_GET["notes"] : null;
 // VERY important "client action"
-$clientAction = isset($_GET["client-action"]) ? $_GET["client-action"] : null;
+$colClientAction = isset($_GET["column-client-action"]) ? $_GET["column-client-action"] : null;
 
 // Real client info Data
 $clientInfo = [
@@ -25,7 +25,7 @@ $clientInfo = [
     'description' => $description,
     'information' => $information,
     'notes' => $notes,
-    'client_action' => $clientAction
+    'client_action' => $colClientAction
 ];
 
 // Real report data

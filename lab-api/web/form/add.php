@@ -59,6 +59,9 @@
 
     <br>
 
+    <p>Actually make request? <button data-ng-click="toggleAMR()">Toggle</button> </p>
+    <h2><i>{{ actuallyMakeRequest }}</i></h2>
+
     <div ng-if="showGif">
         <p>Give it plenty of time to stream data.</p>
         <p>{{ countdown }}</p>

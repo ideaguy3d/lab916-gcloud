@@ -10,7 +10,8 @@
     function FormCtrlClass($scope, labDataSer, $sce, $interval) {
         $scope.message = " FBA Form";
         $scope.showGif = false;
-
+        // for testing/debugging purposes
+        $scope.actuallyMakeRequest = true;
         // data model
         $scope.clientObj = {
             clientName: "",
@@ -22,22 +23,26 @@
             action: ""
         };
 
+        $scope.toggleAMR = function() {
+            $scope.actuallyMakeRequest = !$scope.actuallyMakeRequest;
+        };
+
         $scope.createReport = function () {
-            $scope.clientObj.action = $scope.clientObj.clientName.toLowerCase();
-            $scope.clientObj.action = $scope.clientObj.clientName.replace(/\s/gi, '_');
+            $scope.clientObj.action = $scope.clientObj.clientName;
+            $scope.clientObj.action = $scope.clientObj.action.toLowerCase();
+            $scope.clientObj.action = $scope.clientObj.action.replace(/\s/gi, '_');
 
-            console.log("lab916 - making the request | Client ACTION = " + $scope.clientObj.action);
+            if ($scope.actuallyMakeRequest) {
+                console.log("LAB 916 - Actually making the request | Client ACTION = "
+                    + $scope.clientObj.action);
 
-            $scope.showGif = true;
+                $scope.showGif = true;
 
-            $interval(function () {
-                $scope.countdown = 8;
-                $scope.countdown--;
-            }, 1000, 10, true);
+                $interval(function () {
+                    $scope.countdown = 8;
+                    $scope.countdown--;
+                }, 1000, 10, true);
 
-            var actuallyMakeRequest = false;
-
-            if (actuallyMakeRequest) {
                 labDataSer.createReport($scope.clientObj).then(function (res) {
                     console.log("response object =");
                     console.log(res);
@@ -64,9 +69,9 @@
 
             var reqStr = "/?action=" + enAction + "&client-name=" + clientName + "&mws-auth-key=" + mwsAuthKey
                 + "&merchant-id=" + merchantId + "&information=" + information + "&description=" + description
-                + "&notes=" + notes + "&client-action=" + clientAction;
+                + "&notes=" + notes + "&column-client-action=" + clientAction;
 
-            console.log("lab916 - The reqStr = " + reqStr);
+            console.log("LAB 916 - The reqStr = " + reqStr);
 
             //-- make the HTTP request:
             return $http.get(reqStr);

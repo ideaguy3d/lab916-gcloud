@@ -235,13 +235,49 @@ class AddClientModel implements AddClientInterface
 
     public function insertIntoClientInfo($clientInfo) {
         $pdo = $this->newConnection();
-
-        $clientInfoTableColumns = [
-            'table_name',
-            'client_action',
+        $columnTitles = [
+            'table_name',       // c1
+            'client_action',    // c2
+            'mws_auth_token',   // c3
+            'seller_id',        // c4
+            'client_name',      // c5
+            'description',      // c6
+            'information',      // c7
+            'notes'             // c8
         ];
+        $result = "";
+        $placeholders = array_map(function ($key) {
+            return ":$key";
+        }, $columnTitles);
+        // record data associative array, will get filled in the for loop
+        $recDataAssoc = [];
+        $track = 0;
+        // SQL and prepared statement
+        $sql = sprintf("INSERT INTO `client_info` (%s) VALUES (%s)",
+            implode(", ", $columnTitles),
+            implode(", ", $placeholders)
+        );
+        $statement = $pdo->prepare($sql);
 
-        return "result";
+        $clientInfo['table_name'] = $this->tableName;
+
+        try {
+            $result = $statement->execute($clientInfo);
+        } catch (\PDOException $e) {
+            $errorMessage = $e->getMessage();
+            if (strpos($errorMessage, "Duplicate") !== false && $track < 1) {
+                echo "<br><br> - LAB 916 - Error AmazonReportsModel.php createMajideReport():<br>";
+                $track++;
+                echo "<strong>There was duplicate data</strong>";
+            } else {
+                echo "<br><br> - LAB916 - Error AmazonReportsModel.php createMajideReport() line 489 ish:<br>";
+                $track++;
+                echo $errorMessage;
+            }
+            echo "<br>";
+        }
+
+        return $result;
     }
 
     private function newConnection() {

@@ -386,7 +386,6 @@ class AmazonReportsModel implements AmazonReportsInterface
             implode(', ', $colNames),
             implode(', ', $placeholders)
         );
-
         $statement = $pdo->prepare($sql);
 
         /*

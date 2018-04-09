@@ -19,13 +19,13 @@ $clientAction = isset($_GET["client-action"]) ? $_GET["client-action"] : null;
 
 // Real client info Data
 $clientInfo = [
-    'clientName' => $clientName,
-    'mwsAuthKey' => $mwsAuthKey,
-    'merchantId' => $merchantId,
+    'client_name' => $clientName,
+    'mws_auth_key' => $mwsAuthKey,
+    'seller_id' => $merchantId,
     'description' => $description,
     'information' => $information,
     'notes' => $notes,
-    'clientAction' => $clientAction
+    'client_action' => $clientAction
 ];
 
 // Real report data
@@ -33,7 +33,7 @@ $clientInfo = [
 
 //-- Invoke Functions:
 //createReport($app, $reportData, $clientName);
-//insertClientInfo($app, $clientInfo);
+insertClientInfo($app, $clientInfo);
 
 
 // ----------------------------------------------------------------------
@@ -47,7 +47,7 @@ function createReport($app, $reports, $clientName) {
 }
 
 function insertClientInfo($app, $clientInfo) {
-    $model = $app["dynamic-client-add.model"]($app);
+    $model = $app["dynamic-client-add.model"]($app, $clientInfo['client_action']);
     $result = $model->insertIntoClientInfo($clientInfo);
     echo "<br><br> Add client result = $result <br><br>";
 }

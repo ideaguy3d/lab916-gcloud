@@ -380,13 +380,13 @@ class AmazonReportsModel implements AmazonReportsInterface
         }, $colNames);
         $recDataAssoc = [];
         $track = 0; // so error is echoed only once.
-        $col = 0;
 
         $sql = sprintf(
             'INSERT INTO ' . $tableName . ' (%s) VALUES (%s)',
             implode(', ', $colNames),
             implode(', ', $placeholders)
         );
+
         $statement = $pdo->prepare($sql);
 
         /*

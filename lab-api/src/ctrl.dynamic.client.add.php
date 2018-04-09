@@ -14,19 +14,27 @@ $merchantId = isset($_GET["merchant-id"]) ? $_GET["merchant-id"] : null;
 $description = isset($_GET["description"]) ? $_GET["description"] : null;
 $information = isset($_GET["information"]) ? $_GET["information"] : null;
 $notes = isset($_GET["notes"]) ? $_GET["notes"] : null;
-// VERY important client action
-$clientAction = isset($_GET["client-action"]) ? $_GET["client-aciton"] : null;
+// VERY important "client action"
+$clientAction = isset($_GET["client-action"]) ? $_GET["client-action"] : null;
 
 // Real client info Data
 $clientInfo = [
-    ''
+    'clientName' => $clientName,
+    'mwsAuthKey' => $mwsAuthKey,
+    'merchantId' => $merchantId,
+    'description' => $description,
+    'information' => $information,
+    'notes' => $notes,
+    'clientAction' => $clientAction
 ];
 
 // Real report data
-$reportData = scrapeAmazonMwsFbaReport($merchantId, $mwsAuthKey);
+// $reportData = scrapeAmazonMwsFbaReport($merchantId, $mwsAuthKey);
 
 //-- Invoke Functions:
-// createReport($app, $reportData, $clientName);
+//createReport($app, $reportData, $clientName);
+//insertClientInfo($app, $clientInfo);
+
 
 // ----------------------------------------------------------------------
 // File relevant functions
@@ -39,12 +47,15 @@ function createReport($app, $reports, $clientName) {
 }
 
 function insertClientInfo($app, $clientInfo) {
-
+    $model = $app["dynamic-client-add.model"]($app);
+    $result = $model->insertIntoClientInfo($clientInfo);
+    echo "<br><br> Add client result = $result <br><br>";
 }
 
 // fails to maintain DRY principles :(
 // function will dynamically scrape the AMWS FBA report site.
 function scrapeAmazonMwsFbaReport($merchantId, $mwsAuthToken) {
+    //$labResource = "http://mws.lab916.space/src/MarketplaceWebService/api/fba.php";
     $labResource = "http://mws.lab916.space/src/MarketplaceWebService/api/fba.php";
     $urlStr = $labResource . "?merchant-id=" . $merchantId . "&mws-auth-token=" . $mwsAuthToken;
 

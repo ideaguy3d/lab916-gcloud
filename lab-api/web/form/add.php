@@ -48,6 +48,7 @@
                 <input type="text" ng-model="clientObj.information" placeholder="Information (location, business type, etc.)">
                 <!-- notes info -->
                 <input type="text" ng-model="clientObj.notes" placeholder="Notes for client">
+
                 <br>
 
                 <!-- Submit button -->

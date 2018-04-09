@@ -111,7 +111,6 @@ class AddClientModel implements AddClientInterface
         ];
         $recDataAssoc = [];
         $track = 0;
-        $col = 0;
         $placeholders = array_map(function ($key) {
             return ":$key";
         }, $colNames);
@@ -241,6 +240,8 @@ class AddClientModel implements AddClientInterface
             'table_name',
             'client_action',
         ];
+
+        return "result";
     }
 
     private function newConnection() {

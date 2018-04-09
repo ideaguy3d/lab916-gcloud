@@ -24,6 +24,8 @@ interface AddClientInterface
      * because when our 'Update' button is pressed our PHP uses this table to get client info
      *
      * @param array $clientInfo = Data collected from our 'Add Client' form
+     *
+     * @return string = will return the result of query
     **/
     public function insertIntoClientInfo($clientInfo);
 }

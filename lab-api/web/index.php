@@ -11,6 +11,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 //-- The action:
 $action = isset($_GET["action"]) ? $_GET["action"] : null;
 $clientAction = isset($_GET["client-action"]) ? $_GET["client-action"] : null;
+
 //--------------------------------------------
 // DEBUGGING - Force action for DEBUGGING APP
 //--------------------------------------------
@@ -47,6 +48,6 @@ switch ($action) {
 }
 
 if($clientAction) {
-    echo "<br><br>( in index.php > if(clientAction){} )<br><br>";
+    echo "<br><br>( in index.php -> if(clientAction){} )<br><br>";
     require __DIR__ . '/../src/append.ctrl.php';
 }

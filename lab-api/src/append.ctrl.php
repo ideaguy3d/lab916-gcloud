@@ -23,10 +23,13 @@ $clientInfo = $model->getAmwsCredentials($clientAction);
 $mwsAuthKey = isset($clientInfo["mws_auth_token"]) ? $clientInfo["mws_auth_token"] : null;
 $merchantId = isset($clientInfo["seller_id"]) ? $clientInfo["seller_id"] : null;
 
+
+//-- Thee Report Data:
 $reportData = scrapeAmazonMwsFbaReport($merchantId, $mwsAuthKey);
 
-// Append the new data
+//-- Append the new data:
 $labReportId = $model->createReport($reportData, $clientInfo['table_name']);
+
 
 echo "<br><br> ( <h2>append.ctrl.php -- client =</h2>";
 print_r($clientInfo['client_name']);
@@ -83,7 +86,7 @@ function scrapeAmazonMwsFbaReport($merchantId, $mwsAuthToken) {
     }
 
     echo "<br><br>( append.ctrl.php > scrapeAmazonMwsFbaReport() -- scrapeAmazonMwsFbaReport() did get invoked ";
-    echo " && the url string = $urlStr )<br><br>";
+    echo " and the url string = <br>$urlStr )<br><br>";
 
     return $amazonRowsFbaClean;
 }

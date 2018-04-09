@@ -109,7 +109,7 @@ switch ($action) { // action gets set in index.php
 }
 
 if($clientAction) {
-    echo "<br><br>( in app.php if(clientAction){} )<br><br>";
+    echo "<br><br>( in app.php -> if(clientAction){} )<br><br>";
     $app["append-report.model"] = function ($app) {
         $config = $app['config'];
         if(empty($config['lab916_backend'])) {

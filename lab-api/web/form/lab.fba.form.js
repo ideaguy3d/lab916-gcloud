@@ -25,6 +25,27 @@
 
         $scope.toggleAMR = function() {
             $scope.actuallyMakeRequest = !$scope.actuallyMakeRequest;
+            if($scope.actuallyMakeRequest) {
+                $scope.clientObj = {
+                    clientName: "Test Japple Technologies",
+                    mwsAuthKey: "mws.1758236asdf",
+                    merchantId: "827193728654654654654654564",
+                    description: "Japple manufactures smart phones and sells them on Amazon",
+                    information: "Tokyo, Japan. Computer hardware industry",
+                    notes: "Japple expects revenue increase's of 25%",
+                    action: ""
+                };
+            } else {
+                $scope.clientObj = {
+                    clientName: "",
+                    mwsAuthKey: "",
+                    merchantId: "",
+                    description: "",
+                    information: "",
+                    notes: "",
+                    action: ""
+                };
+            }
         };
 
         $scope.createReport = function () {
@@ -32,9 +53,10 @@
             $scope.clientObj.action = $scope.clientObj.action.toLowerCase();
             $scope.clientObj.action = $scope.clientObj.action.replace(/\s/gi, '_');
 
+            console.log("LAB 916 - Actually making the request | Client ACTION = " + $scope.clientObj.action);
+            console.log($scope.clientObj);
+
             if ($scope.actuallyMakeRequest) {
-                console.log("LAB 916 - Actually making the request | Client ACTION = "
-                    + $scope.clientObj.action);
 
                 $scope.showGif = true;
 

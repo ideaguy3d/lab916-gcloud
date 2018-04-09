@@ -18,7 +18,7 @@ $notes = isset($_GET["notes"]) ? $_GET["notes"] : null;
 $colClientAction = isset($_GET["column-client-action"]) ? $_GET["column-client-action"] : null;
 
 // Real client info Data
-$clientInfo = [
+$clientInfoColNames = [
     'client_name' => $clientName,
     'mws_auth_token' => $mwsAuthKey,
     'seller_id' => $merchantId,
@@ -33,7 +33,7 @@ $clientInfo = [
 
 //-- Invoke Functions:
 //createReport($app, $reportData, $clientName);
-insertClientInfo($app, $clientInfo);
+insertClientInfo($app, $clientInfoColNames);
 
 
 // ----------------------------------------------------------------------
@@ -60,7 +60,7 @@ function scrapeDynamicAmazonMwsFbaReport($merchantId, $mwsAuthToken) {
     $urlStr = $labResource . "?merchant-id=" . $merchantId . "&mws-auth-token=" . $mwsAuthToken;
 
     $report1 = file_get_contents($urlStr);
-    sleep(3); // give the report data a while to stream since it may be a very large str
+    // sleep(3); // give the report data a while to stream since it may be a very large str
 
     $explode1 = explode('<h2>Report Contents</h2>', $report1);
     $cells = explode("\t", $explode1[1]);

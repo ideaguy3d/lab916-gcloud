@@ -36,6 +36,7 @@
             }, 1000, 10, true);
 
             var actuallyMakeRequest = false;
+
             if (actuallyMakeRequest) {
                 labDataSer.createReport($scope.clientObj).then(function (res) {
                     console.log("response object =");

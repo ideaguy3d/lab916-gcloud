@@ -1,6 +1,6 @@
 <?php
 
-use Lab916\Cloud\Quote\DataModel\SqlQuoteLab916;
+use Lab916\Cloud\Quote\DataModel\LabQuoteModel;
 use Lab916\Cloud\Amazon\Mws\Reports\DataModels\AmazonReportsModel;
 use Lab916\Cloud\Amazon\Mws\Reports\DataModels\AddClientModel;
 use Symfony\Component\Yaml\Yaml;
@@ -38,7 +38,7 @@ switch ($action) { // action gets set in index.php
             );
         };
         break;
-    // uses "SqlQuoteLab916"
+    // uses "LabQuoteModel"
     case "quote":
         // The data model for the interactive quote questionnaire I built.
         $app['quote.model'] = function ($app) {
@@ -47,9 +47,9 @@ switch ($action) { // action gets set in index.php
                 throw new \DomainException('quote_backend must be configured');
             }
 
-            $mysql_dsn = SqlQuoteLab916::getMysqlDsn($config['cloudsql_database_name'], $config['cloudsql_port'], getenv('GAE_INSTANCE') ? $config['cloudsql_connection_name'] : null);
+            $mysql_dsn = LabQuoteModel::getMysqlDsn($config['cloudsql_database_name'], $config['cloudsql_port'], getenv('GAE_INSTANCE') ? $config['cloudsql_connection_name'] : null);
 
-            return new SqlQuoteLab916($mysql_dsn, $config['cloudsql_user'], $config['cloudsql_password']);
+            return new LabQuoteModel($mysql_dsn, $config['cloudsql_user'], $config['cloudsql_password']);
         };
         break;
     // uses "AmazonReportsModel"

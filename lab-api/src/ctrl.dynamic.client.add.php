@@ -20,7 +20,7 @@ $clientAction = isset($_GET["client-action"]) ? $_GET["client-action"] : null;
 // Real client info Data
 $clientInfo = [
     'client_name' => $clientName,
-    'mws_auth_key' => $mwsAuthKey,
+    'mws_auth_token' => $mwsAuthKey,
     'seller_id' => $merchantId,
     'description' => $description,
     'information' => $information,
@@ -29,7 +29,7 @@ $clientInfo = [
 ];
 
 // Real report data
-// $reportData = scrapeAmazonMwsFbaReport($merchantId, $mwsAuthKey);
+// $reportData = scrapeDynamicAmazonMwsFbaReport($merchantId, $mwsAuthKey);
 
 //-- Invoke Functions:
 //createReport($app, $reportData, $clientName);
@@ -49,12 +49,12 @@ function createReport($app, $reports, $clientName) {
 function insertClientInfo($app, $clientInfo) {
     $model = $app["dynamic-client-add.model"]($app, $clientInfo['client_action']);
     $result = $model->insertIntoClientInfo($clientInfo);
-    echo "<br><br> Add client result = $result <br><br>";
+    echo "<br><br>LAB 916 ctrl.dynamic.client.add.php > insertClientInfo() Add client result = $result <br><br>";
 }
 
 // fails to maintain DRY principles :(
 // function will dynamically scrape the AMWS FBA report site.
-function scrapeAmazonMwsFbaReport($merchantId, $mwsAuthToken) {
+function scrapeDynamicAmazonMwsFbaReport($merchantId, $mwsAuthToken) {
     //$labResource = "http://mws.lab916.space/src/MarketplaceWebService/api/fba.php";
     $labResource = "http://mws.lab916.space/src/MarketplaceWebService/api/fba.php";
     $urlStr = $labResource . "?merchant-id=" . $merchantId . "&mws-auth-token=" . $mwsAuthToken;

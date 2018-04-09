@@ -245,12 +245,10 @@ class AddClientModel implements AddClientInterface
             'information',      // c7
             'notes'             // c8
         ];
-        $result = "";
+        $result = "_FAIL_";
         $placeholders = array_map(function ($key) {
             return ":$key";
         }, $columnTitles);
-        // record data associative array, will get filled in the for loop
-        $recDataAssoc = [];
         $track = 0;
         // SQL and prepared statement
         $sql = sprintf("INSERT INTO `client_info` (%s) VALUES (%s)",
@@ -259,6 +257,7 @@ class AddClientModel implements AddClientInterface
         );
         $statement = $pdo->prepare($sql);
 
+        // dynamically add 'table_name'
         $clientInfo['table_name'] = $this->tableName;
 
         try {
@@ -270,7 +269,7 @@ class AddClientModel implements AddClientInterface
                 $track++;
                 echo "<strong>There was duplicate data</strong>";
             } else {
-                echo "<br><br> - LAB916 - Error AmazonReportsModel.php createMajideReport() line 489 ish:<br>";
+                echo "<br><br> - LAB916 - Error AmazonReportsModel.php createMajideReport() line 273 ish:<br>";
                 $track++;
                 echo $errorMessage;
             }

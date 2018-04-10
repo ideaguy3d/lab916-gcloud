@@ -50,4 +50,7 @@ switch ($action) {
 if($clientAction) {
     echo "<br><br>( in index.php -> if(clientAction){} )<br><br>";
     require __DIR__ . '/../src/append.ctrl.php';
+} else {
+    echo "<br> (( LAB 916 - index.php -> if($clientAction){},<br>";
+    echo "There was no 'Client Action' ))<br>";
 }

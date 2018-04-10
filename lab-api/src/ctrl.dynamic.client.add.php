@@ -37,7 +37,7 @@ insertClientInfo($app, $clientInfoColNames);
 
 
 // ----------------------------------------------------------------------
-// File relevant functions
+// -------------------- File relevant functions -------------------------
 // ----------------------------------------------------------------------
 
 function createReport($app, $reports, $clientName) {
@@ -107,3 +107,4 @@ function scrapeDynamicAmazonMwsFbaReport($merchantId, $mwsAuthToken) {
 
     return $amazonRowsFbaClean;
 }
+

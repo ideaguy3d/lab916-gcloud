@@ -66,7 +66,8 @@ class BookShelfModel implements BookShelfInterface
      * Creates a new PDO instance and sets error mode to exception.
      *
      * @return PDO
-     */
+     *
+    **/
     private function newConnection() {
         $pdo = new PDO($this->dsn, $this->user, $this->password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -79,7 +80,7 @@ class BookShelfModel implements BookShelfInterface
      * @param $book array
      *
      * @throws \Exception
-     */
+    **/
     private function verifyBook($book) {
         if ($invalid = array_diff_key($book, array_flip($this->columnNames))) {
             throw new \Exception(sprintf(

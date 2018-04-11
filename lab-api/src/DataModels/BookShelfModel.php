@@ -14,10 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 namespace Google\Cloud\Samples\Bookshelf\DataModel;
 
 use PDO;
+
 /**
  * Class Sql implements the DataModelInterface with a mysql or postgres database.
  */

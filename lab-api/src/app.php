@@ -3,6 +3,7 @@
 use Lab916\Cloud\Quote\DataModel\LabQuoteModel;
 use Lab916\Cloud\Amazon\Mws\Reports\DataModels\AmazonReportsModel;
 use Lab916\Cloud\Amazon\Mws\Reports\DataModels\AddClientModel;
+use Lab916\Cloud\Amazon\Mws\Reports\DataModels\FbaDbaModel;
 use Symfony\Component\Yaml\Yaml;
 
 $app = [];
@@ -15,7 +16,7 @@ $app['config'] = Yaml::parse(file_get_contents($config));
 switch ($action) { // action gets set in index.php
     // uses "AddClientModel"
     case "dynamic-client-add":
-        echo "<br>( in app.php 'dynamic-client-add' switch case )<br>";
+        echo "<br><mark> app.php > switch case / 'dynamic-client-add' </mark><br>";
         // Dynamically adding client reports via a form
         $app["dynamic-client-add.model"] = function ($app, $clientName) {
             $config = $app['config'];
@@ -50,6 +51,24 @@ switch ($action) { // action gets set in index.php
             $mysql_dsn = LabQuoteModel::getMysqlDsn($config['cloudsql_database_name'], $config['cloudsql_port'], getenv('GAE_INSTANCE') ? $config['cloudsql_connection_name'] : null);
 
             return new LabQuoteModel($mysql_dsn, $config['cloudsql_user'], $config['cloudsql_password']);
+        };
+        break;
+    case "order-status-task":
+        echo "<br><mark> app.php > switch case / Doing 'order-status=task' dbAdmin task. </mark><br>";
+        $app['order-status-task.model'] = function ($app) {
+            $config = $app['config'];
+            // breaks DRY principles >:\
+            if (empty($config['lab916_backend'])) {
+                throw new \DomainException('lab916_backend must be configured');
+            }
+
+            $dsn = FbaDbaModel::getMysqlDsn(
+                $config['cloudsql_database_name'],
+                $config['cloudsql_port'],
+                getenv('GAE_INSTANCE') ? $config['cloudsql_connection_name'] : null
+            );
+
+            return new FbaDbaModel($dsn, $config['cloudsql_user'], $config['cloudsql_password']);
         };
         break;
     // uses "AmazonReportsModel"
@@ -91,7 +110,7 @@ switch ($action) { // action gets set in index.php
         echo "<br>( in app.php 'majide' switch case )<br>";
         $app["majide-report.model"] = function ($app) {
             $config = $app['config'];
-            if(empty($config['lab916_backend'])) {
+            if (empty($config['lab916_backend'])) {
                 throw new \DomainException("lab916_backend must be configured");
             }
 
@@ -105,14 +124,14 @@ switch ($action) { // action gets set in index.php
         };
         break;
     default:
-        echo " <br> ( app.php switch default ) <br> ";
+        echo "<br><mark> app.php > switch default / Not a 'quote' or 'dynamic-client-add' action.</mark><br>";
 }
 
-if($clientAction) {
-    echo "<br><br>( in app.php -> if(clientAction){} )<br><br>";
+if ($clientAction) {
+    echo "<br><mark> app.php > if(clientAction) / There was a client action. </mark><br>";
     $app["append-report.model"] = function ($app) {
         $config = $app['config'];
-        if(empty($config['lab916_backend'])) {
+        if (empty($config['lab916_backend'])) {
             throw new \DomainException("lab916_backend not configured");
         }
 
@@ -124,11 +143,11 @@ if($clientAction) {
 
         return new AmazonReportsModel($mysql_dsn, $config['cloudsql_user'], $config['cloudsql_password']);
     };
+} else {
+    echo "<br><mark> app.php > if(clientAction) / There was no 'Client Action' </mark><br>";
 }
-else {
-    echo "<br> (( LAB 916 - app.php -> if($clientAction){},<br>";
-    echo "There was no 'Client Action' ))";
-}
+
+
 // Turn on debug locally
 if (in_array(@$_SERVER['REMOTE_ADDR'], ['127.0.0.1', 'fe80::1', '::1']) || php_sapi_name() === 'cli-server') {
     $app['debug'] = true;

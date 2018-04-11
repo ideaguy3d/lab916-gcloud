@@ -15,7 +15,7 @@
 
 $model = $app['append-report.model']($app);
 
-echo "<br> ( <h1>Client Action = $clientAction</h1> ) <br>";
+echo "<br><mark> <h1>Client Action = $clientAction</h1> </mark><br>";
 
 // q string value
 $clientInfo = $model->getAmwsCredentials($clientAction);

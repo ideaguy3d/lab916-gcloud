@@ -24,33 +24,37 @@ $app = require __DIR__ . '/../src/app.php';
 // figure out how to implement this using an associative array.
 switch ($action) {
     case "dynamic-client-add":
-        echo "<br> ( in index.php dynamic-client-add switch case ) <br>";
+        echo "<br><mark> index.php > 'dynamic-client-add' switch case </mark><br>";
         require __DIR__ . '/../src/ctrl.dynamic.client.add.php';
         break;
     case "quote":
-        echo "<br> ( in index.php QUOTE switch case ) <br>";
+        echo "<br><mark> index.php > 'quote' switch case </mark><br>";
         require __DIR__ . '/../src/ctrl.quote.php';
         break;
+    case "order-status-task":
+        echo "<br><mark> index.php > switch case / Doing the order status DBA task </mark><br>";
+        require __DIR__ . '/../src/ctrl.order.status.task.php';
+        break;
     case "city-bicycle-company":
-        echo "<br> ( in index.php City Bicycle switch case ) <br>";
+        echo "<br><mark> index.php > City Bicycle switch case </mark><br>";
         require __DIR__ . '/../src/ctrl.reports.php';
         break;
     case "prime-time-packaging":
-        echo "<br> ( in index.php Prime Time Packaging switch case ) <br>";
+        echo "<br><mark> index.php Prime Time Packaging switch case </mark><br>";
         require __DIR__ . '/../src/ctrl.prime.time.pack.php';
         break;
     case "majide":
-        echo "<br>( in index.php MAJIDE switch case )<br>";
+        echo "<br><mark> index.php MAJIDE switch case </mark><br>";
         require __DIR__ . '/../src/ctrl.majide.php';
         break;
     default:
-        echo "<br><br> ( index.php switch default, NOT a dynamic client add or quote ) <br><br>";
+        echo "<br><mark> index.php > switch default / Not a dynamic client add or quote. </mark><br>";
 }
 
 if($clientAction) {
-    echo "<br><br>( in index.php -> if(clientAction){} )<br><br>";
+    echo "<br><mark> index.php > if(clientAction) / There was a 'Client Action' </mark><br>";
     require __DIR__ . '/../src/append.ctrl.php';
-} else {
-    echo "<br> (( LAB 916 - index.php -> if($clientAction){},<br>";
-    echo "There was no 'Client Action' ))<br>";
+}
+else {
+    echo "<br><mark> index.php > if(clientAction) / There was no 'Client Action' </mark><br>";
 }

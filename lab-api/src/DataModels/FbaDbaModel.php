@@ -30,9 +30,9 @@ class FbaDbaModel implements FbaDbaInterface
 
     public function orderStatusAudit($tableName) {
         $pdo = $this->newConnection();
-        $query = "SELECT * FROM :tableName ORDER BY amazon_order_id";
+
+        $query = "SELECT * FROM $tableName ORDER BY amazon_order_id";
         $statement = $pdo->prepare($query);
-        $statement->bindValue(':tableName', $tableName, PDO::PARAM_STR);
         $statement->execute();
 
         $rows = [];
@@ -43,7 +43,7 @@ class FbaDbaModel implements FbaDbaInterface
 
         echo "break point here";
 
-        return 1; 
+        return 1;
     }
 
     public static function getMysqlDsn($dbName, $port, $connectionName = null) {

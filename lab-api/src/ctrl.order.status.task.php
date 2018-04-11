@@ -18,7 +18,8 @@ $zContents = file_get_contents("https://labdata-916.appspot.com");
 // some model function to get table names for each client
 
 // for now manually pass in table name:
-$model->orderStatusAudit('');
+$tableName = 'ptp_fba_sales_v1';
+$model->orderStatusAudit($tableName);
 
 echo '<br>ctrl.order.status.task.php / The contents are: <br><br>';
 echo "<div> $zContents </div><hr>";

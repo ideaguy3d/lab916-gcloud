@@ -16,7 +16,7 @@ class FbaDbaModel implements FbaDbaInterface
     private $user;
     private $password;
     // utility count for tracking nested functions
-    private  $count;
+    private $count;
     // will be used to get distinct `amazon_order_id` rows
     private $distinctTableRows;
     private $allTableRows;
@@ -57,20 +57,26 @@ class FbaDbaModel implements FbaDbaInterface
 
         // get distinct amazon_order_id rows
         $this->distinctTableRows = [];
-        while($row = $statementDistinct->fetch(PDO::FETCH_ASSOC)) {
+        while ($row = $statementDistinct->fetch(PDO::FETCH_ASSOC)) {
             array_push($this->distinctTableRows, $row);
         }
 
         $this->count = 1;
 
-        for($i=1; $i < count($this->distinctTableRows); $i++) {
+        // loop over the "unique amazon_order_id" array.
+        for ($i = 1; $i < count($this->distinctTableRows); $i++) {
             $curGroup = [];
+            $groupContainer = [];
             $val = $this->distinctTableRows[$i][$this->amznOrderId];
-            if($val !== null) {
-                for($row=0; $row < count($this->allTableRows); $row++) {
+            if ($val !== null) {
+                // ------------------------------
+                // ------- O(n^2) runtime -------
+                // ------------------------------
+                for ($row = 0; $row < count($this->allTableRows); $row++) {
+                    // looping over all the rows in the table
                     $curRow = $this->allTableRows[$row];
                     $match = $curRow[$this->amznOrderId] === $val;
-                    if($match && ($val !== null)) {
+                    if ($match && ($val !== null)) {
                         array_push($curGroup, $curRow);
                     }
                 }

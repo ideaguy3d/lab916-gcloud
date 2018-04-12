@@ -19,6 +19,11 @@ class FbaDbaModel implements FbaDbaInterface
     private  $count;
     // will be used to get distinct `amazon_order_id` rows
     private $distinctTableRows;
+    private $allTableRows;
+    // REALLY important column titles
+    private $amznOrderId = 'amazon_order_id';
+    private $amznOrderStatus = 'order_status';
+    private $amznAsin = 'asin';
 
 
     public function __construct($dsn, $user, $password) {
@@ -36,14 +41,14 @@ class FbaDbaModel implements FbaDbaInterface
     public function orderStatusAudit($tableName) {
         $pdo = $this->newConnection();
 
-        $query = "SELECT * FROM $tableName ORDER BY amazon_order_id";
+        $query = "SELECT * FROM $tableName";
         $statement = $pdo->prepare($query);
         $statement->execute();
 
         // get ALL of the rows in the db
-        $tableRows = [];
+        $this->allTableRows = [];
         while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
-            array_push($tableRows, $row);
+            array_push($this->allTableRows, $row);
         }
 
         $queryDistinct = "SELECT DISTINCT amazon_order_id from $tableName";
@@ -53,16 +58,25 @@ class FbaDbaModel implements FbaDbaInterface
         // get distinct amazon_order_id rows
         $this->distinctTableRows = [];
         while($row = $statementDistinct->fetch(PDO::FETCH_ASSOC)) {
-            array_push($distinctTableRows, $row);
+            array_push($this->distinctTableRows, $row);
         }
 
-        $this->count = 0;
-        $groupedAmazonOrders = array_filter($tableRows, function ($val, $key) {
-            echo $val == $this->distinctTableRows[$this->count]['amazon_order_id'];
-            $this->count++;
-        }, ARRAY_FILTER_USE_BOTH);
+        $this->count = 1;
 
-        echo "break point here, $groupedAmazonOrders";
+        for($i=1; $i < count($this->distinctTableRows); $i++) {
+            $curGroup = [];
+            $val = $this->distinctTableRows[$i][$this->amznOrderId];
+            if($val !== null) {
+                for($row=0; $row < count($this->allTableRows); $row++) {
+                    $curRow = $this->allTableRows[$row];
+                    $match = $curRow[$this->amznOrderId] === $val;
+                    if($match && ($val !== null)) {
+                        array_push($curGroup, $curRow);
+                    }
+                }
+            }
+            echo "breakpoint";
+        }
 
         return 1;
     }

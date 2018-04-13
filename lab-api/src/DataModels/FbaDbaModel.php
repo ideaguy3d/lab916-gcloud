@@ -68,20 +68,25 @@ class FbaDbaModel implements FbaDbaInterface
         for ($i = 0; $i < count($this->distinctTableRows); $i++) {
             $curGroup = []; // reset current group with each iteration to add a fresh set of rows
             $curAmazonOrderId = $this->distinctTableRows[$i][$this->amznOrderId];
+
             if ($curAmazonOrderId !== null) {
-                // ------------------------------
-                // ------- O(n^2) runtime -------
-                // ------------------------------
+                $aoiCount = 0;
+                // ----------------------------------------------------
+                // ----------------- O(n^2) runtime -------------------
+                // ----------------------------------------------------
                 //-- looping over all the rows in the table:
                 for ($row = 0; $row < count($this->allTableRows); $row++) {
                     $curRow = $this->allTableRows[$row];
-                    $curRowAmazonOrderId = $curRow[$this->amznOrderId];
-                    $match = $curRowAmazonOrderId === $curAmazonOrderId;
-                    if ($match && ($curRowAmazonOrderId !== null)) {
+                    $curAmazonRowOrderId = $curRow[$this->amznOrderId];
+                    $match = $curAmazonRowOrderId === $curAmazonOrderId;
+                    if ($match && ($curAmazonRowOrderId !== null)) {
                         array_push($curGroup, $curRow);
+                        $aoiCount++;
                     }
                 }
+
             }
+
             $groupContainer[$i] = $curGroup;
         }
 

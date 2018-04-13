@@ -41,7 +41,7 @@ class FbaDbaModel implements FbaDbaInterface
     public function orderStatusAudit($tableName) {
         $pdo = $this->newConnection();
 
-        $query = "SELECT * FROM $tableName";
+        $query = "SELECT id, amazon_order_id, order_status, asin, quantity FROM $tableName";
         $statement = $pdo->prepare($query);
         $statement->execute();
 
@@ -66,25 +66,22 @@ class FbaDbaModel implements FbaDbaInterface
 
         // loop over the "unique amazon_order_id" rows array.
         for ($i = 0; $i < count($this->distinctTableRows); $i++) {
-            $curGroup = []; // reset current group with each iteration to add a fresh set of rows
+            $curGroup = []; // reset curGroup w/each iteration for a fresh set of rows
             $curAmazonOrderId = $this->distinctTableRows[$i][$this->amznOrderId];
 
             if ($curAmazonOrderId !== null) {
-                $aoiCount = 0;
                 // ----------------------------------------------------
                 // ----------------- O(n^2) runtime -------------------
                 // ----------------------------------------------------
-                //-- looping over all the rows in the table:
+                // ~ looping over all the rows in the table:
                 for ($row = 0; $row < count($this->allTableRows); $row++) {
                     $curRow = $this->allTableRows[$row];
                     $curAmazonRowOrderId = $curRow[$this->amznOrderId];
                     $match = $curAmazonRowOrderId === $curAmazonOrderId;
                     if ($match && ($curAmazonRowOrderId !== null)) {
                         array_push($curGroup, $curRow);
-                        $aoiCount++;
                     }
                 }
-
             }
 
             $groupContainer[$i] = $curGroup;

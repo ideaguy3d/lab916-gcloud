@@ -17,11 +17,12 @@ $zContents = file_get_contents("https://labdata-916.appspot.com");
 //TODO: make a function similar to 'getAmwsCredentials()' in the AmazonReportsModel.php for FbaDbaModel.php
 // some model function to get table names for each client
 
-/* --------------------------------------------------------------------
+/* -----------------------------------------------------------------------
    ------------ DEBUGGING - Force action for DEBUGGING APP ------------
-    for now manually pass in table name
+    ~ for now manually pass in table name
+    ~ eventually this will get dynamically passed in.
    ------------ DEBUGGING - Force action for DEBUGGING APP ------------
---------------------------------------------------------------------- */
+-------------------------------------------------------------------------- */
 $tableName = 'majide_fba_sales_v1';
 $model->orderStatusAudit($tableName);
 

@@ -61,27 +61,28 @@ class FbaDbaModel implements FbaDbaInterface
             array_push($this->distinctTableRows, $row);
         }
 
-        $this->count = 1;
+        $this->count = 0;
+        $groupContainer = [];
 
-        // loop over the "unique amazon_order_id" array.
-        for ($i = 1; $i < count($this->distinctTableRows); $i++) {
-            $curGroup = [];
-            $groupContainer = [];
-            $val = $this->distinctTableRows[$i][$this->amznOrderId];
-            if ($val !== null) {
+        // loop over the "unique amazon_order_id" rows array.
+        for ($i = 0; $i < count($this->distinctTableRows); $i++) {
+            $curGroup = []; // reset current group with each iteration to add a fresh set of rows
+            $curAmazonOrderId = $this->distinctTableRows[$i][$this->amznOrderId];
+            if ($curAmazonOrderId !== null) {
                 // ------------------------------
                 // ------- O(n^2) runtime -------
                 // ------------------------------
+                //-- looping over all the rows in the table:
                 for ($row = 0; $row < count($this->allTableRows); $row++) {
-                    // looping over all the rows in the table
                     $curRow = $this->allTableRows[$row];
-                    $match = $curRow[$this->amznOrderId] === $val;
-                    if ($match && ($val !== null)) {
+                    $curRowAmazonOrderId = $curRow[$this->amznOrderId];
+                    $match = $curRowAmazonOrderId === $curAmazonOrderId;
+                    if ($match && ($curRowAmazonOrderId !== null)) {
                         array_push($curGroup, $curRow);
                     }
                 }
             }
-            echo "breakpoint";
+            $groupContainer[$i] = $curGroup;
         }
 
         return 1;

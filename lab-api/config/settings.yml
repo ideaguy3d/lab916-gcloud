@@ -1,0 +1,16 @@
+# Google credentials and configuration
+google_client_id:      YOUR_CLIENT_ID
+google_client_secret:  YOUR_CLIENT_SECRET
+google_project_id:     labdata-916
+
+# options are "mysql", "postgres", "mongodb", or "datastore"
+bookshelf_backend: mysql
+quote_backend: mysql
+lab916_backend: mysql
+
+# configure CloudSQL for MySQL
+cloudsql_connection_name: labdata-916:us-west1:lab916
+cloudsql_database_name: lab916
+cloudsql_user: lab-admin
+cloudsql_password: jiha1989
+cloudsql_port: 3306

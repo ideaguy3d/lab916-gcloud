@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/app-quote/test/lib" isTestSource="false" packagePrefix="Google\Cloud\Samples\Bookshelf\" />
+      <sourceFolder url="file://$MODULE_DIR$/app-quote/src" isTestSource="false" packagePrefix="Google\Cloud\Samples\Bookshelf\" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/behat/mink" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/behat/mink-browserkit-driver" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/behat/mink-goutte-driver" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/doctrine/instantiator" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/fabpot/goutte" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/firebase/php-jwt" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/google/auth" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/google/cloud" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/google/cloud-tools" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/guzzlehttp/guzzle" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/guzzlehttp/promises" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/guzzlehttp/psr7" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/monolog/monolog" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/phpdocumentor/reflection-common" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/phpdocumentor/reflection-docblock" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/phpdocumentor/type-resolver" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/phpspec/prophecy" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/phpunit/php-code-coverage" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/phpunit/php-file-iterator" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/phpunit/php-text-template" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/phpunit/php-timer" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/phpunit/php-token-stream" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/phpunit/phpunit" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/phpunit/phpunit-mock-objects" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/pimple/pimple" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/psr/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/psr/http-message" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/psr/log" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/rize/uri-template" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/sebastian/comparator" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/sebastian/diff" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/sebastian/environment" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/sebastian/exporter" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/sebastian/global-state" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/sebastian/recursion-context" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/sebastian/version" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/silex/silex" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/symfony/browser-kit" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/symfony/css-selector" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/symfony/debug" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/symfony/dom-crawler" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/symfony/event-dispatcher" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/symfony/http-foundation" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/symfony/http-kernel" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/symfony/polyfill-mbstring" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/symfony/process" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/symfony/routing" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/symfony/yaml" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/twig/twig" />
+      <excludeFolder url="file://$MODULE_DIR$/app-quote/vendor/webmozart/assert" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

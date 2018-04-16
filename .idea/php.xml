@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="$PROJECT_DIR$/app-quote/vendor/composer" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/rize/uri-template" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/firebase/php-jwt" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/symfony/dom-crawler" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/symfony/yaml" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/doctrine/instantiator" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/sebastian/global-state" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/sebastian/comparator" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/sebastian/environment" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/sebastian/exporter" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/sebastian/recursion-context" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/sebastian/diff" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/sebastian/version" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/twig/twig" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/behat/mink-browserkit-driver" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/behat/mink-goutte-driver" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/behat/mink" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/silex/silex" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/fabpot/goutte" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/google/cloud" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/google/auth" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/pimple/pimple" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/phpunit/php-file-iterator" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/phpunit/php-timer" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/phpunit/php-text-template" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/phpunit/phpunit-mock-objects" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/symfony/routing" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/symfony/process" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/symfony/css-selector" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/symfony/debug" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/symfony/event-dispatcher" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/symfony/http-kernel" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/symfony/http-foundation" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/phpunit/php-token-stream" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/phpunit/php-code-coverage" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/google/cloud-tools" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/phpspec/prophecy" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/webmozart/assert" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/phpdocumentor/reflection-docblock" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/phpdocumentor/type-resolver" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/phpdocumentor/reflection-common" />
+      <path value="$PROJECT_DIR$/app-quote/vendor/symfony/browser-kit" />
+    </include_path>
+  </component>
+  <component name="PhpUnit">
+    <phpunit_settings>
+      <PhpUnitSettings load_method="CUSTOM_LOADER" custom_loader_path="$PROJECT_DIR$/app-quote/vendor/autoload.php" />
+    </phpunit_settings>
+  </component>
+</project>
